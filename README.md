@@ -2,7 +2,7 @@
 
 A personal daily planner, habit tracker, diary, and water logger — all in a single HTML file. No installation. No account. No internet required after download.
 
-**Live app:** [your-username.github.io/tracker](https://your-username.github.io/tracker)
+**Live app:** [your-username.github.io/tracker](https://teegalanvsklnarasimharao.github.io/Tracker/)
 
 ---
 
