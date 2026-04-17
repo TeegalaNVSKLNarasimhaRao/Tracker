@@ -95,8 +95,8 @@ body.dark .past-week-banner{color:var(--am2);}
 .water-goal-hit{font-size:11px;font-weight:700;color:var(--gr);background:var(--grl);padding:2px 10px;border-radius:12px;}
 .water-chart{margin-top:10px;border-top:1px solid var(--bdr);padding-top:8px;}
 .water-chart-title{font-size:10px;color:var(--tx3);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;}
-.water-bars{display:flex;gap:6px;align-items:flex-end;height:52px;}
-.water-bar-col{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;}
+.water-bars{display:flex;gap:6px;align-items:flex-end;min-height:52px;}
+.water-bar-col{display:flex;flex-direction:column;align-items:center;gap:1px;flex:1;}
 .water-bar-fill{width:100%;border-radius:3px 3px 0 0;background:#BFDBFE;min-height:3px;position:relative;}
 .water-bar-fill.goal{background:#2563EB;}
 .water-bar-ml{font-size:8px;color:var(--tx3);text-align:center;line-height:1.2;}
@@ -332,6 +332,20 @@ body.dark .t-finance{background:#042B0A;} body.dark .t-personal{background:#2A0A
 body.dark .t-scrum{background:#2A1000;} body.dark .t-sleep{background:#111827;}
 body.dark .t-faith{background:#1C1000;} body.dark .t-health{background:#022B1A;}
 body.dark .t-growth{background:#1A1535;} body.dark .t-explore{background:#012B1A;}
+body.dark .t-wake .blk-label{color:#FCD34D;} body.dark .t-walk .blk-label{color:#86EFAC;}
+body.dark .t-learn .blk-label{color:#A5B4FC;} body.dark .t-call .blk-label{color:#FDA4AF;}
+body.dark .t-work .blk-label{color:#93C5FD;} body.dark .t-finance .blk-label{color:#4ADE80;}
+body.dark .t-personal .blk-label{color:#F0ABFC;} body.dark .t-scrum .blk-label{color:#FDBA74;}
+body.dark .t-faith .blk-label{color:#FDE68A;} body.dark .t-health .blk-label{color:#6EE7B7;}
+body.dark .t-growth .blk-label{color:#C7D2FE;} body.dark .t-explore .blk-label{color:#A7F3D0;}
+body.dark .t-break .blk-label{color:var(--tx2);} body.dark .t-sleep .blk-label{color:#9CA3AF;}
+body.dark .t-wake{border-color:#92400E;} body.dark .t-walk{border-color:#166534;}
+body.dark .t-learn{border-color:#4338CA;} body.dark .t-call{border-color:#9F1239;}
+body.dark .t-work{border-color:#1E40AF;} body.dark .t-finance{border-color:#15803D;}
+body.dark .t-personal{border-color:#7E22CE;} body.dark .t-scrum{border-color:#C2410C;}
+body.dark .t-faith{border-color:#B45309;} body.dark .t-health{border-color:#065F46;}
+body.dark .t-growth{border-color:#4338CA;} body.dark .t-explore{border-color:#047857;}
+body.dark .t-sleep{border-color:#374151;}
 
 @media(max-width:480px){
   .app-shell{padding:10px;}
@@ -369,7 +383,7 @@ body.dark .t-growth{background:#1A1535;} body.dark .t-explore{background:#012B1A
 <div class="app-shell">
   <div class="top-bar">
     <div class="app-title">My Tracker <span id="user-greeting"></span></div>
-    <button class="tbtn" id="dark-btn">&#9790; Dark</button>
+    <button class="tbtn" id="dark-btn">&#9790; Dark mode</button>
     <button class="tbtn" id="snapshot-btn">&#128247; Snapshot</button>
     <button class="tbtn" id="export-btn">&#8595; Export</button>
     <button class="tbtn" id="import-trigger">&#8593; Import</button>
@@ -633,17 +647,20 @@ body.dark .t-growth{background:#1A1535;} body.dark .t-explore{background:#012B1A
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut as fbSignOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-import { getFirestore, doc, enableIndexedDbPersistence, getDoc, setDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager, doc, getDoc, setDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 // ── FIREBASE ──
 const FB = { apiKey:"AIzaSyAXx-BD19_mEfqbVqBEkscswYNhiur1tsw", authDomain:"habbit-tracker-ef59d.firebaseapp.com", projectId:"habbit-tracker-ef59d", storageBucket:"habbit-tracker-ef59d.firebasestorage.app", messagingSenderId:"738348048691", appId:"1:738348048691:web:51cb947605f72edc661e46" };
 const fbApp = initializeApp(FB);
 const auth = getAuth(fbApp);
-const db = getFirestore(fbApp);
+// FIX 10+S3: Use modern persistentLocalCache (replaces deprecated enableIndexedDbPersistence)
+let db;
+try {
+  db = initializeFirestore(fbApp, {localCache: persistentLocalCache({tabManager: persistentMultipleTabManager()})});
+} catch(e) {
+  db = getFirestore(fbApp);
+}
 const gProvider = new GoogleAuthProvider();
-
-// BUG FIX S3: Enable offline persistence
-enableIndexedDbPersistence(db).catch(()=>{});
 
 // ── CONSTANTS ──
 const APP_START = new Date(2026,3,20);
@@ -798,7 +815,7 @@ function diaryFbDoc(){return doc(db,'users',currentUser.uid,'data','diary');}
 // ── SAVE ──
 // BUG FIX 4+24: Proper pending closure — capture pending state inside async
 function saveS(type){
-  setSyncStatus('syncing','Saving...');
+  setSyncStatus('syncing',null,'Saving...');
   if(type)pendingSave[type]=true;
   else{pendingSave.meta=true;pendingSave.tracker=true;pendingSave.diary=true;}
   clearTimeout(saveTimeout);
@@ -829,13 +846,15 @@ function buildMeta(){
   return {wd:S.wd,habits:S.habits,holidays:S.holidays,focus:S.focus,water:S.water,pauses:S.pauses,dark:S.dark,setupDone:S.setupDone};
 }
 // BUG FIX 18: Prune water and focus older than 60 days
+let _pruning=false;
 function pruneOldData(){
+  if(_pruning)return;
   const cutoff=dk(addD(today(),-60));
   let pruned=false;
   ['water','focus'].forEach(k=>{
     Object.keys(S[k]||{}).forEach(date=>{if(date<cutoff){delete S[k][date];pruned=true;}});
   });
-  if(pruned)saveS('meta');
+  if(pruned){_pruning=true;saveS('meta');setTimeout(()=>{_pruning=false;},2000);}
 }
 
 // ── FIREBASE LOAD ──
@@ -864,6 +883,7 @@ async function loadFromFirebase(){
     S.diary=ds.exists()?(ds.data().entries||{}):{};
     // BUG FIX S17: Apply dark mode immediately from Firebase
     if(S.dark)document.body.classList.add('dark');
+    updateDarkBtn();
     setSyncStatus('ok',currentUser.displayName,'');
     hideLoading();
     initApp();
@@ -902,8 +922,8 @@ function startSync(){
 function setSyncStatus(status,user,time){
   const dot=$id('sync-dot');
   dot.className='sync-dot'+(status==='syncing'?' syncing':status==='error'?' error':'');
-  if(user)$id('sync-status').textContent=user;
-  if(time!==undefined)$id('sync-time').textContent=time;
+  if(user!=null)$id('sync-status').textContent=user;
+  if(time!=null)$id('sync-time').textContent=time;
 }
 function setLoadingText(t){$id('loading-txt').textContent=t;}
 function hideLoading(){
@@ -916,6 +936,10 @@ function hideLoading(){
 // BUG FIX S17: Cache dark mode in localStorage to prevent flash
 const lsDark=localStorage.getItem('tracker_dark');
 if(lsDark==='1')document.body.classList.add('dark');
+// Set initial button text based on stored preference
+document.addEventListener('DOMContentLoaded',()=>{
+  if(typeof updateDarkBtn==='function')updateDarkBtn();
+});
 
 $id('signin-btn').addEventListener('click',async()=>{
   try{await signInWithPopup(auth,gProvider);}
@@ -927,9 +951,24 @@ $id('signin-btn').addEventListener('click',async()=>{
 });
 $id('signout-btn').addEventListener('click',async()=>{
   if(!confirm('Sign out? Your data is safely stored in the cloud.'))return;
+  // FIX 15: Clear debounced save timer
+  clearTimeout(saveTimeout);
+  // FIX 16: Clear diary auto-save timer
+  clearTimeout(diaryAutoSaveTimeout);
+  // FIX 17: Clear Pomodoro interval
+  clearInterval(pomInterval);pomRunning=false;
+  $id('pom-bar').style.display='none';
+  // FIX 11: Remove Ctrl+S listener
+  document.removeEventListener('keydown',_ctrlSHandler);
+  _ctrlSAttached=false;
   if(unsub)unsub();
   await fbSignOut(auth);
+  // FIX 18: Reset session state for next user
   S={};currentUser=null;
+  weekOff=0;moodFilter='all';currentMood='';editMood='';
+  diaryDirty=false;
+  pendingSave={meta:false,tracker:false,diary:false};
+  document.querySelectorAll('[data-mf]').forEach(x=>x.classList.toggle('sel',x.dataset.mf==='all'));
   $id('main-app').style.display='none';
   $id('login-wrap').style.display='flex';
   $id('loading-screen').style.display='none';
@@ -942,7 +981,7 @@ onAuthStateChanged(auth,user=>{
     $id('login-wrap').style.display='none';
     $id('main-app').style.display='block';
     // MULTIPLE USERS: greeting shows the signed-in user's name
-    $id('user-greeting').textContent='— '+user.displayName.split(' ')[0];
+    $id('user-greeting').textContent='— '+(user.displayName||'User').split(' ')[0];
     loadFromFirebase().then(()=>startSync());
   }else{
     hideLoading();
@@ -951,6 +990,13 @@ onAuthStateChanged(auth,user=>{
   }
 });
 
+// FIX 11: Named handler so it can be removed on sign-out
+function _ctrlSHandler(e){
+  if((e.ctrlKey||e.metaKey)&&e.key==='s'){
+    if($id('sec-diary').classList.contains('on')){e.preventDefault();saveDiary();}
+  }
+}
+let _ctrlSAttached=false;
 function initApp(){
   // BUG FIX 13: Reset diaryDate on init with proper zeroed hours
   diaryDate=new Date(today());
@@ -958,12 +1004,11 @@ function initApp(){
   activeDay=initKey;
   renderBanner();
   showDay(initKey);
-  // BUG FIX S15: Ctrl+S saves diary
-  document.addEventListener('keydown',e=>{
-    if((e.ctrlKey||e.metaKey)&&e.key==='s'){
-      if($id('sec-diary').classList.contains('on')){e.preventDefault();saveDiary();}
-    }
-  });
+  // FIX 11: Attach Ctrl+S only once
+  if(!_ctrlSAttached){
+    document.addEventListener('keydown',_ctrlSHandler);
+    _ctrlSAttached=true;
+  }
 }
 
 function refreshView(){
@@ -974,8 +1019,7 @@ function refreshView(){
 }
 
 // ── BANNER ──
-// BUG FIX 12+16: Use static button, attach listener once, never recreate
-let bannerListenerSet=false;
+// Banner renders button fresh each time - listener attached after each render
 function renderBanner(){
   const td=today(),sk=schedKeyForDate(td);
   const ti=DAY_TABS.find(t=>t.key===sk);
@@ -988,10 +1032,6 @@ function renderBanner(){
     `<div class="td-info">Follow: <b>${ti?ti.label+' schedule':'Weekend schedule'}</b></div>`+
     (ft?`<div class="td-info" style="margin-top:2px;">Focus: <b>${ft}</b></div>`:'')+
     `</div>${badge}<button class="tbtn" id="jump-today-btn" style="white-space:nowrap;">View today &#8594;</button>`;
-  if(!bannerListenerSet){
-    bannerListenerSet=true;
-  }
-  // Always re-attach since innerHTML recreates the button
   $id('jump-today-btn').addEventListener('click',()=>{sw('schedule');activeDay=schedKeyForDate(today());showDay(activeDay);});
   // BUG FIX 26: Only set focus input if not currently focused
   if(document.activeElement!==$id('focus-input')){
@@ -1060,6 +1100,8 @@ function renderWaterChart(){
 $id('pom-toggle-btn').addEventListener('click',()=>{
   if(pomRunning){
     clearInterval(pomInterval);pomRunning=false;
+    // FIX 5: Store exact remaining seconds at pause time
+    pomSecs=Math.max(0,pomSecs);
     $id('pom-toggle-btn').textContent='Resume';
   }else{
     pomRunning=true;pomStartTime=Date.now()-(((25*60)-pomSecs)*1000);
@@ -1073,7 +1115,7 @@ $id('pom-toggle-btn').addEventListener('click',()=>{
   }
 });
 $id('pom-close-btn').addEventListener('click',()=>{clearInterval(pomInterval);pomRunning=false;$id('pom-bar').style.display='none';});
-function startPom(lbl,mins){pomSecs=(mins||25)*60;pomRunning=false;pomStartTime=null;$id('pom-bar').style.display='flex';$id('pom-label').textContent='Pomodoro: '+lbl;$id('pom-toggle-btn').textContent='Start';updatePomDisplay();}
+function startPom(lbl,mins){clearInterval(pomInterval);pomSecs=(mins||25)*60;pomRunning=false;pomStartTime=null;$id('pom-bar').style.display='flex';$id('pom-label').textContent='Pomodoro: '+lbl;$id('pom-toggle-btn').textContent='Start';updatePomDisplay();}
 function updatePomDisplay(){const m=Math.floor(pomSecs/60),s=pomSecs%60;$id('pom-timer').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
 
 // ── SCHEDULE ──
@@ -1090,7 +1132,7 @@ function showDay(key){
   // BUG FIX 14+15: Scoped selectors, Pomodoro listener attached once per block
   $id('sched-blocks').innerHTML=blocks.map((b,i)=>`
     <div class="blk ${b.cls}">
-      <div class="blk-time">${b.time}</div>
+      <div class="blk-time">${esc(b.time)}</div>
       <div class="blk-content">
         <div class="blk-label">${esc(b.label)}</div>
         <div class="blk-sub">${esc(b.sub)}</div>
@@ -1171,7 +1213,9 @@ function renderTracker(){
   const ws=wkStart(weekOff),dates=Array.from({length:7},(_,i)=>addD(ws,i));
   // BUG FIX S12: Past week warning
   const pwb=$id('past-week-banner');
-  pwb.classList.toggle('on',weekOff<0);
+  pwb.classList.toggle('on',weekOff!==0);
+  if(weekOff>0)pwb.textContent='\u26a0\ufe0f You are viewing a future week. Ticking habits here saves to those future dates.';
+  else if(weekOff<0)pwb.textContent='\u26a0\ufe0f You are viewing a past week. Changes here save to those past dates.';
   $id('week-lbl').textContent=fs(dates[0])+' — '+fs(dates[6]);
   const td=today();
   dates.forEach((d,i)=>{const el=$id('th'+i);if(!el)return;el.className=dk(d)===dk(td)?'today-col':'';el.innerHTML=DS[d.getDay()]+'<br>'+d.getDate()+'<br>'+MS[d.getMonth()];});
@@ -1193,11 +1237,10 @@ function renderTracker(){
   }));
   tbody.querySelectorAll('.chk-note[data-nhid]').forEach(el=>el.addEventListener('click',()=>openNote(el.dataset.nhid,el.dataset.ndk)));
   tbody.querySelectorAll('[data-ehid]').forEach(el=>el.addEventListener('click',()=>openEditHabit(el.dataset.ehid)));
-  const tdKey=dk(td);
   let totD=0,totP=0;
   const scores=dates.map(d=>{let done=0,poss=0;(S.habits||[]).forEach(h=>{if(!isHabitPaused(h.id,d)){poss++;if((S.tracker[dk(d)+'_'+h.id]||'none')==='done')done++;}});totD+=done;totP+=poss;return{done,poss};});
   const wPct=totP?Math.round(totD/totP*100):0;
-  $id('prog-bars').innerHTML=scores.map((s,i)=>{const pct=s.poss?Math.round(s.done/s.poss*100):0,isTd=dk(dates[i])===tdKey;return `<div class="prog-row" style="${isTd?'font-weight:700;':''}"><div class="prog-d">${DS[dates[i].getDay()]} ${dates[i].getDate()}</div><div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div><div class="prog-pct">${pct}%</div></div>`;}).join('')+
+  $id('prog-bars').innerHTML=scores.map((s,i)=>{const pct=s.poss?Math.round(s.done/s.poss*100):0,isTd=dk(dates[i])===dk(td);return `<div class="prog-row" style="${isTd?'font-weight:700;':''}"><div class="prog-d">${DS[dates[i].getDay()]} ${dates[i].getDate()}</div><div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div><div class="prog-pct">${pct}%</div></div>`;}).join('')+
     `<div class="prog-row" style="border-top:1px solid var(--bdr);padding-top:6px;margin-top:5px;"><div class="prog-d" style="font-weight:700;">Week</div><div class="prog-bar"><div class="prog-fill" style="width:${wPct}%"></div></div><div class="prog-pct" style="font-weight:700;">${wPct}%</div></div>`;
   // BUG FIX 23: Streak always starts from current week (weekOff=0), not viewing week
   let streak=0;
@@ -1282,7 +1325,6 @@ function renderHabitsTab(){
     }).join('');
   pl.querySelectorAll('[data-pi]').forEach(el=>el.addEventListener('click',()=>{S.pauses.splice(+el.dataset.pi,1);saveS('meta');renderHabitsTab();toast('Pause removed');}));
 }
-// BUG FIX 9+10: moveHabit uses ID-based swap — tracker data keys unchanged
 $id('pause-habit-btn').addEventListener('click',()=>{
   $id('p-hab-sel').innerHTML=(S.habits||[]).map(h=>`<option value="${h.id}">${esc(h.name)}</option>`).join('');
   $id('p-from').value='';$id('p-to').value='';$id('pause-modal').classList.add('on');
@@ -1351,6 +1393,7 @@ function autoSaveDiary(){
   S.diary[dk(diaryDate)]={text,mood:currentMood,saved:new Date().toISOString()};
   saveS('diary');diaryDirty=false;
   $id('diary-autosave').textContent='Auto-saved at '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  if($id('sec-notes').classList.contains('on'))renderAllNotes();
 }
 function saveDiary(){
   const text=$id('diary-input').value.trim();
@@ -1433,7 +1476,8 @@ function renderAllNotes(){
   }).join(''):`<div class="empty">${search||moodFilter!=='all'?'No entries match your search.':'No diary entries yet.'}</div>`;
   list.querySelectorAll('[data-open]').forEach(el=>el.addEventListener('click',()=>{
     if(diaryDirty&&$id('diary-input').value.trim())autoSaveDiary();
-    sw('diary');diaryDate=new Date(el.dataset.open+'T00:00:00');renderDiary();
+    diaryDate=new Date(el.dataset.open+'T00:00:00');
+    sw('diary');
   }));
   list.querySelectorAll('[data-editd]').forEach(el=>el.addEventListener('click',()=>openDiaryEdit(el.dataset.editd)));
   list.querySelectorAll('[data-deld]').forEach(el=>el.addEventListener('click',()=>{
@@ -1487,7 +1531,7 @@ $id('hol-range-btn').addEventListener('click',()=>{
 $id('export-btn').addEventListener('click',()=>{
   const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
-  a.download='habit_backup_'+dk(today())+'.json';a.click();toast('Backup downloaded');
+  a.download='habit_backup_'+dk(today())+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('Backup downloaded');
 });
 $id('import-trigger').addEventListener('click',()=>$id('imp').click());
 $id('imp').addEventListener('change',e=>{
@@ -1509,11 +1553,15 @@ $id('imp').addEventListener('change',e=>{
   reader.readAsText(file);
   e.target.value='';// allow reimporting same file
 });
+function updateDarkBtn(){
+  const isDark=document.body.classList.contains('dark');
+  $id('dark-btn').textContent=isDark?'\u2600\ufe0f Light mode':'\u263a Dark mode';
+}
 $id('dark-btn').addEventListener('click',()=>{
   document.body.classList.toggle('dark');
   S.dark=document.body.classList.contains('dark');
-  // BUG FIX S17: Cache in localStorage to prevent flash on next load
   localStorage.setItem('tracker_dark',S.dark?'1':'0');
+  updateDarkBtn();
   saveS('meta');
 });
 
@@ -1530,7 +1578,7 @@ function swRender(sec){
 }
 function sw(sec){
   // Auto-save diary on leave
-  if(!$id('sec-diary').classList.contains('on')===false&&sec!=='diary'){
+  if($id('sec-diary').classList.contains('on')&&sec!=='diary'){
     if(diaryDirty&&$id('diary-input').value.trim())autoSaveDiary();
   }
   ['schedule','tracker','habits','heatmap','diary','notes','holidays'].forEach(s=>$id('sec-'+s).classList.toggle('on',s===sec));

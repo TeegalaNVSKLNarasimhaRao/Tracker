@@ -3,302 +3,295 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>App Documentation</title>
+<title>App Documentation — v10</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f1;color:#1a1a1a;line-height:1.7;font-size:15px;}
-.page{max-width:800px;margin:0 auto;padding:32px 20px;}
-h1{font-size:26px;font-weight:700;color:#2e2882;margin-bottom:6px;}
+.page{max-width:820px;margin:0 auto;padding:32px 20px;}
+h1{font-size:26px;font-weight:700;color:#1E3A5F;margin-bottom:6px;}
 .tagline{font-size:13px;color:#888;margin-bottom:32px;}
-h2{font-size:19px;font-weight:700;color:#2e2882;margin:32px 0 10px;padding-top:16px;border-top:2px solid #EEEDFE;}
+h2{font-size:19px;font-weight:700;color:#1E3A5F;margin:32px 0 10px;padding-top:16px;border-top:2px solid #EBF0F7;}
 h3{font-size:15px;font-weight:700;color:#1a1a1a;margin:18px 0 6px;}
 p{margin-bottom:12px;color:#333;}
 ul,ol{padding-left:20px;margin-bottom:12px;}
 li{margin-bottom:5px;color:#333;}
-code{background:#EEEDFE;color:#2e2882;padding:2px 6px;border-radius:4px;font-size:13px;}
-.note{background:#FAEEDA;border-left:4px solid #EF9F27;padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13px;color:#412402;}
-.tip{background:#E1F5EE;border-left:4px solid #1D9E75;padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13px;color:#085041;}
-.warn{background:#FCEBEB;border-left:4px solid #E24B4A;padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13px;color:#791F1F;}
+code{background:#EBF0F7;color:#1E3A5F;padding:2px 6px;border-radius:4px;font-size:13px;}
+.note{background:#FEF3C7;border-left:4px solid #D97706;padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13px;color:#92400E;}
+.tip{background:#DCFCE7;border-left:4px solid #16A34A;padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13px;color:#166534;}
+.warn{background:#FEE2E2;border-left:4px solid #DC2626;padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13px;color:#991B1B;}
 table{width:100%;border-collapse:collapse;margin:12px 0;}
-th{background:#EEEDFE;color:#2e2882;padding:8px 12px;text-align:left;font-size:13px;}
+th{background:#EBF0F7;color:#1E3A5F;padding:8px 12px;text-align:left;font-size:13px;}
 td{padding:8px 12px;border-top:1px solid #e5e5e5;font-size:13px;color:#333;}
 .toc{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:16px 20px;margin-bottom:28px;}
-.toc h4{font-size:13px;font-weight:700;color:#2e2882;margin-bottom:10px;}
-.toc a{display:block;font-size:13px;color:#2e2882;text-decoration:none;padding:2px 0;}
+.toc h4{font-size:13px;font-weight:700;color:#1E3A5F;margin-bottom:10px;}
+.toc a{display:block;font-size:13px;color:#1E3A5F;text-decoration:none;padding:2px 0;}
 .toc a:hover{text-decoration:underline;}
 .badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;margin-left:6px;}
-.new{background:#E1F5EE;color:#085041;}
-.fixed{background:#FCEBEB;color:#791F1F;}
+.new{background:#DCFCE7;color:#166534;}
+.updated{background:#DBEAFE;color:#1E3A5F;}
 </style>
 </head>
 <body>
 <div class="page">
 <h1>My Schedule &amp; Habit Tracker</h1>
-<p class="tagline">Complete documentation &mdash; Version 6 &mdash; Starting April 20, 2026</p>
+<p class="tagline">Complete documentation &mdash; Version 10 &mdash; Starting April 20, 2026</p>
 
 <div class="toc">
 <h4>Contents</h4>
 <a href="#getting-started">1. Getting started</a>
-<a href="#top-bar">2. Top bar</a>
-<a href="#always-visible">3. Always-visible widgets (banner, focus, water)</a>
-<a href="#schedule">4. Schedule tab</a>
-<a href="#tracker">5. Habit Tracker tab</a>
-<a href="#manage-habits">6. Manage Habits tab (new)</a>
-<a href="#heatmap">7. Heatmap tab</a>
-<a href="#diary">8. Diary tab</a>
-<a href="#all-notes">9. All Notes tab</a>
-<a href="#holidays">10. Holidays tab</a>
-<a href="#data">11. Data, backup and sync</a>
-<a href="#bugs-fixed">12. Bugs fixed in v6</a>
-<a href="#reference">13. Quick reference</a>
+<a href="#sign-in">2. Sign in and multiple users</a>
+<a href="#top-bar">3. Top bar</a>
+<a href="#sync-bar">4. Sync bar</a>
+<a href="#always-visible">5. Always-visible widgets</a>
+<a href="#schedule">6. Schedule tab</a>
+<a href="#tracker">7. Habit Tracker tab</a>
+<a href="#manage-habits">8. Manage Habits tab</a>
+<a href="#heatmap">9. Heatmap tab</a>
+<a href="#diary">10. Diary tab</a>
+<a href="#all-notes">11. All Notes tab</a>
+<a href="#holidays">12. Holidays tab</a>
+<a href="#data">13. Data, backup and cloud sync</a>
+<a href="#reference">14. Quick reference &amp; FAQ</a>
 </div>
 
 <h2 id="getting-started">1. Getting started</h2>
-<p>The app is a single HTML file. There is no installation, no account, no server. Everything runs inside your browser.</p>
+<p>The app is a single HTML file hosted on GitHub Pages. No installation, no app store, no subscription. Open it from any browser on any device.</p>
 <ol>
-<li>Download <code>schedule_tracker_v6.html</code> to your device.</li>
-<li>Open it in Chrome (recommended) or any modern browser by double-clicking it.</li>
-<li>Bookmark it so you can find it quickly each day.</li>
-<li>Always open the same file in the same browser &mdash; your data lives there.</li>
+<li>Open your GitHub Pages URL: <code>https://teegalanvsklnarasimharao.github.io/Tracker/</code></li>
+<li>Sign in with your Google account.</li>
+<li>Your data loads automatically from the cloud and stays in sync across all your devices.</li>
+<li>Bookmark the URL or add it to your phone home screen for quick daily access.</li>
 </ol>
-<div class="warn">Your data is tied to the specific browser on the specific device. If you open the file in a different browser or a different device, it starts fresh. Use Export/Import to move data between devices.</div>
-<div class="tip">Export your backup at least once a week. It only takes two seconds and protects months of data.</div>
+<div class="tip">On Android: open Chrome, tap the three-dot menu, tap <b>Add to Home Screen</b>. On iPhone: open Safari, tap Share, tap <b>Add to Home Screen</b>. The app appears on your home screen like a native app.</div>
+<div class="note">The app works offline after the first load. Firebase caches your data locally so you can use it without internet. Changes sync automatically when you reconnect.</div>
 
-<h2 id="top-bar">2. Top bar</h2>
-<h3>&#9790; Dark mode</h3>
-<p>Switches between light and dark colour themes. Your preference is saved and remembered every time you open the app.</p>
+<h2 id="sign-in">2. Sign in and multiple users</h2>
+<p>The app uses Google Sign-In via Firebase. Every person who signs in gets their own completely private space — no data is shared between users.</p>
+<h3>How multiple users work</h3>
+<p>Each Google account gets its own independent data — their own schedules, habits, diary, tracker history, holidays, and settings. When Narasimharao signs in, he sees his data. If a family member signs in with their own Google account on the same device, they see their own completely separate data. Nothing is shared.</p>
+<h3>Signing in</h3>
+<p>Click <b>Sign in with Google</b> on the login screen. A Google account picker appears. Select your account. If the popup is blocked by your browser, the app automatically falls back to a redirect-based sign-in. After signing in, your data loads from the cloud in a few seconds.</p>
+<h3>Signing out</h3>
+<p>Click <b>Sign out</b> in the top bar. A confirmation dialog appears before signing out. Your data is saved to the cloud before sign-out. The next person to sign in on the same device gets a clean, fresh session with their own data.</p>
+
+<h2 id="top-bar">3. Top bar</h2>
+<h3>&#9790; Dark mode / &#9728; Light mode <span class="badge updated">Updated</span></h3>
+<p>The button shows what will happen when you click it. When you are in light mode the button shows <b>&#9790; Dark mode</b>. When you are in dark mode it shows <b>&#9728; Light mode</b>. Click it to switch. Your preference is saved to the cloud and remembered across all your devices and browsers.</p>
 <h3>&#128247; Snapshot</h3>
-<p>Generates a text summary of today: your focus, water intake, habit completion count, and full schedule. It copies to your clipboard automatically so you can paste it into WhatsApp, a notes app, or email. The snapshot also appears as a preview card below the schedule.</p>
+<p>Generates a plain-text summary of today: your focus, water intake, habits done, and the full schedule for today. The text copies to your clipboard automatically so you can paste it into WhatsApp, Notion, email, or anywhere else. A preview also appears below the schedule.</p>
 <h3>&#8595; Export</h3>
-<p>Downloads all your data as a JSON file named <code>habit_backup_YYYY-MM-DD.json</code>. This file contains everything: schedules, habits, tracker data, diary entries, holidays, water logs, focus entries, and pauses.</p>
+<p>Downloads all your data as a JSON backup file named <code>habit_backup_YYYY-MM-DD.json</code>. The file contains everything: schedules, habits, tracker history, diary entries, holidays, water logs, focus entries, and pauses. Use this as a safety backup even though your data is also in the cloud.</p>
 <h3>&#8593; Import</h3>
-<p>Loads a previously exported JSON file back into the app. The page reloads with all your data restored. Use this to move data to a new device or to restore after accidentally clearing your browser.</p>
+<p>Restores data from a previously exported JSON backup file. After importing, your data is immediately saved to the cloud. Use this to migrate data from an old version of the app or to restore from a backup.</p>
+<h3>Sign out</h3>
+<p>Signs out of the app safely after a confirmation. All pending saves are cancelled cleanly. Any running Pomodoro timer is stopped. The session is reset for the next user.</p>
 
-<h2 id="always-visible">3. Always-visible widgets</h2>
+<h2 id="sync-bar">4. Sync bar <span class="badge new">New</span></h2>
+<p>The coloured bar below the top bar shows the real-time sync status of your data.</p>
+<table>
+<tr><th>Dot colour</th><th>Meaning</th></tr>
+<tr><td>&#128994; Green</td><td>All data saved and synced. Shows your name and the time of last save.</td></tr>
+<tr><td>&#128993; Amber (pulsing)</td><td>Currently saving. Data is being written to Firebase.</td></tr>
+<tr><td>&#128308; Red</td><td>Save failed. Check your internet connection. Your data is safe locally.</td></tr>
+</table>
+<p>When a change is made on another device, the sync bar briefly shows <b>Synced from another device</b> and the current view refreshes automatically.</p>
+
+<h2 id="always-visible">5. Always-visible widgets</h2>
 <h3>Today&#8217;s banner</h3>
-<p>Always shown at the top. Displays today&#8217;s full date, which schedule to follow today (auto-detected), a badge showing whether it is a weekday / weekend / holiday, your focus for the day (once saved), and a button to jump directly to today&#8217;s schedule.</p>
+<p>Shows today&#8217;s full date, which schedule to follow today (auto-detected from day of week and holidays), a badge showing weekday / weekend / holiday status, your saved focus for today, and a <b>View today</b> button that jumps directly to today&#8217;s schedule tab.</p>
 
 <h3>Today&#8217;s focus</h3>
-<p>A single line where you write your most important priority for today. Press Save. It appears in the banner and in the snapshot. Each day gets its own focus entry.</p>
+<p>A single text field for your most important priority today. Type it and press <b>Save</b>. It appears in the banner and in the daily snapshot. Each day gets its own focus entry. Old focus entries are automatically cleaned up after 60 days to keep your data lean.</p>
 
-<h3>Water tracker <span class="badge new">Fixed in v6</span></h3>
-<p>Ten droplet icons representing glasses of water (250ml each = 2500ml total for the goal).</p>
+<h3>Water tracker <span class="badge updated">Updated</span></h3>
+<p>Ten water drop icons representing glasses of water (250ml each, 2500ml total goal).</p>
 <ul>
-<li><b>How to log:</b> Tap any droplet to set your intake to that many glasses. Tap the 4th droplet = 1000ml logged. Tap a lower one to reduce.</li>
-<li><b>Auto-tick:</b> When you reach 10 glasses (2500ml), the app automatically marks your <code>2.5 L water</code> habit as done in the tracker. No manual ticking needed.</li>
-<li><b>Goal badge:</b> A green &#10003; Goal! badge appears when you hit 2500ml.</li>
-<li><b>7-day bar chart:</b> Below the glasses, a small bar chart shows your water intake for each of the last 7 days. Blue bars = goal hit. Lighter bars = partial.</li>
-<li><b>Water streak:</b> Shows how many consecutive days in a row you hit the 2500ml goal, counted backwards from today.</li>
-<li><b>Reset:</b> Sets today&#8217;s count back to zero if you tapped by mistake.</li>
+<li><b>Tap any drop</b> to set your intake to that many glasses. Tap the 6th drop = 1500ml logged.</li>
+<li><b>Tap a lower drop</b> to reduce your intake. If you had hit the goal (10 glasses) and reduce below 10, the water habit is automatically un-ticked in the tracker.</li>
+<li><b>Auto-tick:</b> When you reach 2500ml, the <code>2.5 L water</code> habit is automatically marked done.</li>
+<li><b>7-day bar chart:</b> Shows your water intake for each of the last 7 days. Each bar now shows the exact amount in ml or L above it.</li>
+<li><b>Water streak:</b> Consecutive days hitting the 2500ml goal, counted backwards from today.</li>
+<li><b>Reset:</b> Sets today back to zero.</li>
 </ul>
 
-<h2 id="schedule">4. Schedule tab</h2>
-<p>Your daily time plan. Six separate tabs, one for each weekday and one for weekends.</p>
+<h3>Pomodoro timer <span class="badge updated">Updated</span></h3>
+<p>A 25-minute focus countdown timer. Start it by clicking the <b>25m</b> button on any purple Learning block in the schedule. The timer uses real timestamps so it stays accurate even if your phone screen turns off or you switch browser tabs. Starting a new Pomodoro while one is running correctly replaces the old timer.</p>
+
+<h2 id="schedule">6. Schedule tab</h2>
+<p>Your daily time plan. Six separate tabs — one for each weekday and one for weekends. The app automatically opens the correct tab for today.</p>
 <h3>Day tabs</h3>
 <table>
 <tr><th>Tab</th><th>Used when</th></tr>
-<tr><td>Monday</td><td>Every Monday (includes extra 9-10 PM call)</td></tr>
+<tr><td>Monday</td><td>Every Monday (includes extra 9–10 PM call)</td></tr>
 <tr><td>Tuesday</td><td>Every Tuesday</td></tr>
-<tr><td>Wednesday</td><td>Every Wednesday (includes extra 9:30-10 PM call)</td></tr>
-<tr><td>Thursday</td><td>Every Thursday (includes extra 9-10 PM call)</td></tr>
+<tr><td>Wednesday</td><td>Every Wednesday (includes extra 9:30–10 PM call)</td></tr>
+<tr><td>Thursday</td><td>Every Thursday (includes extra 9–10 PM call)</td></tr>
 <tr><td>Friday</td><td>Every Friday</td></tr>
 <tr><td>Weekend/Holiday</td><td>Saturday, Sunday, or any day marked as Holiday</td></tr>
 </table>
-<p>The tab for <b>today</b> has a small &#9660; arrow next to it. When you open the app, it automatically goes to today&#8217;s correct tab.</p>
-
-<h3>Time block colours</h3>
+<p>The current day&#8217;s tab has a small &#9660; arrow next to it.</p>
+<h3>Editing blocks <span class="badge updated">Updated</span></h3>
+<p>On desktop, hover over any block to reveal action buttons on the right. On mobile, the buttons are always visible below each block so you never have to hover.</p>
+<ul>
+<li><b>&#8593; &#8595;</b> — Move the block up or down in the schedule</li>
+<li><b>Edit</b> — Change time, label, description, colour type</li>
+<li><b>Del</b> — Delete the block (asks for confirmation)</li>
+<li><b>&#9201; 25m</b> (purple Learning blocks only) — Start a Pomodoro timer</li>
+</ul>
+<h3>Adding a new block</h3>
+<p>Tap <b>+ Add time block</b>. Fill in the time slot, label, description, and colour. Optionally duplicate to another day at the same time, and choose whether to also add it as a tracked habit.</p>
+<h3>Block colour types</h3>
 <table>
 <tr><th>Colour</th><th>Type</th></tr>
-<tr><td>&#9632; Amber</td><td>Morning / Wake up</td></tr>
-<tr><td>&#9632; Green</td><td>Walk / Exercise</td></tr>
-<tr><td>&#9632; Purple</td><td>Learning / Course (has Pomodoro button)</td></tr>
-<tr><td>&#9632; Red</td><td>Call / Meeting</td></tr>
-<tr><td>&#9632; Blue</td><td>Deep work</td></tr>
-<tr><td>&#9632; Teal</td><td>Finance study</td></tr>
-<tr><td>&#9632; Pink</td><td>Personal / Family</td></tr>
-<tr><td>&#9632; Coral</td><td>Scrum / Team</td></tr>
-<tr><td>&#9632; Dark amber</td><td>Faith / Prayer</td></tr>
-<tr><td>&#9632; Dark green</td><td>Health / Fitness</td></tr>
-<tr><td>&#9632; Deep purple</td><td>Growth / Review</td></tr>
-<tr><td>&#9632; Deep teal</td><td>Leisure / Explore</td></tr>
-<tr><td>&#9632; Grey</td><td>Break / Rest</td></tr>
-<tr><td>&#9632; Stone</td><td>Sleep / Wind down</td></tr>
+<tr><td>Amber</td><td>Morning / Wake up</td></tr>
+<tr><td>Green</td><td>Walk / Exercise</td></tr>
+<tr><td>Purple</td><td>Learning / Course (has Pomodoro button)</td></tr>
+<tr><td>Red/Pink</td><td>Call / Meeting</td></tr>
+<tr><td>Blue</td><td>Deep work</td></tr>
+<tr><td>Teal</td><td>Finance study</td></tr>
+<tr><td>Pink/Purple</td><td>Personal / Family</td></tr>
+<tr><td>Orange</td><td>Scrum / Team</td></tr>
+<tr><td>Dark amber</td><td>Faith / Prayer</td></tr>
+<tr><td>Dark green</td><td>Health / Fitness</td></tr>
+<tr><td>Indigo</td><td>Growth / Review</td></tr>
+<tr><td>Mint</td><td>Leisure / Explore</td></tr>
+<tr><td>Grey</td><td>Break / Rest</td></tr>
+<tr><td>Stone</td><td>Sleep / Wind down</td></tr>
 </table>
+<p>All colours have full dark mode support with proper contrast.</p>
 
-<h3>Editing blocks</h3>
-<p>Hover over any block to see action buttons on the right:</p>
-<ul>
-<li><b>&#8593; &#8595;</b> &mdash; Move the block up or down in the schedule order</li>
-<li><b>Edit</b> &mdash; Opens a form to change time, label, description, colour type</li>
-<li><b>Del</b> &mdash; Deletes the block after confirmation</li>
-<li><b>25m</b> (purple blocks only) &mdash; Starts a 25-minute Pomodoro countdown timer</li>
-</ul>
-
-<h3>Adding a new block</h3>
-<p>Tap <b>+ Add time block</b>. Fill in the time slot, label, description, colour type. You can also choose to duplicate the same block to another day tab at the same time, and choose whether to also add it as a tracked habit.</p>
-
-<h3>Pomodoro timer</h3>
-<p>Appears at the top when you start it. Press Start, Pause, Resume. When 25 minutes is up, a message appears. Press Close to dismiss. Works while you are on any tab.</p>
-
-<h2 id="tracker">5. Habit Tracker tab</h2>
-<p>Track which habits you complete each day of the week.</p>
+<h2 id="tracker">7. Habit Tracker tab <span class="badge updated">Updated</span></h2>
+<p>Track which habits you complete each day of the week. Each habit is identified by a unique internal ID so reordering or deleting habits never corrupts historical data.</p>
 <h3>The table</h3>
-<p>Each row is one habit. Each column is one day of the week (Monday to Sunday). Tap any circle to cycle through states:</p>
+<p>Each row is one habit. Each column is one day. Tap any circle to cycle through states:</p>
 <ol>
-<li><b>Empty</b> &mdash; not logged yet</li>
-<li><b>Green &#10003;</b> &mdash; done</li>
-<li><b>Grey &mdash;</b> &mdash; skipped intentionally</li>
+<li><b>Empty</b> — not yet logged</li>
+<li><b>Green &#10003;</b> — done</li>
+<li><b>Grey &#8212;</b> — skipped intentionally</li>
 </ol>
-<p>Tap again from skip to go back to empty.</p>
-
-<h3>Notes on habits</h3>
-<p>Below each circle is a small + (or &#128203; if a note exists). Tap it to add a note for that habit on that day. Quick chips help with common reasons: Done!, Skipped - busy, Skipped - forgot, Partial done, Extra effort, Will catch up.</p>
-
-<h3>Month percentage</h3>
-<p>Each habit shows its completion rate for the last 30 days. This is more honest than just looking at one week.</p>
-
-<h3>Paused habits</h3>
-<p>If you are travelling or going through a period where a habit is genuinely not possible, you can pause it for a date range. Paused days show as <b>P</b> in amber and are completely excluded from your score, streak, and progress. Manage pauses in the <b>Manage Habits</b> tab.</p>
-
 <h3>Week navigation</h3>
-<p>Use Prev / Next buttons to browse past and future weeks. Reset week clears all habit data for the current week (asks for confirmation).</p>
-
-<h3>Stats cards</h3>
 <ul>
-<li><b>This week %</b> &mdash; completion rate for the current week</li>
-<li><b>Done this week</b> &mdash; raw count of habit completions</li>
-<li><b>Perfect streak</b> &mdash; consecutive days where every non-paused habit was done</li>
-<li><b>Total habits</b> &mdash; number of habits being tracked</li>
+<li><b>&#8592; Prev / Next &#8594;</b> — browse past and future weeks</li>
+<li><b>This week</b> — jump back to the current week instantly</li>
+<li><b>Reset week</b> — clears all habit data for the currently viewed week (asks confirmation)</li>
 </ul>
-
-<h3>Milestone messages</h3>
+<div class="note">A warning banner appears whenever you are viewing a past or future week, reminding you that any changes save to those dates, not today.</div>
+<h3>Habit notes</h3>
+<p>Tap the small + below any circle to add a note for that habit on that day. Quick chips help: Done!, Skipped - busy, Skipped - forgot, Partial done, Extra effort, Will catch up.</p>
+<h3>Month percentage</h3>
+<p>Each habit shows its completion rate for the last 30 days — more honest than just looking at one week.</p>
+<h3>Stats and streak</h3>
+<p>The streak counter shows consecutive days where every non-paused habit was completed. The streak always reflects your actual current streak regardless of which week you are browsing.</p>
+<h3>Milestones</h3>
 <p>Special celebration messages appear at 7, 14, and 30 consecutive perfect days.</p>
 
-<h3>Weekly summary</h3>
-<p>Auto-generated analysis at the bottom showing: week score, best day, day that needs work, skipped count, streak, and a message based on your performance.</p>
+<h2 id="manage-habits">8. Manage Habits tab</h2>
+<p>Add, edit, delete, reorder, and pause habits. Reordering habits never affects historical tracker data because each habit has a unique ID, not a position number.</p>
+<h3>Habit cards</h3>
+<p>Each habit shows its name, description, monthly completion percentage, and action buttons: &#8593; &#8595; to reorder, Edit to change name/description, Delete to remove permanently.</p>
+<h3>Adding a habit</h3>
+<p>Tap <b>+ Add habit</b>. Enter a name and goal description. You can also add habits automatically when creating a new schedule block by selecting <b>Also add as a habit</b> in the block form.</p>
+<h3>Pausing a habit</h3>
+<p>Tap <b>Pause a habit</b>. Select the habit and enter a from/to date range. Paused days show as <b>P</b> in amber and are completely excluded from scores, streaks, and monthly percentages. All active pauses are listed at the bottom of this tab with a Remove button.</p>
 
-<h2 id="manage-habits">6. Manage Habits tab <span class="badge new">New in v6</span></h2>
-<p>A dedicated tab for full habit management. This is separate from the tracker.</p>
-<h3>Habit list</h3>
-<p>Every habit is shown as a card with its name, description, monthly completion %, and action buttons:</p>
-<ul>
-<li><b>&#8593; &#8595;</b> &mdash; Reorder the habit up or down in the list</li>
-<li><b>Edit</b> &mdash; Change the habit name and description</li>
-<li><b>Delete</b> &mdash; Permanently removes the habit (tracker data remains but is unlinked)</li>
-</ul>
-<h3>Add new habit</h3>
-<p>Tap <b>+ Add new habit</b> at the top right. Enter a name and a goal description.</p>
-<h3>Pause a habit</h3>
-<p>Tap <b>Pause a habit</b>. Select the habit, enter a from date and to date. The habit is paused for that entire range.</p>
-<h3>Active pauses</h3>
-<p>All current pauses are listed at the bottom of this tab. Each shows the habit name and date range with a <b>Remove</b> button. You can now delete pauses directly without editing any files.</p>
-
-<h2 id="heatmap">7. Heatmap tab</h2>
-<p>A visual calendar showing 6 months of habit consistency. Each small square is one day.</p>
+<h2 id="heatmap">9. Heatmap tab</h2>
+<p>A visual calendar showing 6 months of habit consistency. Each square is one day.</p>
 <table>
 <tr><th>Colour</th><th>Meaning</th></tr>
 <tr><td>Light grey</td><td>No data logged</td></tr>
-<tr><td>Light green</td><td>Some habits done (1-49%)</td></tr>
-<tr><td>Medium green</td><td>Good day (50-79%)</td></tr>
-<tr><td>Dark green</td><td>Excellent day (80-100%)</td></tr>
+<tr><td>Light green</td><td>Some habits done (1–49%)</td></tr>
+<tr><td>Medium green</td><td>Good day (50–79%)</td></tr>
+<tr><td>Dark green</td><td>Excellent day (80–100%)</td></tr>
 <tr><td>Amber outline</td><td>Today</td></tr>
 </table>
-<p>Hover over any square to see the exact date and your score for that day. Paused habits are excluded from the calculation.</p>
+<p>Hover over any square to see the exact date and your score. Paused habits are excluded from calculations.</p>
 
-<h2 id="diary">8. Diary tab</h2>
-<p>A private daily journal. One entry per day.</p>
+<h2 id="diary">10. Diary tab <span class="badge updated">Updated</span></h2>
+<p>A private daily journal. One entry per day, synced to the cloud.</p>
 <h3>Writing an entry</h3>
-<p>Use the &#8592; &#8594; arrows to navigate between dates. Tap <b>Today</b> to jump to the current date. Select a mood, write anything in the text area, press <b>Save entry</b>.</p>
+<p>Use &#8592; &#8594; arrows to navigate between dates. Tap <b>Today</b> to return to the current date. Select a mood, write in the text area, press <b>Save entry</b>.</p>
+<h3>Auto-save</h3>
+<p>The diary automatically saves your entry after 30 seconds of inactivity. The auto-save timestamp appears below the text area. If you navigate to a different date or switch tabs while typing, the entry is auto-saved immediately so nothing is lost.</p>
+<h3>Ctrl+S / Cmd+S</h3>
+<p>Press Ctrl+S (Windows) or Cmd+S (Mac) while on the Diary tab to save your entry instantly without clicking the button.</p>
+<h3>Last entry hint</h3>
+<p>If today has no entry yet, the diary title shows when you last wrote — helpful for remembering your writing habit.</p>
 <h3>Mood tags</h3>
 <table>
 <tr><th>Mood</th><th>Use for</th></tr>
-<tr><td>&#128515; Great</td><td>Excellent day, high energy, everything clicked</td></tr>
+<tr><td>&#128515; Great</td><td>Excellent day, high energy</td></tr>
 <tr><td>&#128512; Good</td><td>Solid productive day</td></tr>
 <tr><td>&#128528; Okay</td><td>Average, nothing special</td></tr>
 <tr><td>&#128542; Low</td><td>Emotionally difficult day</td></tr>
-<tr><td>&#128546; Tough</td><td>Really hard day, struggling</td></tr>
+<tr><td>&#128546; Tough</td><td>Really hard day</td></tr>
 </table>
-<p>The mood tag is saved with the entry and shown as a coloured badge in the All Notes tab.</p>
-<div class="note">If you write again on the same date, it updates the existing entry. The current text is already loaded in the box so you can see what you wrote before.</div>
 
-<h2 id="all-notes">9. All Notes tab</h2>
-<p>A searchable, filterable view of every diary entry you have ever written.</p>
-<h3>Text search</h3>
-<p>Type any word or phrase. The list filters instantly. Matching text is shown with context around it.</p>
-<h3>Jump to specific date</h3>
-<p>Enter a date in the date picker and tap <b>Go to date</b>. The page scrolls to that entry and highlights it briefly in amber. If no entry exists for that date, a message tells you.</p>
-<h3>Mood filter</h3>
-<p>Filter entries by mood. You can combine mood filter with text search. Tap <b>All</b> to remove the filter.</p>
-<h3>Entry count</h3>
-<p>Shows how many entries match your current search/filter out of total entries.</p>
-<h3>Actions</h3>
+<h2 id="all-notes">11. All Notes tab</h2>
+<p>A searchable, filterable view of every diary entry.</p>
 <ul>
-<li><b>Open in diary</b> &mdash; switches to the Diary tab and opens that date</li>
-<li><b>Edit</b> &mdash; opens a modal to edit the text and mood</li>
-<li><b>Delete</b> &mdash; permanently deletes that entry</li>
+<li><b>Text search</b> — type any word, the list filters instantly, matching text highlighted in context</li>
+<li><b>Mood filter</b> — filter by mood, combinable with text search</li>
+<li><b>Go to date</b> — enter a date and the page scrolls and highlights that entry</li>
+<li><b>Open in diary</b> — switches to the Diary tab and opens that exact date</li>
+<li><b>Edit / Delete</b> — edit or delete any entry directly from this tab</li>
 </ul>
 
-<h2 id="holidays">10. Holidays tab</h2>
-<p>Tell the app about days that need a different schedule than the default weekday/weekend logic.</p>
-<h3>Add single day</h3>
-<p>Enter a date, a name, and whether it is a <b>Holiday</b> (uses Weekend schedule) or a <b>Working day</b> (uses the appropriate weekday schedule). Press Add.</p>
-<h3>Add date range <span class="badge new">New in v6</span></h3>
-<p>For a stretch of days like a Diwali break or a project crunch week, enter from and to dates and a name. Press <b>Add range</b>.</p>
-<p><b>Smart auto-skip in ranges:</b></p>
-<ul>
-<li>If you are adding a Holiday range, Saturdays and Sundays within the range are automatically skipped (they are already on weekend schedule)</li>
-<li>Any date already marked as a holiday is also skipped to avoid duplicates</li>
-<li>Only actual qualifying days in the range get added</li>
-</ul>
-<h3>Quick add Indian holidays</h3>
-<p>All major Indian national holidays for 2026-2027 are available as one-tap preset buttons. Holidays you have already added disappear from the list.</p>
+<h2 id="holidays">12. Holidays tab</h2>
+<p>Mark days that need a different schedule from the normal weekday/weekend auto-detection.</p>
+<h3>Single day</h3>
+<p>Enter a date, a name, and whether it is a Holiday (uses Weekend schedule) or a Working day (uses that day&#8217;s weekday schedule).</p>
+<h3>Date range</h3>
+<p>Enter from/to dates and a name. Saturdays and Sundays within a holiday range are automatically skipped. Existing entries are not overwritten.</p>
+<h3>Indian holiday presets</h3>
+<p>All major Indian national holidays for 2026–2027 are available as one-tap quick-add buttons.</p>
 <h3>How auto-detection works</h3>
-<p>The app checks the day of the week and any special entries you have added. The today banner and schedule tab automatically reflect the correct schedule for any date.</p>
-
-<h2 id="data">11. Data, backup and sync</h2>
-<h3>Where your data is stored</h3>
-<p>Everything is stored in your browser&#8217;s localStorage under the key <code>nara_v6</code>. Data stays even if you close the browser or restart your computer. Data is <b>lost</b> if you clear your browser&#8217;s site data or use private/incognito mode.</p>
-<h3>How to back up</h3>
-<p>Tap <b>&#8595; Export</b> in the top bar. A file named <code>habit_backup_YYYY-MM-DD.json</code> downloads. Store this in Google Drive, WhatsApp Saved Messages, or any cloud storage. Do this at least once a week.</p>
-<h3>How to restore</h3>
-<p>Open the app on any device. Tap <b>&#8593; Import</b>. Select your backup file. The app reloads with all data restored.</p>
-<h3>Moving to a new device</h3>
-<ol>
-<li>On the old device: tap Export, save the JSON file</li>
-<li>Copy the file to the new device (WhatsApp, email, Google Drive)</li>
-<li>Open <code>schedule_tracker_v6.html</code> on the new device in Chrome</li>
-<li>Tap Import, select the backup file</li>
-</ol>
-<h3>Using on any device &mdash; GitHub Pages option</h3>
-<p>If you host the file on GitHub Pages (free), you get a permanent URL like <code>yourname.github.io/tracker</code>. You can open it from any device, any browser, anywhere. See the separate GitHub setup guide for step-by-step instructions.</p>
-<div class="note">Even with GitHub Pages, data still lives in each device&#8217;s browser separately. Use Export/Import to sync between devices. The URL just means you never need to carry the file around.</div>
-
-<h2 id="bugs-fixed">12. Bugs fixed in v6</h2>
 <table>
-<tr><th>Bug</th><th>Status</th></tr>
-<tr><td>Water droplets showing as black squares (&#9632;)</td><td>&#10003; Fixed &mdash; now shows proper SVG water drop icons</td></tr>
-<tr><td>Water bar chart heights broken (percentage in fixed-height container)</td><td>&#10003; Fixed &mdash; now uses pixel heights calculated from container</td></tr>
-<tr><td>Water streak counting wrong (from start of array instead of backwards from today)</td><td>&#10003; Fixed &mdash; now counts consecutive days backwards from today</td></tr>
-<tr><td>No way to delete pauses from UI</td><td>&#10003; Fixed &mdash; Manage Habits tab shows all pauses with Remove button</td></tr>
-<tr><td>Stale S.sec tracking causing silent re-render failures</td><td>&#10003; Fixed &mdash; removed S.sec persistence, render checks use DOM class directly</td></tr>
-<tr><td>Diary edit inconsistency between Diary tab and All Notes tab</td><td>&#10003; Fixed &mdash; both tabs use same openDiaryEdit function, both refresh after save</td></tr>
-<tr><td>APP_START set to April 27 instead of April 20</td><td>&#10003; Fixed &mdash; now April 20, 2026</td></tr>
-<tr><td>No dedicated Habits management tab</td><td>&#10003; Fixed &mdash; new Manage Habits tab with full add/edit/delete/reorder/pauses</td></tr>
-<tr><td>Habit edit only accessible by clicking habit name in tracker</td><td>&#10003; Fixed &mdash; Manage Habits tab has clear Edit and Delete buttons on each habit card</td></tr>
+<tr><th>Day</th><th>Schedule used</th></tr>
+<tr><td>Monday</td><td>Monday schedule</td></tr>
+<tr><td>Tuesday</td><td>Tuesday schedule</td></tr>
+<tr><td>Wednesday</td><td>Wednesday schedule</td></tr>
+<tr><td>Thursday</td><td>Thursday schedule</td></tr>
+<tr><td>Friday</td><td>Friday schedule</td></tr>
+<tr><td>Saturday / Sunday</td><td>Weekend/Holiday schedule</td></tr>
+<tr><td>Any day marked Holiday</td><td>Weekend/Holiday schedule</td></tr>
+<tr><td>Any day marked Working day</td><td>That day&#8217;s weekday schedule</td></tr>
 </table>
 
-<h2 id="reference">13. Quick reference</h2>
-<h3>Keyboard shortcuts (none required, but useful to know)</h3>
-<p>The app is fully mouse/touch operated. No keyboard shortcuts needed.</p>
-<h3>Frequently asked questions</h3>
-<p><b>Q: My data disappeared.</b><br/>A: Data is stored per browser. If you opened a different browser or used incognito mode, data is not there. Import your backup file.</p>
-<p><b>Q: Water habit not auto-ticking.</b><br/>A: Make sure a habit named exactly <code>2.5 L water</code> exists in the Manage Habits tab. The auto-tick looks for that exact name.</p>
-<p><b>Q: How do I undo a habit tick?</b><br/>A: Tap the circle again. It cycles: empty &#8594; done &#8594; skip &#8594; empty. Tap twice for skip, three times for empty.</p>
-<p><b>Q: Can I have more than one diary entry per day?</b><br/>A: No. Each day has one entry. Writing again updates the existing one.</p>
-<p><b>Q: How do I remove a pause?</b><br/>A: Go to Manage Habits tab. Scroll to Active Pauses at the bottom. Tap Remove next to the pause you want to delete.</p>
-<p><b>Q: The heatmap shows paused days as grey. Is that correct?</b><br/>A: Yes. Paused days have no score and show as grey. This is correct &mdash; they are excluded from your consistency measurement.</p>
-<p><b>Q: Can I use this offline?</b><br/>A: Yes. Once downloaded, the file works completely offline. No internet needed.</p>
-<p><b>Q: Is there a mobile app?</b><br/>A: Not a native app. But on Android, open Chrome, open the file, tap the three-dot menu, and tap Add to Home Screen. On iPhone, open Safari, tap Share, then Add to Home Screen. The app then appears on your home screen like a native app.</p>
+<h2 id="data">13. Data, backup and cloud sync</h2>
+<h3>Where your data lives</h3>
+<p>All data is stored in <b>Firebase Firestore</b> — Google&#8217;s cloud database — under your unique Google account ID. Data is split into three separate documents for efficiency: one for settings and schedules, one for habit tracker history, and one for diary entries.</p>
+<h3>Offline support</h3>
+<p>The app works offline after the first successful load. Firebase caches your data in the browser&#8217;s IndexedDB. Changes made offline are queued and automatically synced when you reconnect.</p>
+<h3>Real-time sync</h3>
+<p>When you make a change on one device, it automatically appears on your other open devices within seconds — no refresh needed.</p>
+<h3>Privacy and security</h3>
+<p>Firebase security rules ensure that only you, when signed in with your Google account, can read or write your data. No other user, and no one browsing your GitHub Pages URL, can access your habits or diary.</p>
+<h3>Export backup</h3>
+<p>Tap <b>&#8595; Export</b> to download a complete JSON backup of all your data. Do this weekly as an extra safety net. Store it in Google Drive or another cloud location.</p>
+<h3>Import / restore</h3>
+<p>Tap <b>&#8593; Import</b> and select a backup JSON file. Your data is restored and immediately saved to the cloud. Works for migrating from old versions of the app.</p>
+<h3>Data pruning</h3>
+<p>Water intake logs and daily focus entries older than 60 days are automatically cleaned up during saves. This keeps your data lean without affecting any habits, diary entries, or tracker history.</p>
+<h3>Storage usage</h3>
+<p>With daily use, the app uses approximately 500KB per year. The Firebase free tier allows 1GB of storage — enough for well over 1,000 years of daily use. You will never need to pay for Firebase with this app.</p>
+
+<h2 id="reference">14. Quick reference &amp; FAQ</h2>
+<h3>Keyboard shortcuts</h3>
+<table>
+<tr><th>Shortcut</th><th>Action</th></tr>
+<tr><td>Ctrl+S / Cmd+S</td><td>Save diary entry (only works on Diary tab)</td></tr>
+</table>
+<h3>FAQ</h3>
+<p><b>Q: I signed in on a new device and my data is there immediately. Is that correct?</b><br/>A: Yes. Your data is in Firebase. Any device you sign into with the same Google account loads your complete data automatically.</p>
+<p><b>Q: I reordered my habits and my old tracker data changed.</b><br/>A: This should not happen in v10. Each habit has a unique ID. Reordering, deleting, or renaming habits does not affect historical tracker data. If you see this, you may be on an old version — upload the latest index.html to GitHub.</p>
+<p><b>Q: The water habit did not auto-tick even though I hit 2500ml.</b><br/>A: Make sure a habit named exactly <code>2.5 L water</code> exists in Manage Habits. The auto-tick looks for that exact name. If you renamed it, the auto-tick will not find it.</p>
+<p><b>Q: I deleted a habit. Is the tracker history gone?</b><br/>A: The tracker data (ticks and notes) remains in your database but is no longer linked to any habit. The heatmap and monthly percentages will not include it. The raw data stays and will be pruned naturally over time.</p>
+<p><b>Q: How do I undo a habit tick?</b><br/>A: Tap the circle again. It cycles: empty &#8594; done &#8594; skip &#8594; empty.</p>
+<p><b>Q: Can I use this offline?</b><br/>A: Yes after the first load. The app caches all data locally via Firebase offline persistence. Changes sync when you reconnect.</p>
+<p><b>Q: My diary entry was not saved.</b><br/>A: The diary auto-saves after 30 seconds of inactivity and also when you switch tabs or navigate to a different date. You can also press Ctrl+S / Cmd+S to save instantly. If you close the browser very quickly without saving, the auto-save may not have fired — always tap Save entry for important entries.</p>
+<p><b>Q: What does the past/future week banner mean?</b><br/>A: When you navigate away from the current week in the Tracker tab, a warning banner appears. Any habits you tick there will save to those past or future dates, not today.</p>
+<p><b>Q: The sync bar shows a red dot.</b><br/>A: A save failed. This usually means you lost internet connection. Your data is safe locally via offline persistence and will sync automatically when you reconnect. You can also try refreshing the page.</p>
+<p><b>Q: Can other people see my diary or habits?</b><br/>A: No. Firebase security rules restrict all data to your Google account only. Even someone with your GitHub URL cannot access your data — they would see the app but no data, because they are not you.</p>
 </div>
 </body>
 </html>
