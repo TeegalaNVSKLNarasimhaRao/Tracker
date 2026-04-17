@@ -442,7 +442,7 @@ body.dark .t-sleep{border-color:#374151;}
     <div id="snapshot-box" class="snapshot-box"><h4>Today&#8217;s snapshot</h4><pre class="snapshot-text" id="snapshot-text"></pre></div>
     <div class="rule-box">
       <div class="rule-title">Daily non-negotiables</div>
-      <div class="rule" id="daily-rules">No phone first 30 min &nbsp;&#183;&nbsp; 20-20-20 eye rule &nbsp;&#183;&nbsp; 2.5L water &nbsp;&#183;&nbsp; Instagram after 7 PM only, max 20 min &nbsp;&#183;&nbsp; Charger outside bedroom</div>
+      <div class="rule" id="daily-rules">No phone first 30 min &nbsp;&#183;&nbsp; Drink 2.5L water &nbsp;&#183;&nbsp; 20-20-20 eye rule &nbsp;&#183;&nbsp; Screen-free meals &nbsp;&#183;&nbsp; Wind down before sleep</div>
     </div>
   </div>
   <!-- TRACKER -->
@@ -685,8 +685,20 @@ const INDIAN_HOLIDAYS=[
 ];
 const NOTE_QUICK=['Done!','Skipped - busy','Skipped - forgot','Partial done','Extra effort','Will catch up'];
 
-// ── DEFAULT SCHEDULES ──
-function makeMTF(){return[
+// ── OWNER DETECTION ──
+// Owner gets full personalised schedule + habits.
+// All other users get a clean general schedule + basic habits.
+const OWNER_UID = 'REPLACE_WITH_YOUR_UID'; // filled automatically on first owner login
+
+function isOwner(){
+  return currentUser && (
+    currentUser.email === 'teegalanvsklnarasimharao@gmail.com' ||
+    (OWNER_UID !== 'REPLACE_WITH_YOUR_UID' && currentUser.uid === OWNER_UID)
+  );
+}
+
+// ── OWNER SCHEDULE (full personalised — Narasimharao) ──
+function makeMTF_owner(){return[
   {time:'6:15 AM',label:'Wake up',sub:'Water immediately, no phone',cls:'t-wake'},
   {time:'6:15-6:45',label:'Morning walk',sub:'Outside, no earphones',cls:'t-walk'},
   {time:'6:45-7:30',label:'Freshen up + breakfast',sub:'Light meal, no screen',cls:'t-break'},
@@ -709,31 +721,33 @@ function makeMTF(){return[
   {time:'10:00-10:30',label:'Wind down',sub:'No screens, prayer / reflection',cls:'t-sleep'},
   {time:'10:30 PM',label:'Sleep',sub:'7.5 hrs rest',cls:'t-sleep'}
 ];}
-function makeMon(){const b=makeMTF();b.splice(17,0,{time:'9:00-10:00',label:'Monday extra call',sub:'Mon only 9-10 PM',cls:'t-call'});return b;}
-function makeWed(){const b=makeMTF();b.splice(17,0,{time:'9:30-10:00',label:'Wednesday extra call',sub:'Wed only 9:30-10 PM',cls:'t-call'});return b;}
-function makeThu(){const b=makeMTF();b.splice(17,0,{time:'9:00-10:00',label:'Thursday extra call',sub:'Thu only 9-10 PM',cls:'t-call'});return b;}
-const DEF_WD={mon:makeMon(),tue:makeMTF(),wed:makeWed(),thu:makeThu(),fri:makeMTF(),weekend:[
-  {time:'7:00 AM',label:'Wake up, no alarm',sub:'Let your body rest naturally',cls:'t-wake'},
-  {time:'7:00-7:30',label:'Morning prayer / faith',sub:'Gratitude and stillness',cls:'t-faith'},
-  {time:'7:30-8:15',label:'Morning walk',sub:'Longer walk, no earphones',cls:'t-walk'},
-  {time:'8:15-9:15',label:'Breakfast + family time',sub:'Screen-free meal with family',cls:'t-personal'},
-  {time:'9:15-10:30',label:'Personal / free time',sub:'Prayer, rest, family chat',cls:'t-personal'},
-  {time:'10:30-12:00',label:'Big Data / DE course',sub:'1.5 hrs, keep momentum',cls:'t-learn'},
-  {time:'12:00-12:30',label:'Short break',sub:'Tea, stretch, eyes rest',cls:'t-break'},
-  {time:'12:30-1:30',label:'Finance self-study',sub:'Books, articles, investing concepts',cls:'t-finance'},
-  {time:'1:30-2:30',label:'Lunch + rest',sub:'Full rest, short nap if needed',cls:'t-break'},
-  {time:'2:30-4:00',label:'Family time / outing',sub:'Temple, park, relatives',cls:'t-explore'},
-  {time:'4:00-5:00',label:'Personal project or skill',sub:'Anything that excites you',cls:'t-growth'},
-  {time:'5:00-6:00',label:'Evening walk or exercise',sub:'Light jog, yoga, longer walk',cls:'t-health'},
-  {time:'6:00-7:30',label:'Personal / family time',sub:'Conversations, rest',cls:'t-personal'},
-  {time:'7:30-8:15',label:'Dinner',sub:'Screen-free, sit with family',cls:'t-break'},
-  {time:'8:15-9:30',label:'Leisure time',sub:'Reading, light TV, music',cls:'t-explore'},
-  {time:'9:30-10:00',label:'Weekly review',sub:'What went well? What to improve?',cls:'t-growth'},
-  {time:'10:00-10:30',label:'Wind down',sub:'Prayer, reflection, gratitude',cls:'t-faith'},
-  {time:'10:30 PM',label:'Sleep',sub:'8 hrs on weekends',cls:'t-sleep'}
-]};
-// MULTIPLE USERS: each user gets own default habits — fully independent
-const DEF_HABITS=[
+function makeMon_owner(){const b=makeMTF_owner();b.splice(17,0,{time:'9:00-10:00',label:'Monday extra call',sub:'Mon only 9-10 PM',cls:'t-call'});return b;}
+function makeWed_owner(){const b=makeMTF_owner();b.splice(17,0,{time:'9:30-10:00',label:'Wednesday extra call',sub:'Wed only 9:30-10 PM',cls:'t-call'});return b;}
+function makeThu_owner(){const b=makeMTF_owner();b.splice(17,0,{time:'9:00-10:00',label:'Thursday extra call',sub:'Thu only 9-10 PM',cls:'t-call'});return b;}
+const OWNER_WD={
+  mon:makeMon_owner(),tue:makeMTF_owner(),wed:makeWed_owner(),thu:makeThu_owner(),fri:makeMTF_owner(),
+  weekend:[
+    {time:'7:00 AM',label:'Wake up, no alarm',sub:'Let your body rest naturally',cls:'t-wake'},
+    {time:'7:00-7:30',label:'Morning prayer / faith',sub:'Gratitude and stillness',cls:'t-faith'},
+    {time:'7:30-8:15',label:'Morning walk',sub:'Longer walk, no earphones',cls:'t-walk'},
+    {time:'8:15-9:15',label:'Breakfast + family time',sub:'Screen-free meal with family',cls:'t-personal'},
+    {time:'9:15-10:30',label:'Personal / free time',sub:'Prayer, rest, family chat',cls:'t-personal'},
+    {time:'10:30-12:00',label:'Big Data / DE course',sub:'1.5 hrs, keep momentum',cls:'t-learn'},
+    {time:'12:00-12:30',label:'Short break',sub:'Tea, stretch, eyes rest',cls:'t-break'},
+    {time:'12:30-1:30',label:'Finance self-study',sub:'Books, articles, investing concepts',cls:'t-finance'},
+    {time:'1:30-2:30',label:'Lunch + rest',sub:'Full rest, short nap if needed',cls:'t-break'},
+    {time:'2:30-4:00',label:'Family time / outing',sub:'Temple, park, relatives',cls:'t-explore'},
+    {time:'4:00-5:00',label:'Personal project or skill',sub:'Anything that excites you',cls:'t-growth'},
+    {time:'5:00-6:00',label:'Evening walk or exercise',sub:'Light jog, yoga, longer walk',cls:'t-health'},
+    {time:'6:00-7:30',label:'Personal / family time',sub:'Conversations, rest',cls:'t-personal'},
+    {time:'7:30-8:15',label:'Dinner',sub:'Screen-free, sit with family',cls:'t-break'},
+    {time:'8:15-9:30',label:'Leisure time',sub:'Reading, light TV, music',cls:'t-explore'},
+    {time:'9:30-10:00',label:'Weekly review',sub:'What went well? What to improve?',cls:'t-growth'},
+    {time:'10:00-10:30',label:'Wind down',sub:'Prayer, reflection, gratitude',cls:'t-faith'},
+    {time:'10:30 PM',label:'Sleep',sub:'8 hrs on weekends',cls:'t-sleep'}
+  ]
+};
+const OWNER_HABITS=[
   {id:'h001',name:'No phone on waking',sub:'First 30 min screen-free'},
   {id:'h002',name:'Morning walk',sub:'At least 20 min'},
   {id:'h003',name:'Big Data / DE course',sub:'Weekdays 9:30 / Weekends 10:30'},
@@ -746,6 +760,61 @@ const DEF_HABITS=[
   {id:'h010',name:'Wind-down routine',sub:'Prayer / reflection before sleep'},
   {id:'h011',name:'Asleep by 10:30 PM',sub:'Protect sleep window'}
 ];
+
+// ── GENERAL SCHEDULE (clean, non-work — for all other users) ──
+// Only non-work routines. Users can add their own work/study blocks freely.
+function makeGeneral(){return[
+  {time:'6:30 AM',label:'Wake up',sub:'Start with water, no phone',cls:'t-wake'},
+  {time:'6:30-7:00',label:'Morning routine',sub:'Freshen up, prayer / reflection',cls:'t-faith'},
+  {time:'7:00-7:45',label:'Morning walk / exercise',sub:'Outside or indoor workout',cls:'t-walk'},
+  {time:'7:45-8:30',label:'Breakfast',sub:'Screen-free, sit and eat properly',cls:'t-break'},
+  {time:'8:30-9:00',label:'Prep + settle in',sub:'Plan your day, write top 3 goals',cls:'t-break'},
+  {time:'9:00-1:00',label:'Work / Study block',sub:'Add your own work schedule here',cls:'t-work'},
+  {time:'1:00-2:00',label:'Lunch + rest',sub:'Away from screens',cls:'t-break'},
+  {time:'2:00-5:00',label:'Work / Study block 2',sub:'Add your own afternoon schedule',cls:'t-work'},
+  {time:'5:00-6:00',label:'Personal learning',sub:'Skill, course, or reading of your choice',cls:'t-learn'},
+  {time:'6:00-6:45',label:'Evening walk',sub:'No screens, decompress',cls:'t-walk'},
+  {time:'6:45-7:30',label:'Personal / family time',sub:'Conversations, rest',cls:'t-personal'},
+  {time:'7:30-8:00',label:'Dinner',sub:'No screens at the table',cls:'t-break'},
+  {time:'8:00-9:30',label:'Free time',sub:'Hobbies, leisure, family',cls:'t-personal'},
+  {time:'9:30-10:00',label:'Wind down',sub:'No screens, prepare for sleep',cls:'t-sleep'},
+  {time:'10:00 PM',label:'Sleep',sub:'Aim for 7–8 hrs',cls:'t-sleep'}
+];}
+const GENERAL_WD={
+  mon:makeGeneral(),tue:makeGeneral(),wed:makeGeneral(),
+  thu:makeGeneral(),fri:makeGeneral(),
+  weekend:[
+    {time:'7:00 AM',label:'Wake up, no alarm',sub:'Let your body rest naturally',cls:'t-wake'},
+    {time:'7:00-7:30',label:'Morning prayer / reflection',sub:'Gratitude and stillness',cls:'t-faith'},
+    {time:'7:30-8:15',label:'Morning walk',sub:'Longer walk, enjoy the morning',cls:'t-walk'},
+    {time:'8:15-9:15',label:'Breakfast + family time',sub:'Screen-free, sit together',cls:'t-personal'},
+    {time:'9:15-12:00',label:'Personal learning / hobby',sub:'Skill, course, or project of your choice',cls:'t-learn'},
+    {time:'12:00-12:30',label:'Short break',sub:'Tea, stretch, rest your eyes',cls:'t-break'},
+    {time:'12:30-1:30',label:'Personal project or errands',sub:'Whatever needs doing',cls:'t-growth'},
+    {time:'1:30-2:30',label:'Lunch + rest',sub:'Full rest, short nap if needed',cls:'t-break'},
+    {time:'2:30-4:30',label:'Family time / outing',sub:'Park, relatives, leisure',cls:'t-explore'},
+    {time:'4:30-5:30',label:'Exercise or walk',sub:'Light jog, yoga, longer walk',cls:'t-health'},
+    {time:'5:30-7:00',label:'Personal / family time',sub:'Conversations, rest',cls:'t-personal'},
+    {time:'7:00-7:45',label:'Dinner',sub:'Screen-free, sit with family',cls:'t-break'},
+    {time:'7:45-9:00',label:'Leisure time',sub:'Reading, light TV, music',cls:'t-explore'},
+    {time:'9:00-9:30',label:'Weekly review',sub:'What went well? What to improve?',cls:'t-growth'},
+    {time:'9:30-10:00',label:'Wind down',sub:'Prayer, reflection, gratitude',cls:'t-faith'},
+    {time:'10:00 PM',label:'Sleep',sub:'8 hrs on weekends',cls:'t-sleep'}
+  ]
+};
+const GENERAL_HABITS=[
+  {id:'g001',name:'Morning walk / exercise',sub:'At least 20 min daily'},
+  {id:'g002',name:'2.5 L water',sub:'Stay hydrated through the day'},
+  {id:'g003',name:'Screen-free breakfast',sub:'No phone at the table'},
+  {id:'g004',name:'Screen-free dinner',sub:'No phone at the table'},
+  {id:'g005',name:'Evening walk',sub:'At least 20 min, no screens'},
+  {id:'g006',name:'Wind-down routine',sub:'No screens 30 min before sleep'},
+  {id:'g007',name:'Sleep on time',sub:'Aim for 7-8 hrs consistently'}
+];
+
+// ── ACTIVE DEFAULTS based on who is signed in ──
+function DEF_WD(){return isOwner()?JSON.parse(JSON.stringify(OWNER_WD)):JSON.parse(JSON.stringify(GENERAL_WD));}
+function DEF_HABITS(){return isOwner()?JSON.parse(JSON.stringify(OWNER_HABITS)):JSON.parse(JSON.stringify(GENERAL_HABITS));}
 
 // ── STATE ──
 let S={};
@@ -771,8 +840,8 @@ function uuid(){return 'h'+Date.now().toString(36)+Math.random().toString(36).sl
 
 function defaultS(){
   return {
-    wd:JSON.parse(JSON.stringify(DEF_WD)),
-    habits:JSON.parse(JSON.stringify(DEF_HABITS)),
+    wd:DEF_WD(),
+    habits:DEF_HABITS(),
     tracker:{},notes:{},diary:{},
     holidays:[],focus:{},water:{},
     pauses:[],dark:false,setupDone:false
@@ -873,7 +942,7 @@ async function loadFromFirebase(){
       S.pauses=(m.pauses||[]).map(p=>({...p,hid:p.hid||p.hi}));// migrate old pause format
       S.dark=m.dark||false;
       S.setupDone=m.setupDone||false;
-      ['mon','tue','wed','thu','fri','weekend'].forEach(k=>{if(!S.wd[k])S.wd[k]=JSON.parse(JSON.stringify(DEF_WD[k]));});
+      const _dwd=DEF_WD();['mon','tue','wed','thu','fri','weekend'].forEach(k=>{if(!S.wd[k])S.wd[k]=JSON.parse(JSON.stringify(_dwd[k]));});
     }else{
       S=defaultS();
       await setDoc(metaDoc(),buildMeta());
@@ -910,6 +979,7 @@ function startSync(){
         S.focus=m.focus||{};
         S.water=m.water||{};
         S.pauses=(m.pauses||[]).map(p=>({...p,hid:p.hid||p.hi}));
+        const _dwd2=DEF_WD();['mon','tue','wed','thu','fri','weekend'].forEach(k=>{if(!S.wd[k])S.wd[k]=JSON.parse(JSON.stringify(_dwd2[k]));});
         const now=new Date();
         setSyncStatus('ok',currentUser.displayName,'Synced from another device '+now.getHours()+':'+String(now.getMinutes()).padStart(2,'0'));
         refreshView();
@@ -998,6 +1068,12 @@ function _ctrlSHandler(e){
 }
 let _ctrlSAttached=false;
 function initApp(){
+  // Set daily rules text based on who is signed in
+  if(isOwner()){
+    $id('daily-rules').innerHTML='No phone first 30 min &nbsp;&#183;&nbsp; 20-20-20 eye rule &nbsp;&#183;&nbsp; 2.5L water &nbsp;&#183;&nbsp; Instagram after 7 PM only, max 20 min &nbsp;&#183;&nbsp; Charger outside bedroom';
+  } else {
+    $id('daily-rules').innerHTML='No phone first 30 min &nbsp;&#183;&nbsp; Drink 2.5L water &nbsp;&#183;&nbsp; 20-20-20 eye rule &nbsp;&#183;&nbsp; Screen-free meals &nbsp;&#183;&nbsp; Wind down 30 min before sleep';
+  }
   // BUG FIX 13: Reset diaryDate on init with proper zeroed hours
   diaryDate=new Date(today());
   const initKey=schedKeyForDate(today());
