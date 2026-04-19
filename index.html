@@ -539,6 +539,58 @@ body.dark .fin-cat-invest{background:#1E3A5F;color:#93C5FD;}
 }
 @media(min-width:601px){.more-menu{display:none;}}
 
+/* ── SUPER ADMIN PANEL ── */
+.admin-header{background:linear-gradient(135deg,#1a0a2e 0%,#2d1b4e 50%,#1a0a2e 100%);border-radius:var(--radius);padding:18px 20px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;box-shadow:0 4px 20px rgba(139,92,246,.3);}
+.admin-title-row{display:flex;align-items:center;gap:12px;}
+.admin-shield{font-size:28px;}
+.admin-title{font-size:18px;font-weight:700;color:#fff;font-family:'Georgia',serif;}
+.admin-subtitle{font-size:12px;color:rgba(255,255,255,.6);margin-top:2px;}
+.admin-search{padding:7px 12px;border-radius:7px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;font-size:12px;font-family:inherit;width:220px;outline:none;}
+.admin-search::placeholder{color:rgba(255,255,255,.4);}
+.admin-search:focus{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.15);}
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:14px;}
+.admin-stat-card{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--radius);padding:12px 14px;box-shadow:var(--shadow);text-align:center;}
+.admin-stat-val{font-size:24px;font-weight:700;color:var(--pri);font-family:'Georgia',serif;}
+.admin-stat-lbl{font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;margin-top:3px;}
+.admin-user-list{display:flex;flex-direction:column;gap:8px;}
+.admin-user-card{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;flex-wrap:wrap;transition:border-color .15s;}
+.admin-user-card:hover{border-color:var(--pri2);}
+.admin-user-card.suspended{border-left:4px solid var(--rd2);opacity:.7;}
+.admin-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--pri) 0%,var(--pri2) 100%);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0;font-family:'Georgia',serif;}
+.admin-user-info{flex:1;min-width:140px;}
+.admin-user-name{font-size:13px;font-weight:700;color:var(--tx);}
+.admin-user-email{font-size:11px;color:var(--tx2);margin-top:1px;}
+.admin-user-uid{font-size:9px;color:var(--tx3);font-family:monospace;margin-top:2px;}
+.admin-user-badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px;}
+.admin-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;text-transform:uppercase;letter-spacing:.04em;}
+.badge-owner{background:var(--aml);color:var(--am);}
+.badge-superadmin{background:#ede9fe;color:#5b21b6;}
+body.dark .badge-superadmin{background:#2e1065;color:#c4b5fd;}
+.badge-active{background:var(--grl);color:var(--gr);}
+.badge-suspended{background:var(--rdl);color:var(--rd);}
+.badge-new{background:#dbeafe;color:#1e40af;}
+body.dark .badge-new{background:#1e3a5f;color:#93c5fd;}
+.admin-user-stats{font-size:10px;color:var(--tx3);display:flex;gap:12px;flex-wrap:wrap;margin-top:4px;}
+.admin-user-stat{display:flex;align-items:center;gap:3px;}
+.admin-user-actions{display:flex;gap:6px;flex-shrink:0;}
+.admin-btn{padding:5px 12px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;border:1px solid var(--bdr);background:var(--sur);color:var(--tx2);transition:all .12s;}
+.admin-btn:hover{border-color:var(--pri);color:var(--pri);}
+.admin-btn.danger{color:var(--rd2);border-color:#fecaca;}
+.admin-btn.danger:hover{background:var(--rdl);}
+.admin-btn.view{color:var(--pri);border-color:var(--pril);}
+.admin-edit-avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--pri) 0%,var(--pri2) 100%);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;margin:0 auto 16px;font-family:'Georgia',serif;}
+.admin-edit-meta{background:var(--sur2);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--tx2);margin-bottom:12px;display:flex;gap:16px;flex-wrap:wrap;}
+.admin-loading{text-align:center;padding:40px;color:var(--tx3);font-size:13px;}
+.admin-empty{text-align:center;padding:40px;color:var(--tx3);font-size:13px;}
+.admin-error{background:var(--rdl);border:1px solid var(--rd2);border-radius:8px;padding:12px 16px;color:var(--rd);font-size:12px;margin-bottom:12px;}
+.admin-user-note{font-size:10px;color:var(--am);background:var(--aml);padding:2px 8px;border-radius:5px;margin-top:3px;display:inline-block;}
+@media(max-width:600px){
+  .admin-header{flex-direction:column;align-items:flex-start;}
+  .admin-search{width:100%;}
+  .admin-user-card{flex-direction:column;align-items:flex-start;}
+  .admin-user-actions{width:100%;justify-content:flex-end;}
+}
+
 </style>
 </head>
 <body>
@@ -658,6 +710,7 @@ body.dark .fin-cat-invest{background:#1E3A5F;color:#93C5FD;}
     <div class="mtab" data-sec="insights">Insights</div>
     <div class="mtab" data-sec="finance">Finance</div>
     <div class="mtab" data-sec="holidays">Holidays</div>
+    <div class="mtab admin-only" id="admin-tab" data-sec="admin" style="display:none;color:var(--rd2);">&#128737; Admin</div>
   </div>
   <!-- SCHEDULE -->
   <div id="sec-schedule" class="sec on">
@@ -873,6 +926,63 @@ body.dark .fin-cat-invest{background:#1E3A5F;color:#93C5FD;}
     </div>
     <div class="fin-section"><h3>This month&#8217;s entries</h3><div id="fin-entries-list"></div></div>
   </div>
+  <!-- ── SUPER ADMIN PANEL ── -->
+  <div id="sec-admin" class="sec">
+    <div class="admin-header">
+      <div class="admin-title-row">
+        <span class="admin-shield">&#128737;</span>
+        <div>
+          <div class="admin-title">Super Admin Panel</div>
+          <div class="admin-subtitle" id="admin-subtitle">Loading users...</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <input type="text" id="admin-search" class="admin-search" placeholder="Search by name or email..."/>
+        <button class="tbtn" id="admin-refresh-btn">&#8635; Refresh</button>
+      </div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="admin-stats" id="admin-stats"></div>
+
+    <!-- Access denied guard (shown to non-admins if they somehow reach this tab) -->
+    <div id="admin-access-denied" style="display:none;text-align:center;padding:60px 20px;">
+      <div style="font-size:48px;margin-bottom:16px;">&#128683;</div>
+      <div style="font-size:18px;font-weight:700;color:var(--rd2);margin-bottom:8px;">Access Denied</div>
+      <div style="font-size:13px;color:var(--tx2);">You do not have permission to view this page.</div>
+    </div>
+
+    <!-- User list -->
+    <div id="admin-user-list" class="admin-user-list"></div>
+  </div>
+
+  <!-- Admin: Edit User Modal -->
+  <div class="overlay" id="admin-edit-modal">
+    <div class="modal" style="max-width:500px;">
+      <h3>&#9998; Edit User</h3>
+      <div class="admin-edit-avatar" id="admin-edit-avatar"></div>
+      <div class="fg"><label>Display Name</label><input type="text" id="admin-edit-name" placeholder="User's display name"/></div>
+      <div class="fg"><label>Email (read-only)</label><input type="text" id="admin-edit-email" disabled style="background:var(--sur2);color:var(--tx3);cursor:not-allowed;"/></div>
+      <div class="fg"><label>UID (read-only)</label><input type="text" id="admin-edit-uid" disabled style="background:var(--sur2);color:var(--tx3);font-size:11px;cursor:not-allowed;"/></div>
+      <div class="admin-edit-meta" id="admin-edit-meta"></div>
+      <div class="fg">
+        <label>Admin Note (internal)</label>
+        <textarea id="admin-edit-note" style="min-height:60px;" placeholder="Add an internal note about this user..."></textarea>
+      </div>
+      <div class="fg">
+        <label>Account Status</label>
+        <select id="admin-edit-status">
+          <option value="active">Active</option>
+          <option value="suspended">Suspended (read-only flag)</option>
+        </select>
+      </div>
+      <div class="modal-foot">
+        <button class="btn-d mr-auto" id="admin-delete-user-btn" style="background:var(--rd2);">&#128465; Delete Account</button>
+        <button class="btn-s" id="admin-edit-cancel-btn">Cancel</button>
+        <button class="btn-p" id="admin-edit-save-btn">&#10003; Save Changes</button>
+      </div>
+    </div>
+  </div>
   <!-- HOLIDAYS -->
   <div id="sec-holidays" class="sec">
     <div class="hol-sec">
@@ -1036,7 +1146,7 @@ body.dark .fin-cat-invest{background:#1E3A5F;color:#93C5FD;}
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut as fbSignOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-import { getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager, doc, getDoc, setDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager, doc, getDoc, setDoc, onSnapshot, collection, getDocs, deleteDoc, writeBatch } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 // ── FIREBASE ──
 const FB = { apiKey:"AIzaSyAXx-BD19_mEfqbVqBEkscswYNhiur1tsw", authDomain:"habbit-tracker-ef59d.firebaseapp.com", projectId:"habbit-tracker-ef59d", storageBucket:"habbit-tracker-ef59d.firebasestorage.app", messagingSenderId:"738348048691", appId:"1:738348048691:web:51cb947605f72edc661e46" };
@@ -1084,6 +1194,14 @@ function isOwner(){
     currentUser.email === 'teegalanvsklnarasimharao@gmail.com' ||
     (OWNER_UID !== 'REPLACE_WITH_YOUR_UID' && currentUser.uid === OWNER_UID)
   );
+}
+
+// ── SUPER ADMIN ──
+// Super Admin has read/write/delete access to all user data.
+// Identity is checked ONLY against email — never trust client-side role fields.
+const SUPER_ADMIN_EMAIL = 'teegalaramanujan@gmail.com';
+function isSuperAdmin(){
+  return currentUser && currentUser.email === SUPER_ADMIN_EMAIL;
 }
 
 // ── OWNER SCHEDULE (full personalised — Narasimharao) ──
@@ -1279,6 +1397,7 @@ function saveS(type){
   clearTimeout(saveTimeout);
   const captured={...pendingSave};
   pendingSave={meta:false,tracker:false,diary:false};
+  const _at=$id('admin-tab');if(_at)_at.style.display='none';
   saveTimeout=setTimeout(async()=>{
     try{
       const saves=[];
@@ -1335,12 +1454,23 @@ async function loadFromFirebase(){
       S.finGoals=m.finGoals||{};
       S.checkin=m.checkin||{};
       S.templates=m.templates||{};
-      const _dwd=DEF_WD();['mon','tue','wed','thu','fri','weekend'].forEach(k=>{
-        // FIX 3: Restore default if day is missing OR owner has suspiciously few blocks (< 4)
-        if(!S.wd[k]||(isOwner()&&(S.wd[k]||[]).length<4)){
+      // OWNER SCHEDULE: always restore from code defaults — never trust stale Firebase data.
+      // applyOwnerSchedule() is defined below startSync but we inline the same logic here
+      // so it runs at load time before any snapshot fires.
+      const _dwd=DEF_WD();
+      if(isOwner()){
+        // Force every day to the code-defined owner schedule
+        ['mon','tue','wed','thu','fri','weekend'].forEach(k=>{
           S.wd[k]=JSON.parse(JSON.stringify(_dwd[k]));
-        }
-      });
+        });
+        // Write back to Firestore so future snapshots see the correct data
+        setTimeout(()=>saveS('meta'),1500);
+      } else {
+        // General users: only fill in missing days
+        ['mon','tue','wed','thu','fri','weekend'].forEach(k=>{
+          if(!S.wd[k])S.wd[k]=JSON.parse(JSON.stringify(_dwd[k]));
+        });
+      }
     }else{
       S=defaultS();
       await setDoc(metaDoc(),buildMeta());
@@ -1362,16 +1492,27 @@ async function loadFromFirebase(){
 }
 
 // ── REAL-TIME SYNC ──
+function applyOwnerSchedule(wd){
+  // Always enforce the full owner schedule — never let a stale Firebase
+  // snapshot overwrite the code-defined defaults for the owner account.
+  if(!isOwner())return wd;
+  const ownerDefaults=DEF_WD();
+  const result={...wd};
+  ['mon','tue','wed','thu','fri','weekend'].forEach(k=>{
+    result[k]=JSON.parse(JSON.stringify(ownerDefaults[k]));
+  });
+  return result;
+}
 function startSync(){
   if(unsub)unsub();
   unsub=onSnapshot(metaDoc(),snap=>{
     if(snap.exists()&&!snap.metadata.hasPendingWrites){
       const m=snap.data();
-      // BUG FIX 3: Only update if meaningful change (compare habits+holidays, not full object)
       const inKey=JSON.stringify((m.habits||[]).map(h=>h.id));
       const curKey=JSON.stringify((S.habits||[]).map(h=>h.id));
       if(inKey!==curKey||JSON.stringify(m.holidays)!==JSON.stringify(S.holidays)){
-        S.wd=m.wd||S.wd;
+        // For owner: always use code defaults, never the snapshot's wd
+        S.wd=applyOwnerSchedule(m.wd||S.wd);
         S.habits=(m.habits||[]).map(h=>h.id?h:{...h,id:uuid()});
         S.holidays=m.holidays||[];
         S.focus=m.focus||{};
@@ -1441,11 +1582,13 @@ $id('signout-btn').addEventListener('click',async()=>{
   wlWeekOff=0;wlView='day';wlStatus='done';wlEditId=null;
   _pruning=false;
   _checkinRating=0;_rvRating=0;insMonthOff=0;finMonthOff=0;
+  _adminUsers=[];_adminEditUid=null;
   _kbAttached=false;_dragIdx=null;checkinOpen=false;
   _monthPctCache={};_monthPctDate='';_notesSearchTimer=null;
   $id('wl-day-btn').classList.add('active');$id('wl-week-btn').classList.remove('active');
   diaryDirty=false;
   pendingSave={meta:false,tracker:false,diary:false};
+  const _at=$id('admin-tab');if(_at)_at.style.display='none';
   document.querySelectorAll('[data-mf]').forEach(x=>x.classList.toggle('sel',x.dataset.mf==='all'));
   $id('main-app').style.display='none';
   $id('login-wrap').style.display='flex';
@@ -1493,6 +1636,11 @@ function initApp(){
   checkReviewPrompt();
   restoreWidgetState();
   pruneWorklog();
+  // Show/hide admin tab — ONLY for Super Admin
+  const adminTab=$id('admin-tab');
+  if(adminTab)adminTab.style.display=isSuperAdmin()?'':'none';
+  // Register user presence in Firestore (for admin user listing)
+  if(currentUser)registerUserPresence();
   // FIX 11: Attach Ctrl+S only once
   if(!_ctrlSAttached){
     document.addEventListener('keydown',_ctrlSHandler);
@@ -1502,7 +1650,7 @@ function initApp(){
 
 function refreshView(){
   renderBanner();
-  ['schedule','tracker','habits','heatmap','diary','worklog','notes','insights','finance','holidays'].forEach(s=>{
+  ['schedule','tracker','habits','heatmap','diary','worklog','notes','insights','finance','holidays','admin'].forEach(s=>{
     if($id('sec-'+s).classList.contains('on'))swRender(s);
   });
 }
@@ -2963,6 +3111,275 @@ $id('m-snapshot').addEventListener('click',()=>{$id('more-menu-dd').classList.re
 $id('m-export').addEventListener('click',()=>{$id('more-menu-dd').classList.remove('on');$id('export-btn').click();});
 $id('m-import').addEventListener('click',()=>{$id('more-menu-dd').classList.remove('on');$id('import-trigger').click();});
 
+
+// ══════════════════════════════════════════════════════════════════
+// SUPER ADMIN MODULE
+// ══════════════════════════════════════════════════════════════════
+
+// ── User registry ──
+// Every user writes a small public profile to /users/{uid}/profile
+// when they first sign in. This is what the admin reads.
+async function registerUserPresence(){
+  if(!currentUser)return;
+  try{
+    const profileRef=doc(db,'users',currentUser.uid,'profile','info');
+    const snap=await getDoc(profileRef);
+    const now=new Date().toISOString();
+    const existing=snap.exists()?snap.data():{};
+    await setDoc(profileRef,{
+      uid:currentUser.uid,
+      email:currentUser.email||'',
+      displayName:currentUser.displayName||'',
+      photoURL:currentUser.photoURL||'',
+      firstSeen:existing.firstSeen||now,
+      lastSeen:now,
+      // Carry over admin-set fields
+      adminNote:existing.adminNote||'',
+      status:existing.status||'active',
+    },{merge:true});
+  }catch(e){
+    // Non-fatal — just for admin visibility
+    console.warn('Could not register presence:',e);
+  }
+}
+
+// ── Admin state ──
+let _adminUsers=[];       // array of {uid, profile, meta}
+let _adminEditUid=null;   // uid being edited
+
+// ── renderAdminPanel ──
+async function renderAdminPanel(){
+  // RBAC guard: double-check server-side identity
+  if(!isSuperAdmin()){
+    $id('admin-user-list').innerHTML='';
+    $id('admin-stats').innerHTML='';
+    $id('admin-access-denied').style.display='block';
+    return;
+  }
+  $id('admin-access-denied').style.display='none';
+  $id('admin-user-list').innerHTML='<div class="admin-loading">&#8987; Loading user accounts...</div>';
+  $id('admin-stats').innerHTML='';
+  try{
+    await loadAdminUsers();
+    renderAdminUserList(_adminUsers);
+  }catch(e){
+    $id('admin-user-list').innerHTML='<div class="admin-error">&#9888; Failed to load users: '+esc(e.message)+'<br><small>Ensure Firestore rules allow Super Admin to read /users collection. See README for rules.</small></div>';
+    console.error('Admin load error:',e);
+  }
+}
+
+// ── loadAdminUsers — reads /users/* ──
+async function loadAdminUsers(){
+  const usersCol=collection(db,'users');
+  const usersSnap=await getDocs(usersCol);
+  const users=[];
+  const profileFetches=usersSnap.docs.map(async userDoc=>{
+    const uid=userDoc.id;
+    try{
+      const profileSnap=await getDoc(doc(db,'users',uid,'profile','info'));
+      const metaSnap=await getDoc(doc(db,'users',uid,'data','meta'));
+      const profile=profileSnap.exists()?profileSnap.data():{uid,email:'Unknown',displayName:'Unknown'};
+      const meta=metaSnap.exists()?metaSnap.data():{};
+      users.push({uid, profile, meta,
+        habitCount:(meta.habits||[]).length,
+        lastSeen:profile.lastSeen||null,
+        firstSeen:profile.firstSeen||null,
+        status:profile.status||'active',
+        adminNote:profile.adminNote||'',
+      });
+    }catch(e2){
+      users.push({uid,profile:{uid,email:'(no profile)',displayName:'Unknown'},meta:{},habitCount:0,status:'active',adminNote:''});
+    }
+  });
+  await Promise.all(profileFetches);
+  // Sort: Super Admin first, Owner second, then by lastSeen desc
+  users.sort((a,b)=>{
+    const aSuper=a.profile.email===SUPER_ADMIN_EMAIL?0:a.profile.email==='teegalanvsklnarasimharao@gmail.com'?1:2;
+    const bSuper=b.profile.email===SUPER_ADMIN_EMAIL?0:b.profile.email==='teegalanvsklnarasimharao@gmail.com'?1:2;
+    if(aSuper!==bSuper)return aSuper-bSuper;
+    return (b.lastSeen||'').localeCompare(a.lastSeen||'');
+  });
+  _adminUsers=users;
+  const totalHabits=users.reduce((s,u)=>s+u.habitCount,0);
+  const active=users.filter(u=>u.status==='active').length;
+  const suspended=users.filter(u=>u.status==='suspended').length;
+  $id('admin-subtitle').textContent=users.length+' registered users';
+  $id('admin-stats').innerHTML=[
+    {val:users.length,lbl:'Total Users'},
+    {val:active,lbl:'Active'},
+    {val:suspended,lbl:'Suspended'},
+    {val:totalHabits,lbl:'Total Habits'},
+  ].map(s=>`<div class="admin-stat-card"><div class="admin-stat-val">${s.val}</div><div class="admin-stat-lbl">${s.lbl}</div></div>`).join('');
+}
+
+// ── renderAdminUserList ──
+function renderAdminUserList(users){
+  const search=($id('admin-search').value||'').toLowerCase().trim();
+  const filtered=search?users.filter(u=>(u.profile.displayName||'').toLowerCase().includes(search)||(u.profile.email||'').toLowerCase().includes(search)):users;
+  if(!filtered.length){
+    $id('admin-user-list').innerHTML='<div class="admin-empty">No users found'+( search?' matching "'+esc(search)+'"':'')+' </div>';
+    return;
+  }
+  $id('admin-user-list').innerHTML=filtered.map(u=>{
+    const initials=((u.profile.displayName||u.profile.email||'?').split(' ').map(w=>w[0]||'').join('').slice(0,2)||'?').toUpperCase();
+    const badges=[];
+    if(u.profile.email===SUPER_ADMIN_EMAIL)badges.push('<span class="admin-badge badge-superadmin">&#128737; Super Admin</span>');
+    if(u.profile.email==='teegalanvsklnarasimharao@gmail.com')badges.push('<span class="admin-badge badge-owner">&#11088; Owner</span>');
+    badges.push(u.status==='suspended'?'<span class="admin-badge badge-suspended">Suspended</span>':'<span class="admin-badge badge-active">Active</span>');
+    const daysSince=u.firstSeen?Math.floor((Date.now()-new Date(u.firstSeen).getTime())/86400000):null;
+    if(daysSince!==null&&daysSince<=7)badges.push('<span class="admin-badge badge-new">New</span>');
+    const lastSeenStr=u.lastSeen?'Last seen '+new Date(u.lastSeen).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}):'Never seen';
+    const firstSeenStr=u.firstSeen?'Joined '+new Date(u.firstSeen).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}):'Unknown';
+    const isSelf=u.uid===currentUser.uid;
+    const noteHtml=u.adminNote?`<div class="admin-user-note">&#128196; ${esc(u.adminNote.slice(0,60))}${u.adminNote.length>60?'…':''}</div>`:'';
+    return `<div class="admin-user-card ${u.status==='suspended'?'suspended':''}" id="auc-${u.uid}">
+      <div class="admin-avatar">${initials}</div>
+      <div class="admin-user-info">
+        <div class="admin-user-name">${esc(u.profile.displayName||'Unnamed')}${isSelf?' <span style="font-size:10px;color:var(--tx3);">(you)</span>':''}</div>
+        <div class="admin-user-email">${esc(u.profile.email)}</div>
+        <div class="admin-user-uid">${u.uid}</div>
+        <div class="admin-user-badges">${badges.join('')}</div>
+        ${noteHtml}
+        <div class="admin-user-stats">
+          <span class="admin-user-stat">&#128197; ${firstSeenStr}</span>
+          <span class="admin-user-stat">&#128336; ${lastSeenStr}</span>
+          <span class="admin-user-stat">&#10003; ${u.habitCount} habits</span>
+        </div>
+      </div>
+      <div class="admin-user-actions">
+        <button class="admin-btn view" data-admin-edit="${u.uid}" title="Edit user">&#9998; Edit</button>
+        ${isSelf?'':`<button class="admin-btn danger" data-admin-del="${u.uid}" title="Delete account">&#128465; Delete</button>`}
+      </div>
+    </div>`;
+  }).join('');
+  // Attach listeners
+  $id('admin-user-list').querySelectorAll('[data-admin-edit]').forEach(btn=>{
+    btn.addEventListener('click',()=>openAdminEditModal(btn.dataset.adminEdit));
+  });
+  $id('admin-user-list').querySelectorAll('[data-admin-del]').forEach(btn=>{
+    btn.addEventListener('click',()=>adminDeleteUser(btn.dataset.adminDel));
+  });
+}
+
+// ── openAdminEditModal ──
+function openAdminEditModal(uid){
+  const user=_adminUsers.find(u=>u.uid===uid);
+  if(!user)return;
+  _adminEditUid=uid;
+  const p=user.profile;
+  const initials=((p.displayName||p.email||'?').split(' ').map(w=>w[0]||'').join('').slice(0,2)||'?').toUpperCase();
+  $id('admin-edit-avatar').textContent=initials;
+  $id('admin-edit-name').value=p.displayName||'';
+  $id('admin-edit-email').value=p.email||'';
+  $id('admin-edit-uid').value=uid;
+  $id('admin-edit-note').value=p.adminNote||user.adminNote||'';
+  $id('admin-edit-status').value=p.status||user.status||'active';
+  // Meta info
+  const habitCount=user.habitCount||0;
+  const lastSeen=p.lastSeen?new Date(p.lastSeen).toLocaleString('en-IN'):'Never';
+  const firstSeen=p.firstSeen?new Date(p.firstSeen).toLocaleString('en-IN'):'Unknown';
+  $id('admin-edit-meta').innerHTML=
+    '<span>&#128197; Joined: '+esc(firstSeen)+'</span>'+
+    '<span>&#128336; Last seen: '+esc(lastSeen)+'</span>'+
+    '<span>&#10003; '+habitCount+' habits</span>';
+  // Prevent deleting self or super admin
+  const isSelf=uid===currentUser.uid;
+  const isTargetSuperAdmin=p.email===SUPER_ADMIN_EMAIL;
+  $id('admin-delete-user-btn').style.display=(isSelf||isTargetSuperAdmin)?'none':'inline-flex';
+  $id('admin-edit-modal').classList.add('on');
+}
+
+// ── adminSaveEdit ──
+async function adminSaveEdit(){
+  if(!_adminEditUid||!isSuperAdmin())return;
+  const newName=$id('admin-edit-name').value.trim();
+  const newNote=$id('admin-edit-note').value.trim();
+  const newStatus=$id('admin-edit-status').value;
+  try{
+    const profileRef=doc(db,'users',_adminEditUid,'profile','info');
+    await setDoc(profileRef,{
+      displayName:newName,
+      adminNote:newNote,
+      status:newStatus,
+      adminEditedBy:currentUser.email,
+      adminEditedAt:new Date().toISOString(),
+    },{merge:true});
+    // Update local cache
+    const u=_adminUsers.find(x=>x.uid===_adminEditUid);
+    if(u){
+      u.profile.displayName=newName;
+      u.profile.adminNote=newNote;
+      u.profile.status=newStatus;
+      u.adminNote=newNote;
+      u.status=newStatus;
+    }
+    closeM('admin-edit-modal');
+    renderAdminUserList(_adminUsers);
+    toast('User updated: '+esc(newName||_adminEditUid));
+  }catch(e){
+    toast('Save failed: '+e.message);
+    console.error(e);
+  }
+}
+
+// ── adminDeleteUser ──
+async function adminDeleteUser(uid){
+  if(!isSuperAdmin()){toast('Access denied');return;}
+  const u=_adminUsers.find(x=>x.uid===uid);
+  if(!u)return;
+  const p=u.profile;
+  // Prevent deleting self or the super admin account
+  if(uid===currentUser.uid){toast('You cannot delete your own account');return;}
+  if(p.email===SUPER_ADMIN_EMAIL){toast('Cannot delete the Super Admin account');return;}
+  // Confirmation dialog — two-step
+  const step1=confirm(
+    'DELETE USER ACCOUNT\n\n'+
+    'Name: '+(p.displayName||'Unnamed')+'\n'+
+    'Email: '+(p.email||'Unknown')+'\n'+
+    'UID: '+uid+'\n\n'+
+    'This will permanently delete all Firestore data for this user\n'+
+    '(meta, tracker, diary, profile).\n\n'+
+    'This cannot be undone. Continue?'
+  );
+  if(!step1)return;
+  const confirmation=prompt(
+    'Type the user\'s email address to confirm permanent deletion:\n'+(p.email||uid)
+  );
+  if(!confirmation||confirmation.trim()!==p.email){
+    toast('Deletion cancelled — email did not match');
+    return;
+  }
+  try{
+    toast('Deleting user data...');
+    const batch=writeBatch(db);
+    // Delete all known docs under users/{uid}/data/*
+    const dataDocs=['meta','tracker','diary'];
+    for(const d of dataDocs){
+      batch.delete(doc(db,'users',uid,'data',d));
+    }
+    // Delete profile
+    batch.delete(doc(db,'users',uid,'profile','info'));
+    await batch.commit();
+    // Remove from local array
+    _adminUsers=_adminUsers.filter(x=>x.uid!==uid);
+    if($id('admin-edit-modal').classList.contains('on'))closeM('admin-edit-modal');
+    renderAdminUserList(_adminUsers);
+    // Update stats
+    $id('admin-subtitle').textContent=_adminUsers.length+' registered users';
+    toast('✓ User account deleted: '+esc(p.displayName||p.email));
+  }catch(e){
+    toast('Delete failed: '+e.message);
+    console.error('Admin delete error:',e);
+  }
+}
+
+// ── Admin event listeners ──
+$id('admin-refresh-btn').addEventListener('click',()=>renderAdminPanel());
+$id('admin-search').addEventListener('input',()=>renderAdminUserList(_adminUsers));
+$id('admin-edit-save-btn').addEventListener('click',adminSaveEdit);
+$id('admin-edit-cancel-btn').addEventListener('click',()=>closeM('admin-edit-modal'));
+$id('admin-delete-user-btn').addEventListener('click',()=>adminDeleteUser(_adminEditUid));
+
 // ── TAB SWITCHING ──
 // BUG FIX S10: Auto-save diary when switching away
 function swRender(sec){
@@ -2975,6 +3392,7 @@ function swRender(sec){
   else if(sec==='worklog')renderWorkLog();
   else if(sec==='insights')renderInsights();
   else if(sec==='finance')renderFinance();
+  else if(sec==='admin')renderAdminPanel();
   else if(sec==='schedule')showDay(activeDay);
 }
 function sw(sec){
@@ -2982,14 +3400,14 @@ function sw(sec){
   if($id('sec-diary').classList.contains('on')&&sec!=='diary'){
     if(diaryDirty&&$id('diary-input').value.trim())autoSaveDiary();
   }
-  ['schedule','tracker','habits','heatmap','diary','worklog','notes','insights','finance','holidays'].forEach(s=>$id('sec-'+s).classList.toggle('on',s===sec));
+  ['schedule','tracker','habits','heatmap','diary','worklog','notes','insights','finance','holidays','admin'].forEach(s=>$id('sec-'+s)&&$id('sec-'+s).classList.toggle('on',s===sec));
   document.querySelectorAll('.mtab').forEach(t=>t.classList.toggle('active',t.dataset.sec===sec));
   swRender(sec);
 }
 document.querySelectorAll('.mtab[data-sec]').forEach(t=>t.addEventListener('click',()=>sw(t.dataset.sec)));
 
 // ── MODAL CLOSE ON OVERLAY CLICK ──
-['blk-modal','hab-modal','pause-modal','note-modal','diary-modal','wl-modal','tpl-modal'].forEach(id=>{
+['blk-modal','hab-modal','pause-modal','note-modal','diary-modal','wl-modal','tpl-modal','admin-edit-modal'].forEach(id=>{
   $id(id).addEventListener('click',function(e){if(e.target===this)closeM(id);});
 });
 
