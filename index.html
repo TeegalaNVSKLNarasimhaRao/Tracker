@@ -939,6 +939,7 @@ body.dark .badge-new{background:#1e3a5f;color:#93c5fd;}
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
         <input type="text" id="admin-search" class="admin-search" placeholder="Search by name or email..."/>
         <button class="tbtn" id="admin-refresh-btn">&#8635; Refresh</button>
+        <button class="tbtn" id="admin-scan-btn" title="Scan for users who have data but no root document">&#128269; Scan all users</button>
       </div>
     </div>
 
@@ -1146,7 +1147,7 @@ body.dark .badge-new{background:#1e3a5f;color:#93c5fd;}
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut as fbSignOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-import { getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager, doc, getDoc, setDoc, onSnapshot, collection, getDocs, deleteDoc, writeBatch } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager, doc, getDoc, setDoc, onSnapshot, collection, collectionGroup, getDocs, deleteDoc, writeBatch } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 // ── FIREBASE ──
 const FB = { apiKey:"AIzaSyAXx-BD19_mEfqbVqBEkscswYNhiur1tsw", authDomain:"habbit-tracker-ef59d.firebaseapp.com", projectId:"habbit-tracker-ef59d", storageBucket:"habbit-tracker-ef59d.firebasestorage.app", messagingSenderId:"738348048691", appId:"1:738348048691:web:51cb947605f72edc661e46" };
@@ -1589,7 +1590,16 @@ $id('signout-btn').addEventListener('click',async()=>{
   $id('wl-day-btn').classList.add('active');$id('wl-week-btn').classList.remove('active');
   diaryDirty=false;
   pendingSave={meta:false,tracker:false,diary:false};
+  // Hide admin tab immediately
   const _at=$id('admin-tab');if(_at)_at.style.display='none';
+  // CRITICAL: Clear ALL section 'on' classes and reset active tab to schedule.
+  // Without this, if the user was on Admin tab, the next user who signs in
+  // would see the Admin panel content (sec-admin still has class 'on')
+  // even though the Admin tab element is hidden.
+  ['schedule','tracker','habits','heatmap','diary','worklog','notes','insights','finance','holidays','admin']
+    .forEach(s=>{const el=$id('sec-'+s);if(el)el.classList.remove('on');});
+  const schedSec=$id('sec-schedule');if(schedSec)schedSec.classList.add('on');
+  document.querySelectorAll('.mtab').forEach(t=>t.classList.toggle('active',t.dataset.sec==='schedule'));
   document.querySelectorAll('[data-mf]').forEach(x=>x.classList.toggle('sel',x.dataset.mf==='all'));
   $id('main-app').style.display='none';
   $id('login-wrap').style.display='flex';
@@ -1606,7 +1616,14 @@ onAuthStateChanged(auth,user=>{
     $id('user-greeting').textContent='— '+(user.displayName||'User').split(' ')[0];
     loadFromFirebase().then(()=>startSync());
   }else{
+    // User signed out (Firebase triggered) — fully reset UI state
+    // so the next user never sees a previous user's admin panel or any other section
     hideLoading();
+    ['schedule','tracker','habits','heatmap','diary','worklog','notes','insights','finance','holidays','admin']
+      .forEach(s=>{const el=$id('sec-'+s);if(el)el.classList.remove('on');});
+    const schedSec=$id('sec-schedule');if(schedSec)schedSec.classList.add('on');
+    document.querySelectorAll('.mtab').forEach(t=>t.classList.toggle('active',t.dataset.sec==='schedule'));
+    const _at=$id('admin-tab');if(_at)_at.style.display='none';
     $id('login-wrap').style.display='flex';
     $id('main-app').style.display='none';
   }
@@ -1620,6 +1637,13 @@ function _ctrlSHandler(e){
 }
 let _ctrlSAttached=false;
 function initApp(){
+  // ALWAYS reset to Schedule tab at session start — ensures no previous user's
+  // active section (e.g. Admin panel) bleeds into the new user's session.
+  ['schedule','tracker','habits','heatmap','diary','worklog','notes','insights','finance','holidays','admin']
+    .forEach(s=>{const el=$id('sec-'+s);if(el)el.classList.remove('on');});
+  const schedSec=$id('sec-schedule');if(schedSec)schedSec.classList.add('on');
+  document.querySelectorAll('.mtab').forEach(t=>t.classList.toggle('active',t.dataset.sec==='schedule'));
+  activeDay=schedKeyForDate(today());
   // Set daily rules text based on who is signed in
   if(isOwnerOrAdmin()){
     $id('daily-rules').innerHTML='No phone first 30 min &nbsp;&#183;&nbsp; 20-20-20 eye rule &nbsp;&#183;&nbsp; 2.5L water &nbsp;&#183;&nbsp; Instagram after 7 PM only, max 20 min &nbsp;&#183;&nbsp; Charger outside bedroom';
@@ -1629,10 +1653,8 @@ function initApp(){
   // BUG FIX 13: Reset diaryDate on init with proper zeroed hours
   diaryDate=new Date(today());
   wlDate=new Date(today());
-  const initKey=schedKeyForDate(today());
-  activeDay=initKey;
   renderBanner();
-  showDay(initKey);
+  showDay(activeDay);
   renderCheckin();
   checkReviewPrompt();
   restoreWidgetState();
@@ -3210,30 +3232,57 @@ async function renderAdminPanel(){
   }
 }
 
-// ── loadAdminUsers — reads /users/* ──
+// ── loadAdminUsers — reads /users/* with collectionGroup fallback ──
+// PRIMARY: getDocs(collection 'users') finds users with a root /users/{uid} doc
+// FALLBACK: collectionGroup('profile') finds ANY user who has a profile/info doc,
+//           even if their root document was never written (pre-fix signups).
 async function loadAdminUsers(){
-  const usersCol=collection(db,'users');
-  const usersSnap=await getDocs(usersCol);
+  // ── Primary: root-doc users ──
+  const usersSnap=await getDocs(collection(db,'users'));
+  const knownUids=new Set(usersSnap.docs.map(d=>d.id));
   const users=[];
-  const profileFetches=usersSnap.docs.map(async userDoc=>{
-    const uid=userDoc.id;
-    // rootData holds the basic info written by registerUserPresence() at /users/{uid}
-    const rootData=userDoc.data()||{};
+
+  // ── Fallback: scan collectionGroup('profile') to find users missing root docs ──
+  try{
+    const profileGroupSnap=await getDocs(collectionGroup(db,'profile'));
+    profileGroupSnap.docs.forEach(pdoc=>{
+      // path = users/{uid}/profile/info — uid is 2nd segment
+      const segments=pdoc.ref.path.split('/');
+      const uid=segments[1];
+      if(uid&&!knownUids.has(uid)){
+        knownUids.add(uid);
+        // Synthesize a minimal root doc from profile data
+        const pd=pdoc.data();
+        // Write root doc so future loads don't need this fallback
+        setDoc(doc(db,'users',uid),{
+          uid,email:pd.email||'',displayName:pd.displayName||'',
+          lastSeen:pd.lastSeen||'',firstSeen:pd.firstSeen||'',
+        },{merge:true}).catch(()=>{});
+      }
+    });
+  }catch(e){
+    // collectionGroup may fail if rules don't allow it — that's OK, root docs cover new users
+    console.warn('collectionGroup scan failed (non-fatal):',e.message);
+  }
+
+  // ── Fetch full data for every known uid ──
+  const profileFetches=[...knownUids].map(async uid=>{
+    // Get rootData from usersSnap if available
+    const rootDoc=usersSnap.docs.find(d=>d.id===uid);
+    const rootData=rootDoc?rootDoc.data()||{}:{};
     try{
       const profileSnap=await getDoc(doc(db,'users',uid,'profile','info'));
       const metaSnap=await getDoc(doc(db,'users',uid,'data','meta'));
-      // Use profile/info if it exists, otherwise fall back to root document data
       const profile=profileSnap.exists()?profileSnap.data():{
         uid,
         email:rootData.email||'Unknown',
         displayName:rootData.displayName||'Unknown',
         lastSeen:rootData.lastSeen||null,
         firstSeen:rootData.firstSeen||null,
-        adminNote:'',
-        status:'active',
+        adminNote:'',status:'active',
       };
       const meta=metaSnap.exists()?metaSnap.data():{};
-      users.push({uid, profile, meta,
+      users.push({uid,profile,meta,
         habitCount:(meta.habits||[]).length,
         lastSeen:profile.lastSeen||rootData.lastSeen||null,
         firstSeen:profile.firstSeen||rootData.firstSeen||null,
@@ -3241,10 +3290,8 @@ async function loadAdminUsers(){
         adminNote:profile.adminNote||'',
       });
     }catch(e2){
-      // Even on error, show the user with whatever root doc data we have
       users.push({uid,profile:{
-        uid,
-        email:rootData.email||'(no profile)',
+        uid,email:rootData.email||'(no profile)',
         displayName:rootData.displayName||'Unknown',
         lastSeen:rootData.lastSeen||null,
         firstSeen:rootData.firstSeen||null,
@@ -3418,8 +3465,11 @@ async function adminDeleteUser(uid){
     for(const d of dataDocs){
       batch.delete(doc(db,'users',uid,'data',d));
     }
-    // Delete profile
+    // Delete profile and root document
     batch.delete(doc(db,'users',uid,'profile','info'));
+    // Also delete the root /users/{uid} document (written by registerUserPresence)
+    // Without this, the user reappears in the admin panel after deletion.
+    batch.delete(doc(db,'users',uid));
     await batch.commit();
     // Remove from local array and refresh all admin UI
     _adminUsers=_adminUsers.filter(x=>x.uid!==uid);
@@ -3443,8 +3493,69 @@ async function adminDeleteUser(uid){
   }
 }
 
+// ── scanAndRegisterAllUsers ──
+// Finds users who have data but no root /users/{uid} document by scanning
+// the collectionGroup('data') — reads all /users/*/data/* subcollection docs.
+// For each discovered uid, writes a root document so future loads find them.
+async function scanAndRegisterAllUsers(){
+  if(!isSuperAdmin())return;
+  toast('Scanning for all users...');
+  $id('admin-user-list').innerHTML='<div class="admin-loading">&#128269; Scanning all user data across Firestore...</div>';
+  try{
+    const discoveredUids=new Set();
+
+    // Scan via collectionGroup('data') — finds all /users/{uid}/data/* docs
+    try{
+      const dataGroupSnap=await getDocs(collectionGroup(db,'data'));
+      dataGroupSnap.docs.forEach(d=>{
+        const segs=d.ref.path.split('/');// users/{uid}/data/{docId}
+        if(segs.length>=2)discoveredUids.add(segs[1]);
+      });
+    }catch(e){console.warn('data collectionGroup scan:',e.message);}
+
+    // Scan via collectionGroup('profile') — finds all /users/{uid}/profile/* docs
+    try{
+      const profileGroupSnap=await getDocs(collectionGroup(db,'profile'));
+      profileGroupSnap.docs.forEach(d=>{
+        const segs=d.ref.path.split('/');
+        if(segs.length>=2)discoveredUids.add(segs[1]);
+      });
+    }catch(e){console.warn('profile collectionGroup scan:',e.message);}
+
+    // For each discovered uid without a root doc, write one from profile/info data
+    const existingSnap=await getDocs(collection(db,'users'));
+    const existingUids=new Set(existingSnap.docs.map(d=>d.id));
+    let registered=0;
+    const regPromises=[...discoveredUids].filter(uid=>!existingUids.has(uid)).map(async uid=>{
+      try{
+        const profileSnap=await getDoc(doc(db,'users',uid,'profile','info'));
+        const pd=profileSnap.exists()?profileSnap.data():{};
+        await setDoc(doc(db,'users',uid),{
+          uid,
+          email:pd.email||'',
+          displayName:pd.displayName||'',
+          lastSeen:pd.lastSeen||new Date().toISOString(),
+          firstSeen:pd.firstSeen||new Date().toISOString(),
+        },{merge:true});
+        registered++;
+      }catch(e){console.warn('Could not register uid '+uid+':',e.message);}
+    });
+    await Promise.all(regPromises);
+
+    const total=discoveredUids.size;
+    toast('Scan complete — found '+total+' user'+(total!==1?'s':'')+
+      (registered>0?', registered '+registered+' new':''));
+    await renderAdminPanel();
+  }catch(e){
+    toast('Scan failed: '+e.message);
+    console.error('Scan error:',e);
+    await renderAdminPanel();
+  }
+}
+
 // ── Admin event listeners ──
 $id('admin-refresh-btn').addEventListener('click',()=>renderAdminPanel());
+$id('admin-scan-btn').addEventListener('click',scanAndRegisterAllUsers);
 $id('admin-search').addEventListener('input',()=>renderAdminUserList(_adminUsers));
 $id('admin-edit-save-btn').addEventListener('click',adminSaveEdit);
 $id('admin-edit-cancel-btn').addEventListener('click',()=>closeM('admin-edit-modal'));
