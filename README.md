@@ -1,181 +1,157 @@
 # My Schedule & Habit Tracker
 
-A personal daily planner, habit tracker, diary, and water logger — single HTML file, cloud-synced across all devices via Firebase.
+A personal productivity app — daily schedule, habits, work log, diary, finance tracking, and insights — synced across all devices via Firebase.
 
-**Live app:** [teegalanvsklnarasimharao.github.io/Tracker](https://teegalanvsklnarasimharao.github.io/Tracker/)
-
----
-
-## What it does
-
-- **Google Sign-In** — secure login, data tied to your Google account, works across every device automatically
-- **Multiple user support** — each Google account gets a completely independent private data space
-- **Real-time cloud sync** — changes on one device appear on all others within seconds
-- **Offline support** — works without internet after first load, syncs when reconnected
-- **Daily schedule** — separate tabs for Mon/Tue/Wed/Thu/Fri/Weekend, fully editable, mobile-friendly edit buttons
-- **Habit tracker** — UUID-based habit keys mean reordering or deleting habits never corrupts historical data
-- **Manage habits** — add, edit, delete, reorder, pause habits for date ranges
-- **Heatmap** — 6-month visual consistency calendar
-- **Diary** — daily journal with mood tags, auto-save every 30 seconds, Ctrl+S support
-- **All Notes** — search, filter by mood, jump to any date
-- **Water tracker** — 10-glass tracking, auto-ticks water habit at 2500ml, 7-day bar chart with ml labels
-- **Holidays manager** — single day or date range, Indian holiday presets, auto schedule detection
-- **Pomodoro timer** — timestamp-based (stays accurate in background), 25-min countdown on learning blocks
-- **Daily snapshot** — one-tap text summary copyable to clipboard
-- **Dark / Light mode toggle** — button shows current state, preference synced to cloud
-- **Export / Import** — full JSON backup, safe merge on import, object URL cleanup
-- **Auto data pruning** — water and focus data older than 60 days cleaned automatically
+**Live:** https://teegalanvsklnarasimharao.github.io/Tracker/
 
 ---
 
-## How to access
+## Setup
 
-Open the live URL from any browser on any device:
-
-```
-https://teegalanvsklnarasimharao.github.io/Tracker/
-```
-
-Sign in with your Google account. Your data loads from Firebase automatically.
-
-**Add to home screen:**
-- **Android (Chrome):** Three-dot menu → Add to Home Screen
-- **iPhone (Safari):** Share → Add to Home Screen
+1. **Clone / download** `index.html` from the repository
+2. **Push to GitHub Pages** — the file is entirely self-contained (no build step)
+3. **Firebase** is already configured. Each Google account gets its own private data space
 
 ---
 
-## Data and privacy
+## Features
 
-| Item | Detail |
-|------|--------|
-| Storage | Firebase Firestore (Google cloud) |
-| Auth | Google Sign-In via Firebase Authentication |
-| Data isolation | Each user's data stored at `users/{uid}/data/` — no cross-user access |
-| Security | Firestore rules: only authenticated owner can read/write own data |
-| Offline | Firebase IndexedDB persistence — works without internet |
-| Backup | Export button downloads full JSON backup |
-| Pruning | Water + focus data auto-pruned after 60 days |
-| Cost | Free tier — ~500KB/year, limit is 1GB |
+| Tab | What it does |
+|-----|-------------|
+| **Schedule** | Day-by-day timetable (Mon–Fri + Weekend). Drag to reorder blocks, save/apply templates, reset to defaults |
+| **Tracker** | Weekly habit grid. Tick habits, add notes per cell, view 12-week trend chart |
+| **Habits** | Add/edit/delete habits, pause habits for date ranges |
+| **Heatmap** | 6-month visual habit consistency calendar |
+| **Diary** | Daily journal with mood tags, auto-save, search |
+| **Work Log** | Day/week work entry log with project tracking and time summaries |
+| **All Notes** | Full diary search, mood filter, go-to-date |
+| **Insights** | Monthly stats: habit rate, perfect days, diary words, water goals, mood breakdown |
+| **Finance** | Income / expense / investment / saving tracker with monthly savings goal bar |
+| **Holidays** | Mark holidays and override schedule type for any date |
+
+### Always-on widgets
+- **Daily check-in** — morning habit rating (1–5) + blocker note, auto-expands 6–11 AM
+- **Today's focus** — single daily priority, collapsible
+- **Water tracker** — 10-glass tracker with 7-day history chart, auto-ticks habit at 2.5L
+- **Pomodoro timer** — launches from any learning block
 
 ---
 
-## Features in detail
+## Usage
 
-### Habit tracking — UUID-based keys
-Every habit has a unique ID (e.g. `h001`, `hmo2x4k9j`). Tracker data is stored as `2026-04-20_h001` not `2026-04-20_h3`. This means:
-- Reordering habits: historical data stays correct
-- Deleting a habit: other habits' history is unaffected
-- Renaming a habit: all past data still links correctly
-
-### Diary
-- Auto-saves after 30 seconds of inactivity
-- Auto-saves when switching tabs or navigating dates
-- Ctrl+S / Cmd+S for instant save
-- Shows last entry date hint when today is empty
-- Editable from both Diary tab and All Notes tab
+### Sign in
+Click **Sign in with Google**. Your data is completely private per Google account.
 
 ### Schedule
-- Edit/delete/reorder buttons always visible on mobile
-- Pomodoro timer is timestamp-based — accurate even when screen sleeps
-- Block colours have full dark mode overrides for proper contrast
+- Click a **day tab** to view that day's schedule
+- **+ Add time block** — enter time (e.g. `9:30-11:30 AM`), label, colour category. Conflict detection warns if a time slot overlaps an existing block
+- **✎ Edit / Del** buttons on each block
+- **⠿ Drag handle** — drag blocks to reorder
+- **↺ Reset day** — restores the day to your account's default schedule
+- **💾 Save as template** / **📄 Apply template** — save and reuse schedule patterns
 
-### Water tracker
-- Tapping any glass below goal removes the water habit tick (not just Reset button)
-- Bar chart shows exact ml/L above each bar
-- Streak counts consecutive days hitting 2500ml goal
+### Habits
+- Tick habits in the Tracker tab (click cell: empty → done ✓ → skipped — → empty)
+- Add a note to any cell via the **+** icon
+- Streak counter uses grace-day logic: one missed day per 7 consecutive days doesn't break your streak
 
-### Sign-out safety
-Sign-out correctly cleans up:
-- Clears pending save debounce timer (prevents null crash)
-- Clears diary auto-save timer (prevents saving empty data)
-- Stops Pomodoro interval
-- Removes Ctrl+S keyboard listener
-- Resets session state (weekOff, moodFilter, currentMood) for next user
+### Diary
+- Navigate with ← → arrows or **Today** button
+- **Ctrl+S** saves the current entry
+- Entries auto-save after 30 seconds of inactivity
 
----
+### Work Log
+- Day view: log entries with start time, duration, project, task, status
+- Week view: summary table + copy-to-clipboard
+- Quick-fill chips populate task from today's schedule blocks
 
-## Default habits
+### Finance
+- Add income, expense, investment, or saving entries per month
+- Set a monthly savings goal to see progress bar
+- Navigate months with ← → buttons and **This month**
 
-| # | Habit | Goal |
-|---|-------|------|
-| 1 | No phone on waking | First 30 min screen-free |
-| 2 | Morning walk | At least 20 min |
-| 3 | Big Data / DE course | Weekdays 9:30 / Weekends 10:30 |
-| 4 | Finance study | Min 30 min |
-| 5 | 2.5 L water | Track through the day |
-| 6 | 20-20-20 eye rule | Every 20 min at screen |
-| 7 | No Instagram before 7 PM | Keep the rule |
-| 8 | Evening walk | At least 30 min |
-| 9 | Screen-free dinner | No phone at table |
-| 10 | Wind-down routine | Prayer / reflection before sleep |
-| 11 | Asleep by 10:30 PM | Protect sleep window |
-
-All habits can be added, edited, deleted, reordered, or paused in the Manage Habits tab.
-
----
-
-## Default schedule highlights
-
-**Weekdays (Mon/Tue/Fri):**
-6:15 AM wake → walk → breakfast → personal time → 9:30 Big Data course (2hrs) → work calls → deep work → finance study → evening walk → dinner → scrum → wind down → 10:30 PM sleep
-
-**Monday extra:** 9–10 PM call &nbsp;|&nbsp; **Wednesday extra:** 9:30–10 PM call &nbsp;|&nbsp; **Thursday extra:** 9–10 PM call
-
-**Weekend:** Later start, prayer, longer walk, 1.5hr course, finance study, family time, weekly review, faith wind-down
+### Keyboard shortcuts (when not in a text field)
+| Key | Action |
+|-----|--------|
+| `J` | Previous day (Diary / Work Log) |
+| `K` | Next day |
+| `T` | Jump to today |
+| `N` | New work log entry / focus diary input |
+| `?` | Show shortcut hint |
+| `Ctrl+S` | Save diary entry |
 
 ---
 
-## Firebase setup (already configured)
+## Data & Privacy
+- All data is stored in **Firebase Firestore** under your Google UID — no one else can access it
+- **Export** downloads a full JSON backup
+- **Import** merges a backup file into your current data
+- Water and focus history is pruned to 60 days to keep Firestore docs small
+- Work log entries older than 90 days are archived as monthly summaries
 
-The app is connected to Firebase project `habbit-tracker-ef59d`. Required Firestore security rules:
+---
 
-```javascript
+## Changes in v14
+
+### Bugs Fixed
+| # | Issue | Fix |
+|---|-------|-----|
+| C1 | All Notes tab crashed when weekly review was saved (boolean stored in diary) | Filter non-object diary entries; store sentinel in `S.checkin` |
+| C2 | Review sentinel key polluted All Notes list | Sentinel moved to `S.checkin[date+'_review']` |
+| C3 | Weekly review text saved with literal newline | Join uses `\n` string |
+| C4 | Finance delete crashed (`.filter()` on object) | `Array.isArray` guard added |
+| C5 | Finance delete targeted wrong month | `data-fmo` attribute passes original month |
+| C6 | `initDragDrop()` called but not defined | Phantom call removed; `attachDragHandlers()` used |
+| C7 | `checkinOpen` / `_kbAttached` undeclared in strict mode | Declared as module-level `let` variables |
+| C8 | `renderInsights` crashed on old diary entries without `.text` | `e&&e.text` guard added |
+
+### UI/UX Fixes (this release)
+| # | Issue | Fix |
+|---|-------|-----|
+| U1 | **"− hide" button overlapped "Save" button** in focus widget | Moved hide button into flex row alongside Save; removed `position:absolute` |
+| U2 | **"View today →" button did nothing visibly** | Handler confirmed + `window.scrollTo({top:0})` added |
+| U3 | **Owner's default schedule not showing** | `loadFromFirebase` now resets any day with < 4 blocks to owner defaults |
+| U4 | **No time conflict warning** when adding overlapping blocks | Full time parsing + overlap detection with inline warning and save-anyway confirm |
+| U5 | **No way to recover default schedule** | "↺ Reset day" button added to schedule toolbar |
+| U6 | Tabs overflowed and wrapped on mobile | `overflow-x:auto; flex-wrap:nowrap` on tabs row |
+| U7 | Responsive CSS gaps on very small screens | Extra `@media` breakpoints at 480px and 380px |
+
+---
+
+## File Structure
+
+```
+index.html          — entire app (single file, no dependencies except Firebase CDN)
+test_tracker.js     — browser console test suite (paste & run runAllTests())
+README.md           — this file
+```
+
+---
+
+## Running Tests
+
+1. Open the live app and sign in
+2. Open browser DevTools → Console
+3. Paste the contents of `test_tracker.js`
+4. The tests run automatically, or call `runAllTests()`
+
+Expected output: all green ✅. Failed tests print in red with details.
+
+---
+
+## Firebase Security Rules
+
+Ensure Firestore rules restrict documents to the authenticated user:
+
+```
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /users/{userId}/data/{docId} {
-      allow read, write: if
-        request.auth != null &&
-        request.auth.uid == userId &&
-        docId in ['meta', 'tracker', 'diary'];
+      allow read, write: if request.auth != null
+        && request.auth.uid == userId
+        && docId in ['meta', 'tracker', 'diary'];
     }
   }
 }
 ```
-
-Authorised domains must include `teegalanvsklnarasimharao.github.io` in Firebase → Authentication → Settings → Authorised domains.
-
----
-
-## Files in this repository
-
-| File | Description |
-|------|-------------|
-| `index.html` | The complete app — v10, production ready |
-| `README.md` | This file |
-
----
-
-## How to update
-
-When a new version is available:
-1. Export your data backup first (top bar → Export)
-2. Replace `index.html` in this repository with the new version
-3. GitHub Pages rebuilds within 1–2 minutes
-4. Your cloud data is unaffected — it lives in Firebase, not in the file
-
----
-
-## Tech stack
-
-Pure HTML, CSS, and vanilla JavaScript in a single file. No frameworks. No build step. No dependencies except Firebase SDK loaded from CDN.
-
-- **Firebase SDK:** v10.12.0
-- **Auth:** Google OAuth via Firebase Authentication
-- **Database:** Firebase Firestore (3 documents per user: meta, tracker, diary)
-- **Offline:** `initializeFirestore` with `persistentLocalCache`
-- **Storage key:** `tracker_dark` in localStorage (dark mode preference only)
-
----
-
-*Personal productivity tracker. Tracking habits, learning, finance, and daily life from April 20, 2026.*

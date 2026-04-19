@@ -70,7 +70,7 @@ body.dark .past-week-banner{color:var(--am2);}
 .past-week-banner.on{display:flex;align-items:center;gap:8px;}
 
 /* TODAY BANNER */
-.today-banner{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--radius);padding:12px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;box-shadow:var(--shadow);}
+.today-banner{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--radius);padding:12px 16px;margin-bottom:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;box-shadow:var(--shadow);}
 .td-date{font-size:14px;font-weight:700;color:var(--pri);font-family:'Georgia',serif;}
 .td-info{font-size:11px;color:var(--tx2);margin-top:2px;}
 .td-badge{font-size:10px;padding:3px 10px;border-radius:20px;font-weight:600;letter-spacing:.02em;}
@@ -112,7 +112,8 @@ body.dark .past-week-banner{color:var(--am2);}
 .pom-stop{background:var(--rd);color:#fff;}
 
 /* MAIN TABS */
-.main-tabs{display:flex;gap:4px;margin-bottom:14px;flex-wrap:wrap;border-bottom:2px solid var(--bdr);padding-bottom:0;}
+.main-tabs{display:flex;gap:4px;margin-bottom:14px;flex-wrap:nowrap;overflow-x:auto;border-bottom:2px solid var(--bdr);padding-bottom:0;scrollbar-width:none;-ms-overflow-style:none;}
+.main-tabs::-webkit-scrollbar{display:none;}
 .mtab{padding:8px 13px;border-radius:8px 8px 0 0;font-size:12px;font-weight:600;cursor:pointer;color:var(--tx2);border:1px solid transparent;border-bottom:none;background:transparent;transition:color .15s,background .15s;font-family:inherit;white-space:nowrap;margin-bottom:-2px;}
 .mtab:hover{color:var(--tx);background:var(--sur2);}
 .mtab.active{background:var(--sur);color:var(--pri);border-color:var(--bdr);border-bottom-color:var(--sur);}
@@ -348,11 +349,16 @@ body.dark .t-growth{border-color:#4338CA;} body.dark .t-explore{border-color:#04
 body.dark .t-sleep{border-color:#374151;}
 
 @media(max-width:480px){
-  .app-shell{padding:10px;}
-  .main-tabs{gap:2px;}
-  .mtab{padding:6px 9px;font-size:11px;}
+  .app-shell{padding:8px;}
+  .mtab{padding:6px 8px;font-size:11px;}
   .stat{min-width:60px;}
-  .modal{padding:16px;}
+  .modal{padding:14px;}
+  .app-title{font-size:16px;}
+  .top-bar{gap:5px;}
+  .wl-nav{flex-wrap:wrap;gap:6px;}
+}
+@media(max-width:380px){
+  .mtab{padding:5px 7px;font-size:10px;}
 }
 
 /* WORK LOG */
@@ -438,14 +444,18 @@ body.dark .wls-inprogress{background:#1E3A5F;color:#93C5FD;}
 .checkin-summary{font-size:12px;color:var(--tx2);margin-top:4px;}
 
 /* ── IMPROVEMENT 9: Collapsible widgets ── */
-.widget-wrap{position:relative;}
-.widget-collapse-btn{position:absolute;top:8px;right:8px;padding:2px 7px;border-radius:5px;border:1px solid var(--bdr);background:var(--sur);font-size:10px;cursor:pointer;color:var(--tx3);font-family:inherit;z-index:1;}
+.widget-wrap{}
+.widget-collapse-btn{padding:3px 9px;border-radius:5px;border:1px solid var(--bdr);background:var(--sur);font-size:10px;cursor:pointer;color:var(--tx3);font-family:inherit;}
 .widget-collapse-btn:hover{color:var(--pri);border-color:var(--pri);}
+.widget-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
 .widget-collapsed-bar{display:none;background:var(--sur);border:1px solid var(--bdr);border-radius:var(--radius);padding:8px 14px;margin-bottom:10px;font-size:12px;color:var(--tx2);cursor:pointer;box-shadow:var(--shadow);align-items:center;gap:10px;flex-wrap:wrap;}
 .widget-collapsed-bar:hover{border-color:var(--pri);}
 .widget-collapsed-bar.on{display:flex;}
 
 /* streak-grace used dynamically if graceUsed */
+/* ── Time conflict warning ── */
+.conflict-warning{background:var(--rdl);border:1px solid var(--rd2);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--rd);margin-bottom:10px;display:none;}
+.conflict-warning.on{display:flex;align-items:center;gap:8px;}
 
 /* ── IMPROVEMENT 4: Weekly review ── */
 .review-prompt{background:var(--sur);border:2px solid var(--am2);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow);}
@@ -608,15 +618,14 @@ body.dark .fin-cat-invest{background:#1E3A5F;color:#93C5FD;}
     <span>&#128167;</span><span id="water-collapsed-text">Water: 0ml</span><span style="margin-left:auto;font-size:10px;color:var(--tx3);">tap to expand</span>
   </div>
   <div class="widget-wrap" id="focus-widget">
-  <button class="widget-collapse-btn" id="focus-collapse-btn" onclick="collapseWidget('focus')">&#8722; hide</button>
   <div class="focus-box">
     <label>Today&#8217;s focus:</label>
     <input type="text" id="focus-input" placeholder="Your #1 priority today"/>
     <button class="focus-save" id="focus-save-btn">Save</button>
+    <button class="widget-collapse-btn" id="focus-collapse-btn" onclick="collapseWidget('focus')" style="margin-left:4px;flex-shrink:0;">&#8722; hide</button>
   </div>
   </div><!-- end focus-widget -->
   <div class="widget-wrap" id="water-widget">
-  <button class="widget-collapse-btn" id="water-collapse-btn" onclick="collapseWidget('water')">&#8722; hide</button>
   <div class="water-wrap">
     <div class="water-top">
       <label>&#128167; Water:</label>
@@ -624,6 +633,7 @@ body.dark .fin-cat-invest{background:#1E3A5F;color:#93C5FD;}
       <span class="water-count" id="water-count"></span>
       <span id="water-goal-badge" class="water-goal-hit" style="display:none;">&#10003; Goal!</span>
       <button class="tbtn" id="water-reset-btn">Reset</button>
+      <button class="widget-collapse-btn" id="water-collapse-btn" onclick="collapseWidget('water')" style="margin-left:auto;">&#8722; hide</button>
     </div>
     <div class="water-chart">
       <div class="water-chart-title">7-day water history</div>
@@ -658,6 +668,7 @@ body.dark .fin-cat-invest{background:#1E3A5F;color:#93C5FD;}
       <button class="add-blk" id="add-blk-btn">+ Add time block</button>
       <button class="tpl-btn" id="save-tpl-btn">&#128190; Save as template</button>
       <button class="tpl-btn" id="apply-tpl-btn">&#128196; Apply template</button>
+      <button class="tpl-btn" id="reset-day-btn" style="color:var(--am);">&#8635; Reset day</button>
       <button class="copy-btn" id="copy-sched-btn">Copy schedule</button>
     </div>
     <div id="snapshot-box" class="snapshot-box"><h4>Today&#8217;s snapshot</h4><pre class="snapshot-text" id="snapshot-text"></pre></div>
@@ -902,6 +913,7 @@ body.dark .fin-cat-invest{background:#1E3A5F;color:#93C5FD;}
 <div class="overlay" id="blk-modal">
   <div class="modal">
     <h3 id="blk-modal-title">Add time block</h3>
+    <div class="conflict-warning" id="blk-conflict-warn">&#9888; <span id="blk-conflict-msg"></span></div>
     <div class="fg"><label>Time slot</label><input type="text" id="b-time" placeholder="e.g. 9:30-11:30 AM"/></div>
     <div class="fg"><label>Label</label><input type="text" id="b-label" placeholder="e.g. Big Data / DE course"/></div>
     <div class="fg"><label>Description</label><input type="text" id="b-sub" placeholder="e.g. 2 hrs focused learning"/></div>
@@ -1323,7 +1335,12 @@ async function loadFromFirebase(){
       S.finGoals=m.finGoals||{};
       S.checkin=m.checkin||{};
       S.templates=m.templates||{};
-      const _dwd=DEF_WD();['mon','tue','wed','thu','fri','weekend'].forEach(k=>{if(!S.wd[k])S.wd[k]=JSON.parse(JSON.stringify(_dwd[k]));});
+      const _dwd=DEF_WD();['mon','tue','wed','thu','fri','weekend'].forEach(k=>{
+        // FIX 3: Restore default if day is missing OR owner has suspiciously few blocks (< 4)
+        if(!S.wd[k]||(isOwner()&&(S.wd[k]||[]).length<4)){
+          S.wd[k]=JSON.parse(JSON.stringify(_dwd[k]));
+        }
+      });
     }else{
       S=defaultS();
       await setDoc(metaDoc(),buildMeta());
@@ -1504,7 +1521,12 @@ function renderBanner(){
     `<div class="td-info">Follow: <b>${ti?ti.label+' schedule':'Weekend schedule'}</b></div>`+
     (ft?`<div class="td-info" style="margin-top:2px;">Focus: <b>${esc(ft)}</b></div>`:'')+
     `</div>${badge}<button class="tbtn" id="jump-today-btn" style="white-space:nowrap;">View today &#8594;</button>`;
-  $id('jump-today-btn').addEventListener('click',()=>{sw('schedule');activeDay=schedKeyForDate(today());showDay(activeDay);});
+  $id('jump-today-btn').addEventListener('click',()=>{
+    sw('schedule');
+    activeDay=schedKeyForDate(today());
+    showDay(activeDay);
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
   // BUG FIX 26: Only set focus input if not currently focused
   if(document.activeElement!==$id('focus-input')){
     $id('focus-input').value=ft;
@@ -1675,6 +1697,12 @@ function showDay(key){
 }
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 $id('add-blk-btn').addEventListener('click',openAddBlock);
+$id('reset-day-btn').addEventListener('click',()=>{
+  if(!confirm('Reset '+((DAY_TABS.find(t=>t.key===activeDay)||{}).label||activeDay)+' schedule to default?'))return;
+  const defaults=DEF_WD();
+  S.wd[activeDay]=JSON.parse(JSON.stringify(defaults[activeDay]||[]));
+  saveS('meta');showDay(activeDay);toast('Schedule reset to default');
+});
 $id('copy-sched-btn').addEventListener('click',()=>{
   const t=(S.wd[activeDay]||[]).map(b=>b.time+'  '+b.label+(b.sub?' — '+b.sub:'')).join('\n');
   navigator.clipboard?navigator.clipboard.writeText(t).then(()=>toast('Copied!')):toast('Clipboard not available');
@@ -1694,7 +1722,8 @@ $id('snapshot-btn').addEventListener('click',()=>{
 // BLOCK MODAL
 function openAddBlock(){
   editBlkMode='add';editBlkIdx=null;
-  $id('blk-modal-title').textContent='Add block to '+(DAY_TABS.find(t=>t.key===activeDay)||{label:activeDay}).label;
+  const dayLbl=(DAY_TABS.find(t=>t.key===activeDay)||{label:activeDay}).label;
+  $id('blk-modal-title').textContent='Add block to '+dayLbl;
   ['b-time','b-label','b-sub'].forEach(id=>$id(id).value='');
   $id('b-cls').value='t-learn';$id('b-dup').value='';$id('b-habit').value='yes';
   $id('b-habit-fg').style.display='block';$id('b-del-btn').style.display='none';
@@ -1716,9 +1745,75 @@ function openEditBlock(idx){
   updateClrPreview();
   $id('blk-modal').classList.add('on');
 }
+// ── TIME CONFLICT DETECTION ──
+function parseTimeToMins(t){
+  if(!t||!t.trim())return null;
+  // Handle "6:15 AM", "9:30-11:30 AM", "10:30 PM" etc.
+  const str=t.trim();
+  // Extract first time part (before any dash that separates range)
+  const part=str.split(/\s*[-–]\s*/)[0].trim();
+  const m=part.match(/^(\d{1,2}):?(\d{0,2})\s*(AM|PM|am|pm)?$/i);
+  if(!m)return null;
+  let hr=parseInt(m[1]),mn=parseInt(m[2]||'0');
+  const ampm=(m[3]||'').toUpperCase();
+  if(ampm==='PM'&&hr!==12)hr+=12;
+  if(ampm==='AM'&&hr===12)hr=0;
+  return hr*60+mn;
+}
+function parseTimeRange(t){
+  if(!t||!t.trim())return null;
+  const str=t.trim();
+  // Has dash = range
+  const parts=str.split(/\s*[-–]\s*/);
+  if(parts.length>=2){
+    // Second part may have AM/PM, first part inherits it if missing
+    const ampm=str.match(/(AM|PM)/i);
+    const p1=parts[0]+(ampm&&!parts[0].match(/(AM|PM)/i)?' '+ampm[0]:'');
+    const p2=parts[1];
+    const s=parseTimeToMins(p1);
+    const e=parseTimeToMins(p2);
+    if(s!==null&&e!==null)return{start:s,end:e>s?e:e+720};// handle e.g. 11PM-1AM
+    return null;
+  }
+  // Single time = point
+  const s=parseTimeToMins(str);
+  return s!==null?{start:s,end:s+30}:null;// assume 30min for single times
+}
+function checkTimeConflict(newTime, excludeIdx){
+  const range=parseTimeRange(newTime);
+  if(!range)return null;
+  const blocks=S.wd[activeDay]||[];
+  for(let i=0;i<blocks.length;i++){
+    if(i===excludeIdx)continue;
+    const b=blocks[i];
+    const br=parseTimeRange(b.time);
+    if(!br)continue;
+    // Overlap check: ranges overlap if start < other.end AND end > other.start
+    if(range.start<br.end&&range.end>br.start){
+      return b.label+' ('+b.time+')';
+    }
+  }
+  return null;
+}
+$id('b-time').addEventListener('input',()=>{
+  const w=$id('blk-conflict-warn');
+  const conflict=checkTimeConflict($id('b-time').value,editBlkMode==='edit'?editBlkIdx:null);
+  if(conflict){
+    $id('blk-conflict-msg').textContent='Conflicts with: '+conflict;
+    w.classList.add('on');
+  } else {
+    w.classList.remove('on');
+  }
+});
+
 $id('b-save-btn').addEventListener('click',()=>{
   const b={time:$id('b-time').value.trim(),label:$id('b-label').value.trim(),sub:$id('b-sub').value.trim(),cls:$id('b-cls').value,...(_blkCustomColor?{color:_blkCustomColor}:{})};
   if(!b.label){toast('Enter a label');return;}
+  // FIX 4: Check time conflict on save
+  const conflict=checkTimeConflict(b.time, editBlkMode==='edit'?editBlkIdx:null);
+  if(conflict){
+    if(!confirm('Time overlap with "'+conflict+'". Add anyway?'))return;
+  }
   const dup=$id('b-dup').value;
   if(editBlkMode==='add'){
     S.wd[activeDay].push(b);
