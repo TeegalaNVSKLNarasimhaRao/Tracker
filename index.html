@@ -89,16 +89,16 @@ body.dark .past-week-banner{color:var(--am2);}
 .water-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 .water-top label{font-size:12px;font-weight:700;color:var(--tx);white-space:nowrap;}
 .water-glasses{display:flex;gap:4px;flex-wrap:wrap;}
-.wg{width:30px;height:30px;border-radius:6px;border:1.5px solid #93C5FD;background:#EFF6FF;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .1s;user-select:none;}
-.wg.full{background:#2563EB;border-color:#1D4ED8;}
+.wg{width:30px;height:30px;border-radius:6px;border:1.5px solid var(--pri2);background:var(--pril);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .1s;user-select:none;}
+.wg.full{background:var(--pri);border-color:var(--pri2);}
 .water-count{font-size:12px;color:var(--tx2);}
 .water-goal-hit{font-size:11px;font-weight:700;color:var(--gr);background:var(--grl);padding:2px 10px;border-radius:12px;}
 .water-chart{margin-top:10px;border-top:1px solid var(--bdr);padding-top:8px;}
 .water-chart-title{font-size:10px;color:var(--tx3);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;}
 .water-bars{display:flex;gap:6px;align-items:flex-end;min-height:52px;}
 .water-bar-col{display:flex;flex-direction:column;align-items:center;gap:1px;flex:1;}
-.water-bar-fill{width:100%;border-radius:3px 3px 0 0;background:#BFDBFE;min-height:3px;position:relative;}
-.water-bar-fill.goal{background:#2563EB;}
+.water-bar-fill{width:100%;border-radius:3px 3px 0 0;background:var(--pril);min-height:3px;position:relative;}
+.water-bar-fill.goal{background:var(--pri);}
 .water-bar-ml{font-size:8px;color:var(--tx3);text-align:center;line-height:1.2;}
 .water-bar-day{font-size:9px;color:var(--tx3);}
 .water-streak{font-size:11px;color:var(--tx2);margin-top:5px;}
@@ -354,6 +354,181 @@ body.dark .t-sleep{border-color:#374151;}
   .stat{min-width:60px;}
   .modal{padding:16px;}
 }
+
+/* WORK LOG */
+.wl-nav{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.wl-lbl{font-size:15px;font-weight:700;color:var(--tx);font-family:'Georgia',serif;flex:1;}
+.wl-view-toggle{display:flex;gap:4px;}
+.wl-vbtn{padding:5px 13px;border-radius:7px;border:1px solid var(--bdr);background:var(--sur);font-size:11px;cursor:pointer;color:var(--tx2);font-family:inherit;transition:all .15s;}
+.wl-vbtn.active{background:var(--pri);color:#fff;border-color:var(--pri);}
+.wl-add{padding:7px 16px;border-radius:8px;border:none;background:var(--pri);color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;}
+.wl-card{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--radius);padding:13px 16px;margin-bottom:8px;display:flex;gap:12px;box-shadow:var(--shadow);align-items:flex-start;}
+.wl-time-col{min-width:52px;flex-shrink:0;text-align:center;}
+.wl-time{font-size:12px;font-weight:700;color:var(--pri);font-family:'Georgia',serif;}
+.wl-dur{font-size:10px;color:var(--tx3);margin-top:2px;}
+.wl-body{flex:1;}
+.wl-project{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tx3);margin-bottom:3px;}
+.wl-task{font-size:13px;font-weight:600;color:var(--tx);line-height:1.4;}
+.wl-notes{font-size:11px;color:var(--tx2);margin-top:3px;line-height:1.6;}
+.wl-status{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-top:4px;}
+.wls-done{background:var(--grl);color:var(--gr);}
+.wls-inprogress{background:#DBEAFE;color:#1E40AF;}
+body.dark .wls-inprogress{background:#1E3A5F;color:#93C5FD;}
+.wls-blocked{background:var(--rdl);color:var(--rd);}
+.wl-acts{display:flex;gap:4px;flex-shrink:0;align-items:flex-start;}
+.wl-summary{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--radius);padding:13px 16px;margin-bottom:12px;box-shadow:var(--shadow);}
+.wl-summary-title{font-size:12px;font-weight:700;color:var(--tx);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em;}
+.wl-proj-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.wl-proj-name{font-size:12px;color:var(--tx);min-width:140px;flex-shrink:0;}
+.wl-proj-bar{flex:1;height:6px;background:var(--sur2);border-radius:3px;overflow:hidden;}
+.wl-proj-fill{height:100%;background:var(--pri);border-radius:3px;}
+.wl-proj-dur{font-size:11px;color:var(--tx2);min-width:44px;text-align:right;}
+.wl-total{font-size:12px;font-weight:700;color:var(--tx);margin-top:6px;padding-top:6px;border-top:1px solid var(--bdr);}
+.wl-week-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:12px;}
+.wl-week-table th{font-size:10px;color:var(--tx3);font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:4px 8px;text-align:left;border-bottom:1px solid var(--bdr);}
+.wl-week-table td{padding:7px 8px;border-bottom:1px solid var(--bdr);color:var(--tx2);vertical-align:top;}
+.wl-week-table td:first-child{color:var(--pri);font-weight:600;font-family:'Georgia',serif;white-space:nowrap;}
+.wl-week-nav{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.wl-autocomplete{position:relative;}
+.wl-ac-list{position:absolute;top:100%;left:0;right:0;background:var(--sur);border:1px solid var(--bdr);border-radius:8px;box-shadow:var(--shadow-md);z-index:50;max-height:140px;overflow-y:auto;display:none;}
+.wl-ac-list.on{display:block;}
+.wl-ac-item{padding:8px 12px;font-size:12px;cursor:pointer;color:var(--tx);}
+.wl-ac-item:hover{background:var(--sur2);}
+.wl-chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px;}
+.wl-chip{padding:4px 11px;border-radius:20px;border:1.5px solid var(--bdr);background:var(--sur);font-size:11px;cursor:pointer;color:var(--tx2);font-family:inherit;transition:all .12s;}
+.wl-chip.sel{border-color:var(--pri);background:var(--pril);color:var(--pri);font-weight:700;}
+.wl-empty{font-size:13px;color:var(--tx3);padding:24px 0;text-align:center;}
+.wl-copy-btn{padding:6px 14px;border-radius:7px;border:1px solid var(--bdr);background:var(--sur);font-size:11px;cursor:pointer;color:var(--tx2);font-family:inherit;}
+.wl-copy-btn:hover{border-color:var(--pri);color:var(--pri);}
+
+/* CUSTOM BLOCK COLOUR PICKER */
+.clr-swatches{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;}
+.clr-swatch{width:24px;height:24px;border-radius:5px;cursor:pointer;border:2px solid transparent;transition:transform .1s,border-color .1s;flex-shrink:0;}
+.clr-swatch:hover{transform:scale(1.15);}
+.clr-swatch.sel{border-color:var(--tx);transform:scale(1.15);}
+.clr-custom-row{display:flex;align-items:center;gap:8px;margin-top:4px;}
+.clr-custom-row input[type=color]{width:36px;height:28px;border:1px solid var(--bdr);border-radius:6px;cursor:pointer;padding:1px;background:var(--bg);}
+.clr-custom-row span{font-size:11px;color:var(--tx2);}
+.clr-preview{width:14px;height:14px;border-radius:3px;display:inline-block;flex-shrink:0;border:1px solid rgba(0,0,0,.1);}
+
+
+/* ── IMPROVEMENT 1: Daily Check-in ── */
+.checkin-bar{background:linear-gradient(135deg,var(--pri) 0%,var(--pri2) 100%);border-radius:var(--radius);padding:12px 16px;margin-bottom:10px;color:#fff;box-shadow:var(--shadow-md);}
+.checkin-bar.done{background:var(--sur);border:1px solid var(--bdr);box-shadow:var(--shadow);}
+.checkin-header{display:flex;align-items:center;gap:10px;cursor:pointer;}
+.checkin-icon{font-size:18px;}
+.checkin-title{font-size:13px;font-weight:700;flex:1;}
+.checkin-bar.done .checkin-title{color:var(--tx);}
+.checkin-toggle{font-size:11px;opacity:.7;}
+.checkin-body{margin-top:12px;display:none;}
+.checkin-body.on{display:block;}
+.checkin-q{font-size:12px;font-weight:600;margin-bottom:6px;opacity:.9;}
+.checkin-bar.done .checkin-q{color:var(--tx2);}
+.checkin-input{width:100%;padding:8px 11px;border-radius:7px;border:none;font-size:13px;font-family:inherit;background:rgba(255,255,255,.2);color:#fff;outline:none;}
+.checkin-input::placeholder{color:rgba(255,255,255,.6);}
+.checkin-bar.done .checkin-input{background:var(--bg);border:1px solid var(--bdr);color:var(--tx);}
+.checkin-bar.done .checkin-input::placeholder{color:var(--tx3);}
+.checkin-rating{display:flex;gap:6px;margin-bottom:10px;}
+.cr-btn{width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,.4);background:transparent;color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:all .12s;}
+.cr-btn:hover,.cr-btn.sel{background:rgba(255,255,255,.25);border-color:#fff;}
+.checkin-bar.done .cr-btn{border-color:var(--bdr);color:var(--tx2);background:var(--sur);}
+.checkin-bar.done .cr-btn.sel{background:var(--pri);color:#fff;border-color:var(--pri);}
+.checkin-save{margin-top:10px;padding:7px 20px;border-radius:7px;border:none;background:rgba(255,255,255,.25);color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;}
+.checkin-bar.done .checkin-save{background:var(--pri);color:#fff;}
+.checkin-summary{font-size:12px;color:var(--tx2);margin-top:4px;}
+
+/* ── IMPROVEMENT 9: Collapsible widgets ── */
+.widget-wrap{position:relative;}
+.widget-collapse-btn{position:absolute;top:8px;right:8px;padding:2px 7px;border-radius:5px;border:1px solid var(--bdr);background:var(--sur);font-size:10px;cursor:pointer;color:var(--tx3);font-family:inherit;z-index:1;}
+.widget-collapse-btn:hover{color:var(--pri);border-color:var(--pri);}
+.widget-collapsed-bar{display:none;background:var(--sur);border:1px solid var(--bdr);border-radius:var(--radius);padding:8px 14px;margin-bottom:10px;font-size:12px;color:var(--tx2);cursor:pointer;box-shadow:var(--shadow);align-items:center;gap:10px;flex-wrap:wrap;}
+.widget-collapsed-bar:hover{border-color:var(--pri);}
+.widget-collapsed-bar.on{display:flex;}
+
+/* streak-grace used dynamically if graceUsed */
+
+/* ── IMPROVEMENT 4: Weekly review ── */
+.review-prompt{background:var(--sur);border:2px solid var(--am2);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow);}
+.review-prompt h3{font-size:14px;font-weight:700;color:var(--am);margin-bottom:10px;font-family:'Georgia',serif;}
+.review-q{font-size:12px;font-weight:700;color:var(--tx);margin-bottom:4px;margin-top:10px;}
+.review-ta{width:100%;padding:8px 10px;border:1px solid var(--bdr);border-radius:7px;font-size:12px;font-family:'Georgia',serif;color:var(--tx);resize:vertical;min-height:52px;background:var(--bg);line-height:1.6;}
+.review-ta:focus{outline:none;border-color:var(--am2);}
+.review-save{margin-top:12px;padding:8px 20px;border-radius:8px;border:none;background:var(--am2);color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;}
+
+/* ── IMPROVEMENT 5: Drag reorder schedule ── */
+.blk.drag-over{border-top:2px solid var(--pri)!important;opacity:.85;}
+.blk.dragging{opacity:.4;}
+
+/* ── IMPROVEMENT 7: Habit trend chart ── */
+.trend-section{margin-top:18px;}
+.trend-title{font-size:11px;font-weight:700;color:var(--tx);margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em;}
+.trend-chart-wrap{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);overflow-x:auto;}
+.trend-canvas-area{position:relative;height:120px;min-width:300px;}
+.trend-svg{width:100%;height:100%;}
+.trend-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+.trend-leg-item{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--tx2);}
+.trend-leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.trend-overall-line{stroke:var(--pri);stroke-width:2.5;fill:none;}
+
+/* ── IMPROVEMENT 10: Finance tracker ── */
+.fin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px;}
+.fin-card{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--radius);padding:13px 14px;box-shadow:var(--shadow);}
+.fin-card-label{font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:4px;}
+.fin-card-val{font-size:20px;font-weight:700;color:var(--tx);font-family:'Georgia',serif;}
+.fin-card-val.positive{color:var(--gr2);}
+.fin-card-val.negative{color:var(--rd2);}
+.fin-card-sub{font-size:10px;color:var(--tx3);margin-top:2px;}
+.fin-section{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--radius);padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow);}
+.fin-section h3{font-size:13px;font-weight:700;color:var(--tx);margin-bottom:12px;font-family:'Georgia',serif;}
+.fin-row{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-bottom:8px;}
+.fin-row input,.fin-row select{flex:1;min-width:90px;padding:7px 10px;border:1px solid var(--bdr);border-radius:7px;font-size:12px;font-family:inherit;background:var(--bg);color:var(--tx);}
+.fin-row input:focus,.fin-row select:focus{outline:none;border-color:var(--pri);}
+.fin-add{padding:7px 14px;border-radius:7px;border:none;background:var(--pri);color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;}
+.fin-entry{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg);border-radius:7px;margin-bottom:5px;flex-wrap:wrap;}
+.fin-entry-cat{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 8px;border-radius:10px;}
+.fin-cat-income{background:var(--grl);color:var(--gr);}
+.fin-cat-expense{background:var(--rdl);color:var(--rd);}
+.fin-cat-invest{background:#DBEAFE;color:#1E40AF;}
+body.dark .fin-cat-invest{background:#1E3A5F;color:#93C5FD;}
+.fin-cat-saving{background:var(--aml);color:var(--am);}
+.fin-entry-desc{flex:1;font-size:12px;color:var(--tx);}
+.fin-entry-amt{font-size:13px;font-weight:700;color:var(--tx);}
+.fin-entry-del{padding:2px 7px;border-radius:5px;border:1px solid #FECACA;background:var(--sur);font-size:10px;cursor:pointer;color:var(--rd2);}
+.fin-month-nav{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.fin-month-lbl{font-size:14px;font-weight:700;color:var(--tx);font-family:'Georgia',serif;flex:1;}
+.fin-savings-bar{height:8px;background:var(--sur2);border-radius:4px;overflow:hidden;margin-top:6px;}
+.fin-savings-fill{height:100%;background:var(--gr2);border-radius:4px;transition:width .4s;}
+.fin-goal-row{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap;}
+.fin-goal-lbl{font-size:11px;color:var(--tx2);}
+
+/* ── IMPROVEMENT 11: Schedule templates ── */
+.tpl-btn{padding:6px 12px;border-radius:7px;border:1px solid var(--bdr);background:var(--sur);font-size:11px;cursor:pointer;color:var(--tx2);font-family:inherit;transition:border-color .15s,color .15s;}
+.tpl-btn:hover{border-color:var(--pri);color:var(--pri);}
+.tpl-list{margin-top:8px;display:flex;flex-direction:column;gap:4px;}
+.tpl-item{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg);border-radius:7px;font-size:12px;}
+.tpl-item-name{flex:1;font-weight:600;color:var(--tx);}
+.tpl-item-sub{font-size:10px;color:var(--tx3);}
+
+/* ── IMPROVEMENT 13: Monthly insights ── */
+.insights-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:16px;}
+.insight-card{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);text-align:center;}
+.insight-val{font-size:28px;font-weight:700;color:var(--pri);font-family:'Georgia',serif;}
+.insight-label{font-size:11px;color:var(--tx3);margin-top:3px;text-transform:uppercase;letter-spacing:.04em;}
+.insight-sub{font-size:11px;color:var(--tx2);margin-top:2px;}
+
+/* ── IMPROVEMENT 14: Mobile top-bar more menu ── */
+.more-menu{position:relative;display:none;}
+.more-menu-btn{padding:5px 11px;border-radius:7px;border:1px solid var(--bdr);background:var(--sur);color:var(--tx2);font-size:11px;cursor:pointer;font-family:inherit;}
+.more-menu-dropdown{position:absolute;top:100%;right:0;margin-top:4px;background:var(--sur);border:1px solid var(--bdr);border-radius:10px;box-shadow:var(--shadow-md);z-index:100;min-width:140px;padding:4px;display:none;}
+.more-menu-dropdown.on{display:block;}
+.more-menu-item{display:block;width:100%;padding:8px 12px;border:none;background:transparent;font-size:12px;cursor:pointer;color:var(--tx2);text-align:left;font-family:inherit;border-radius:6px;}
+.more-menu-item:hover{background:var(--sur2);color:var(--pri);}
+@media(max-width:600px){
+  .more-menu{display:block;}
+  #export-btn,#import-trigger,#snapshot-btn{display:none;}
+}
+@media(min-width:601px){.more-menu{display:none;}}
+
 </style>
 </head>
 <body>
@@ -388,6 +563,14 @@ body.dark .t-sleep{border-color:#374151;}
     <button class="tbtn" id="export-btn">&#8595; Export</button>
     <button class="tbtn" id="import-trigger">&#8593; Import</button>
     <button class="tbtn danger" id="signout-btn">Sign out</button>
+    <div class="more-menu">
+      <button class="more-menu-btn" id="more-menu-btn">&#8943; More</button>
+      <div class="more-menu-dropdown" id="more-menu-dd">
+        <button class="more-menu-item" id="m-snapshot">&#128247; Snapshot</button>
+        <button class="more-menu-item" id="m-export">&#8595; Export</button>
+        <button class="more-menu-item" id="m-import">&#8593; Import</button>
+      </div>
+    </div>
     <input type="file" id="imp" accept=".json" style="display:none"/>
   </div>
   <div class="sync-bar">
@@ -396,11 +579,44 @@ body.dark .t-sleep{border-color:#374151;}
     <span class="sync-time" id="sync-time"></span>
   </div>
   <div id="today-banner" class="today-banner"></div>
+  <!-- IMPROVEMENT 1: Daily Check-in -->
+  <div id="checkin-bar" class="checkin-bar">
+    <div class="checkin-header" id="checkin-header">
+      <span class="checkin-icon">&#9728;</span>
+      <span class="checkin-title" id="checkin-title">Start your day — tap to check in</span>
+      <span class="checkin-toggle" id="checkin-toggle">&#9660;</span>
+    </div>
+    <div class="checkin-body" id="checkin-body">
+      <div class="checkin-q">How did yesterday&#8217;s habits go? (1-5)</div>
+      <div class="checkin-rating" id="checkin-rating">
+        <button class="cr-btn" data-r="1">1</button>
+        <button class="cr-btn" data-r="2">2</button>
+        <button class="cr-btn" data-r="3">3</button>
+        <button class="cr-btn" data-r="4">4</button>
+        <button class="cr-btn" data-r="5">5</button>
+      </div>
+      <div class="checkin-q">Any blockers or notes for today?</div>
+      <textarea class="checkin-input" id="checkin-blocker" rows="2" placeholder="e.g. Late meeting, feeling tired..."></textarea>
+      <button class="checkin-save" id="checkin-save-btn">Save check-in &#10003;</button>
+    </div>
+  </div>
+  <!-- Collapsed widget summaries -->
+  <div class="widget-collapsed-bar" id="focus-collapsed" onclick="expandWidget('focus')">
+    <span>&#127919;</span><span id="focus-collapsed-text">Today&#8217;s focus: not set</span><span style="margin-left:auto;font-size:10px;color:var(--tx3);">tap to expand</span>
+  </div>
+  <div class="widget-collapsed-bar" id="water-collapsed" onclick="expandWidget('water')">
+    <span>&#128167;</span><span id="water-collapsed-text">Water: 0ml</span><span style="margin-left:auto;font-size:10px;color:var(--tx3);">tap to expand</span>
+  </div>
+  <div class="widget-wrap" id="focus-widget">
+  <button class="widget-collapse-btn" id="focus-collapse-btn" onclick="collapseWidget('focus')">&#8722; hide</button>
   <div class="focus-box">
     <label>Today&#8217;s focus:</label>
     <input type="text" id="focus-input" placeholder="Your #1 priority today"/>
     <button class="focus-save" id="focus-save-btn">Save</button>
   </div>
+  </div><!-- end focus-widget -->
+  <div class="widget-wrap" id="water-widget">
+  <button class="widget-collapse-btn" id="water-collapse-btn" onclick="collapseWidget('water')">&#8722; hide</button>
   <div class="water-wrap">
     <div class="water-top">
       <label>&#128167; Water:</label>
@@ -414,7 +630,7 @@ body.dark .t-sleep{border-color:#374151;}
       <div class="water-bars" id="water-bars"></div>
       <div class="water-streak" id="water-streak"></div>
     </div>
-  </div>
+  </div></div><!-- end water-widget -->
   <div id="pom-bar" class="pom-bar" style="display:none;">
     <div class="pom-label" id="pom-label">Pomodoro</div>
     <div class="pom-time" id="pom-timer">25:00</div>
@@ -427,7 +643,10 @@ body.dark .t-sleep{border-color:#374151;}
     <div class="mtab" data-sec="habits">Habits</div>
     <div class="mtab" data-sec="heatmap">Heatmap</div>
     <div class="mtab" data-sec="diary">Diary</div>
+    <div class="mtab" data-sec="worklog">Work Log</div>
     <div class="mtab" data-sec="notes">All Notes</div>
+    <div class="mtab" data-sec="insights">Insights</div>
+    <div class="mtab" data-sec="finance">Finance</div>
     <div class="mtab" data-sec="holidays">Holidays</div>
   </div>
   <!-- SCHEDULE -->
@@ -437,9 +656,29 @@ body.dark .t-sleep{border-color:#374151;}
     <div class="timeline" id="sched-blocks"></div>
     <div class="sched-btns">
       <button class="add-blk" id="add-blk-btn">+ Add time block</button>
+      <button class="tpl-btn" id="save-tpl-btn">&#128190; Save as template</button>
+      <button class="tpl-btn" id="apply-tpl-btn">&#128196; Apply template</button>
       <button class="copy-btn" id="copy-sched-btn">Copy schedule</button>
     </div>
     <div id="snapshot-box" class="snapshot-box"><h4>Today&#8217;s snapshot</h4><pre class="snapshot-text" id="snapshot-text"></pre></div>
+    <div id="review-prompt" class="review-prompt" style="display:none;">
+      <h3>&#128203; Weekly Review — Sunday Evening</h3>
+      <div class="review-q">1. What were your biggest wins this week?</div>
+      <textarea class="review-ta" id="rv-wins" placeholder="List 2-3 things that went well..."></textarea>
+      <div class="review-q">2. What did you struggle with?</div>
+      <textarea class="review-ta" id="rv-struggles" placeholder="Be honest — what got in the way?"></textarea>
+      <div class="review-q">3. Habits score this week (overall feeling 1-5)?</div>
+      <div class="checkin-rating" id="rv-rating" style="margin-bottom:0;">
+        <button class="cr-btn" data-rr="1">1</button><button class="cr-btn" data-rr="2">2</button>
+        <button class="cr-btn" data-rr="3">3</button><button class="cr-btn" data-rr="4">4</button>
+        <button class="cr-btn" data-rr="5">5</button>
+      </div>
+      <div class="review-q">4. What will you focus on next week?</div>
+      <textarea class="review-ta" id="rv-focus" placeholder="One clear intention for next week..."></textarea>
+      <div class="review-q">5. One thing to change or improve?</div>
+      <textarea class="review-ta" id="rv-change" placeholder="Small, specific, actionable..."></textarea>
+      <button class="review-save" id="review-save-btn">Save review as diary entry &#128203;</button>
+    </div>
     <div class="rule-box">
       <div class="rule-title">Daily non-negotiables</div>
       <div class="rule" id="daily-rules">No phone first 30 min &nbsp;&#183;&nbsp; Drink 2.5L water &nbsp;&#183;&nbsp; 20-20-20 eye rule &nbsp;&#183;&nbsp; Screen-free meals &nbsp;&#183;&nbsp; Wind down before sleep</div>
@@ -465,6 +704,13 @@ body.dark .t-sleep{border-color:#374151;}
     <div class="prog-section"><div class="prog-title">Daily progress</div><div id="prog-bars"></div></div>
     <div class="stat-row" id="stat-row"></div>
     <div class="milestone" id="milestone"></div>
+    <div class="trend-section">
+      <div class="trend-title">12-week completion trend</div>
+      <div class="trend-chart-wrap">
+        <div class="trend-canvas-area" id="trend-area"></div>
+        <div class="trend-legend" id="trend-legend"></div>
+      </div>
+    </div>
     <div class="wsummary"><h3>Weekly summary</h3><div id="wsummary-body"></div></div>
   </div>
   <!-- MANAGE HABITS -->
@@ -488,6 +734,40 @@ body.dark .t-sleep{border-color:#374151;}
       <span style="font-size:11px;color:var(--tx3);">Less</span>
       <div class="hm-day h0"></div><div class="hm-day h1"></div><div class="hm-day h2"></div><div class="hm-day h3"></div>
       <span style="font-size:11px;color:var(--tx3);">More</span>
+    </div>
+  </div>
+  <!-- WORK LOG -->
+  <div id="sec-worklog" class="sec">
+    <div class="wl-nav">
+      <div class="wl-lbl" id="wl-lbl"></div>
+      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+        <button class="wnav" id="wl-prev">&#8592;</button>
+        <button class="wnav" id="wl-today-btn">Today</button>
+        <button class="wnav" id="wl-next">&#8594;</button>
+      </div>
+      <div class="wl-view-toggle">
+        <button class="wl-vbtn active" id="wl-day-btn">Day</button>
+        <button class="wl-vbtn" id="wl-week-btn">Week</button>
+      </div>
+      <button class="wl-add" id="wl-add-btn">+ Log work</button>
+    </div>
+    <div id="wl-day-view">
+      <div id="wl-summary-box" class="wl-summary" style="display:none;">
+        <div class="wl-summary-title" id="wl-summary-title">Summary</div>
+        <div id="wl-proj-bars"></div>
+        <div class="wl-total" id="wl-total"></div>
+      </div>
+      <div id="wl-entries-list"></div>
+    </div>
+    <div id="wl-week-view" style="display:none;">
+      <div class="wl-week-nav">
+        <button class="wnav" id="wl-wprev">&#8592; Prev week</button>
+        <div class="week-lbl" id="wl-week-lbl"></div>
+        <button class="wnav" id="wl-wnext">Next week &#8594;</button>
+        <button class="wnav" id="wl-wtoday">This week</button>
+        <button class="wl-copy-btn" id="wl-copy-btn">&#128203; Copy week</button>
+      </div>
+      <div id="wl-week-content"></div>
     </div>
   </div>
   <!-- DIARY -->
@@ -533,6 +813,55 @@ body.dark .t-sleep{border-color:#374151;}
     </div>
     <div id="all-notes-list"></div>
   </div>
+  <!-- IMPROVEMENT 13: Monthly Insights -->
+  <div id="sec-insights" class="sec">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+      <div style="font-size:16px;font-weight:700;color:var(--tx);font-family:'Georgia',serif;">Monthly Insights</div>
+      <div style="display:flex;gap:6px;align-items:center;">
+        <button class="wnav" id="ins-prev">&#8592;</button>
+        <div class="week-lbl" id="ins-lbl"></div>
+        <button class="wnav" id="ins-next">&#8594;</button>
+        <button class="wnav" id="ins-today-btn">This month</button>
+      </div>
+    </div>
+    <div class="insights-grid" id="insights-grid"></div>
+    <div class="wsummary" id="insights-detail"><h3>Detail</h3><div id="insights-body"></div></div>
+  </div>
+  <!-- IMPROVEMENT 10: Finance Tracker -->
+  <div id="sec-finance" class="sec">
+    <div class="fin-month-nav">
+      <button class="wnav" id="fin-prev">&#8592;</button>
+      <div class="fin-month-lbl" id="fin-lbl"></div>
+      <button class="wnav" id="fin-next">&#8594;</button>
+      <button class="wnav" id="fin-today-btn">This month</button>
+    </div>
+    <div class="fin-grid" id="fin-summary-cards"></div>
+    <div class="fin-section">
+      <h3>Add entry</h3>
+      <div class="fin-row">
+        <select id="fin-cat">
+          <option value="income">&#128200; Income</option>
+          <option value="expense">&#128201; Expense</option>
+          <option value="invest">&#128188; Investment</option>
+          <option value="saving">&#129714; Saving</option>
+        </select>
+        <input type="text" id="fin-desc" placeholder="e.g. Salary, Groceries, MF SIP"/>
+        <input type="number" id="fin-amt" placeholder="Amount (₹)" min="0"/>
+        <button class="fin-add" id="fin-add-btn">Add</button>
+      </div>
+    </div>
+    <div class="fin-section">
+      <h3>Savings goal</h3>
+      <div class="fin-goal-row">
+        <span class="fin-goal-lbl">Monthly savings target: ₹</span>
+        <input type="number" id="fin-goal-input" style="width:120px;padding:5px 8px;border:1px solid var(--bdr);border-radius:7px;font-size:12px;background:var(--bg);color:var(--tx);" placeholder="e.g. 20000"/>
+        <button class="fin-add" id="fin-goal-btn">Set</button>
+      </div>
+      <div class="fin-savings-bar"><div class="fin-savings-fill" id="fin-savings-fill"></div></div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:4px;" id="fin-savings-pct"></div>
+    </div>
+    <div class="fin-section"><h3>This month&#8217;s entries</h3><div id="fin-entries-list"></div></div>
+  </div>
   <!-- HOLIDAYS -->
   <div id="sec-holidays" class="sec">
     <div class="hol-sec">
@@ -576,7 +905,7 @@ body.dark .t-sleep{border-color:#374151;}
     <div class="fg"><label>Time slot</label><input type="text" id="b-time" placeholder="e.g. 9:30-11:30 AM"/></div>
     <div class="fg"><label>Label</label><input type="text" id="b-label" placeholder="e.g. Big Data / DE course"/></div>
     <div class="fg"><label>Description</label><input type="text" id="b-sub" placeholder="e.g. 2 hrs focused learning"/></div>
-    <div class="fg"><label>Colour / type</label>
+    <div class="fg"><label>Colour category</label>
       <select id="b-cls">
         <option value="t-wake">Morning / Wake up</option><option value="t-walk">Walk / Exercise</option>
         <option value="t-learn">Learning / Course</option><option value="t-call">Call / Meeting</option>
@@ -586,6 +915,17 @@ body.dark .t-sleep{border-color:#374151;}
         <option value="t-growth">Growth / Review</option><option value="t-explore">Leisure / Explore</option>
         <option value="t-break">Break / Rest</option><option value="t-sleep">Sleep / Wind down</option>
       </select>
+    </div>
+    <div class="fg"><label>Custom colour (optional — overrides category colour)</label>
+      <div class="clr-swatches" id="blk-clr-swatches"></div>
+      <div class="clr-custom-row">
+        <input type="color" id="blk-clr-custom" value="#A5B4FC"/>
+        <span>Pick any colour, or clear below to use category default</span>
+      </div>
+      <div style="margin-top:6px;display:flex;align-items:center;gap:8px;">
+        <span id="blk-clr-preview-wrap" style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--tx2);">Preview: <span class="clr-preview" id="blk-clr-preview"></span> <span id="blk-clr-preview-label"></span></span>
+        <button type="button" class="tbtn" id="blk-clr-clear">&#10005; Clear custom colour</button>
+      </div>
     </div>
     <div class="fg"><label>Duplicate to another day?</label>
       <select id="b-dup"><option value="">No</option><option value="mon">Monday</option><option value="tue">Tuesday</option><option value="wed">Wednesday</option><option value="thu">Thursday</option><option value="fri">Friday</option><option value="weekend">Weekend</option></select>
@@ -642,6 +982,43 @@ body.dark .t-sleep{border-color:#374151;}
     <div class="modal-foot"><button class="btn-d mr-auto" id="diary-edit-del-btn">Delete</button><button class="btn-s" id="diary-edit-cancel-btn">Cancel</button><button class="btn-p" id="diary-edit-save-btn">Save</button></div>
   </div>
 </div>
+<div class="overlay" id="wl-modal">
+  <div class="modal">
+    <h3 id="wl-modal-title">Log work entry</h3>
+    <div style="display:flex;gap:10px;">
+      <div class="fg" style="flex:1;"><label>Start time</label><input type="text" id="wl-time" placeholder="e.g. 9:30 AM"/></div>
+      <div class="fg" style="flex:1;"><label>Duration</label><input type="text" id="wl-duration" placeholder="e.g. 90 min"/>
+        <div class="wl-chips" id="wl-dur-chips"></div>
+      </div>
+    </div>
+    <div class="fg wl-autocomplete"><label>Project</label>
+      <input type="text" id="wl-project" placeholder="e.g. Page Industries EDP" autocomplete="off"/>
+      <div class="wl-ac-list" id="wl-ac-list"></div>
+    </div>
+    <div class="fg"><label>Quick-fill from today's schedule</label><div class="wl-chips" id="wl-sched-chips" style="display:none;margin-bottom:6px;"></div><label>Task</label><input type="text" id="wl-task" placeholder="e.g. Designed ADF medallion pipeline"/></div>
+    <div class="fg"><label>Status</label>
+      <div class="wl-chips" id="wl-status-chips">
+        <button class="wl-chip sel" data-status="done">&#10003; Done</button>
+        <button class="wl-chip" data-status="inprogress">&#9654; In Progress</button>
+        <button class="wl-chip" data-status="blocked">&#9632; Blocked</button>
+      </div>
+    </div>
+    <div class="fg"><label>Notes (optional)</label><textarea id="wl-notes" placeholder="Any details, blockers, outcomes..."></textarea></div>
+    <div class="modal-foot">
+      <button class="btn-d mr-auto" id="wl-del-btn" style="display:none">Delete</button>
+      <button class="btn-s" id="wl-cancel-btn">Cancel</button>
+      <button class="btn-p" id="wl-save-btn">Save</button>
+    </div>
+  </div>
+</div>
+<div class="overlay" id="tpl-modal">
+  <div class="modal">
+    <h3 id="tpl-modal-title">Schedule Templates</h3>
+    <div id="tpl-list" class="tpl-list"></div>
+    <div style="margin-top:12px;font-size:11px;color:var(--tx3);">Templates copy all blocks from the selected day to the current day.</div>
+    <div class="modal-foot"><button class="btn-s" id="tpl-cancel-btn">Close</button></div>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 
 <script type="module">
@@ -688,7 +1065,7 @@ const NOTE_QUICK=['Done!','Skipped - busy','Skipped - forgot','Partial done','Ex
 // ── OWNER DETECTION ──
 // Owner gets full personalised schedule + habits.
 // All other users get a clean general schedule + basic habits.
-const OWNER_UID = 'REPLACE_WITH_YOUR_UID'; // filled automatically on first owner login
+const OWNER_UID = 'REPLACE_WITH_YOUR_UID'; // Optional: replace with your Firebase UID as a backup check
 
 function isOwner(){
   return currentUser && (
@@ -721,9 +1098,9 @@ function makeMTF_owner(){return[
   {time:'10:00-10:30',label:'Wind down',sub:'No screens, prayer / reflection',cls:'t-sleep'},
   {time:'10:30 PM',label:'Sleep',sub:'7.5 hrs rest',cls:'t-sleep'}
 ];}
-function makeMon_owner(){const b=makeMTF_owner();b.splice(17,0,{time:'9:00-10:00',label:'Monday extra call',sub:'Mon only 9-10 PM',cls:'t-call'});return b;}
-function makeWed_owner(){const b=makeMTF_owner();b.splice(17,0,{time:'9:30-10:00',label:'Wednesday extra call',sub:'Wed only 9:30-10 PM',cls:'t-call'});return b;}
-function makeThu_owner(){const b=makeMTF_owner();b.splice(17,0,{time:'9:00-10:00',label:'Thursday extra call',sub:'Thu only 9-10 PM',cls:'t-call'});return b;}
+function makeMon_owner(){const b=makeMTF_owner();const si=b.findIndex(x=>x.cls==='t-sleep');b.splice(si>0?si:b.length,0,{time:'9:00-10:00',label:'Monday extra call',sub:'Mon only 9-10 PM',cls:'t-call'});return b;}
+function makeWed_owner(){const b=makeMTF_owner();const si=b.findIndex(x=>x.cls==='t-sleep');b.splice(si>0?si:b.length,0,{time:'9:30-10:00',label:'Wednesday extra call',sub:'Wed only 9:30-10 PM',cls:'t-call'});return b;}
+function makeThu_owner(){const b=makeMTF_owner();const si=b.findIndex(x=>x.cls==='t-sleep');b.splice(si>0?si:b.length,0,{time:'9:00-10:00',label:'Thursday extra call',sub:'Thu only 9-10 PM',cls:'t-call'});return b;}
 const OWNER_WD={
   mon:makeMon_owner(),tue:makeMTF_owner(),wed:makeWed_owner(),thu:makeThu_owner(),fri:makeMTF_owner(),
   weekend:[
@@ -836,7 +1213,7 @@ let diaryAutoSaveTimeout=null;
 let pendingSave={meta:false,tracker:false,diary:false};
 
 // ── UUID GENERATOR (BUG FIX S4/Bug9/10) ──
-function uuid(){return 'h'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+function uuid(){try{return 'h'+crypto.randomUUID().replace(/-/g,'').slice(0,12);}catch(e){return 'h'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);}}
 
 function defaultS(){
   return {
@@ -844,7 +1221,7 @@ function defaultS(){
     habits:DEF_HABITS(),
     tracker:{},notes:{},diary:{},
     holidays:[],focus:{},water:{},
-    pauses:[],dark:false,setupDone:false
+    pauses:[],dark:false,setupDone:false,worklog:{},finance:{},finGoals:{},checkin:{},templates:{}
   };
 }
 
@@ -860,7 +1237,7 @@ function dowToKey(dow){if(dow===1)return 'mon';if(dow===2)return 'tue';if(dow===
 // BUG FIX 7: Working day override uses actual dow
 function schedKeyForDate(d){
   const key=dk(d),sp=(S.holidays||[]).find(h=>h.date===key);
-  if(sp){if(sp.type==='holiday')return 'weekend';const dow=d.getDay();return(dow===0||dow===6)?'mon':dowToKey(dow);}
+  if(sp){if(sp.type==='holiday')return 'weekend';const dow=d.getDay();if(dow===0||dow===6)return 'weekend';return dowToKey(dow);}
   return dowToKey(d.getDay());
 }
 function isHabitPaused(hid,d){
@@ -894,11 +1271,11 @@ function saveS(type){
     try{
       const saves=[];
       if(captured.meta)saves.push(setDoc(metaDoc(),buildMeta()));
-      if(captured.tracker)saves.push(setDoc(trackerDoc(),{data:S.tracker,notes:S.notes}));
+      if(captured.tracker)saves.push(setDoc(trackerDoc(),{data:S.tracker,notes:S.notes,worklog:S.worklog||{}}));
       if(captured.diary)saves.push(setDoc(diaryFbDoc(),{entries:S.diary}));
       await Promise.all(saves);
       const now=new Date();
-      setSyncStatus('ok',currentUser.displayName,'Saved '+now.getHours()+':'+String(now.getMinutes()).padStart(2,'0'));
+      setSyncStatus('ok',currentUser?.displayName||'Saved','Saved '+now.getHours()+':'+String(now.getMinutes()).padStart(2,'0'));
       // BUG FIX 18: Prune old water + focus data (keep last 60 days only)
       pruneOldData();
     }catch(e){
@@ -912,7 +1289,7 @@ function saveS(type){
   },800);
 }
 function buildMeta(){
-  return {wd:S.wd,habits:S.habits,holidays:S.holidays,focus:S.focus,water:S.water,pauses:S.pauses,dark:S.dark,setupDone:S.setupDone};
+  return {wd:S.wd,habits:S.habits,holidays:S.holidays,focus:S.focus,water:S.water,pauses:S.pauses,dark:S.dark,setupDone:S.setupDone,finance:S.finance||{},finGoals:S.finGoals||{},checkin:S.checkin||{},templates:S.templates||{}};
 }
 // BUG FIX 18: Prune water and focus older than 60 days
 let _pruning=false;
@@ -942,18 +1319,22 @@ async function loadFromFirebase(){
       S.pauses=(m.pauses||[]).map(p=>({...p,hid:p.hid||p.hi}));// migrate old pause format
       S.dark=m.dark||false;
       S.setupDone=m.setupDone||false;
+      S.finance=m.finance||{};
+      S.finGoals=m.finGoals||{};
+      S.checkin=m.checkin||{};
+      S.templates=m.templates||{};
       const _dwd=DEF_WD();['mon','tue','wed','thu','fri','weekend'].forEach(k=>{if(!S.wd[k])S.wd[k]=JSON.parse(JSON.stringify(_dwd[k]));});
     }else{
       S=defaultS();
       await setDoc(metaDoc(),buildMeta());
     }
-    S.tracker=ts.exists()?(ts.data().data||{}):{};
+    S.tracker=ts.exists()?(ts.data().data||{}):{};S.worklog=ts.exists()?(ts.data().worklog||{}):{};
     S.notes=ts.exists()?(ts.data().notes||{}):{};
     S.diary=ds.exists()?(ds.data().entries||{}):{};
     // BUG FIX S17: Apply dark mode immediately from Firebase
     if(S.dark)document.body.classList.add('dark');
     updateDarkBtn();
-    setSyncStatus('ok',currentUser.displayName,'');
+    setSyncStatus('ok',currentUser?.displayName||'','');
     hideLoading();
     initApp();
   }catch(e){
@@ -981,7 +1362,7 @@ function startSync(){
         S.pauses=(m.pauses||[]).map(p=>({...p,hid:p.hid||p.hi}));
         const _dwd2=DEF_WD();['mon','tue','wed','thu','fri','weekend'].forEach(k=>{if(!S.wd[k])S.wd[k]=JSON.parse(JSON.stringify(_dwd2[k]));});
         const now=new Date();
-        setSyncStatus('ok',currentUser.displayName,'Synced from another device '+now.getHours()+':'+String(now.getMinutes()).padStart(2,'0'));
+        setSyncStatus('ok',currentUser?.displayName||'Synced','Synced from another device '+now.getHours()+':'+String(now.getMinutes()).padStart(2,'0'));
         refreshView();
       }
     }
@@ -1026,16 +1407,26 @@ $id('signout-btn').addEventListener('click',async()=>{
   // FIX 16: Clear diary auto-save timer
   clearTimeout(diaryAutoSaveTimeout);
   // FIX 17: Clear Pomodoro interval
-  clearInterval(pomInterval);pomRunning=false;
+  clearInterval(pomInterval);pomRunning=false;pomSecs=0;pomStartTime=null;
   $id('pom-bar').style.display='none';
+  $id('pom-toggle-btn').textContent='Start';updatePomDisplay();
   // FIX 11: Remove Ctrl+S listener
   document.removeEventListener('keydown',_ctrlSHandler);
   _ctrlSAttached=false;
   if(unsub)unsub();
-  await fbSignOut(auth);
-  // FIX 18: Reset session state for next user
+  // B12: Wrap fbSignOut — reset state regardless of outcome
+  try{await fbSignOut(auth);}catch(e){console.error('signout error',e);}
+  // Reset session state for next user
   S={};currentUser=null;
   weekOff=0;moodFilter='all';currentMood='';editMood='';
+  editBlkMode='add';editBlkIdx=null;editHabMode='add';editHabIdx=null;
+  noteHi=null;noteDkey=null;editDiaryKey=null;
+  wlWeekOff=0;wlView='day';wlStatus='done';wlEditId=null;
+  _pruning=false;
+  _checkinRating=0;_rvRating=0;insMonthOff=0;finMonthOff=0;
+  _kbAttached=false;_dragIdx=null;checkinOpen=false;
+  _monthPctCache={};_monthPctDate='';_notesSearchTimer=null;
+  $id('wl-day-btn').classList.add('active');$id('wl-week-btn').classList.remove('active');
   diaryDirty=false;
   pendingSave={meta:false,tracker:false,diary:false};
   document.querySelectorAll('[data-mf]').forEach(x=>x.classList.toggle('sel',x.dataset.mf==='all'));
@@ -1076,10 +1467,15 @@ function initApp(){
   }
   // BUG FIX 13: Reset diaryDate on init with proper zeroed hours
   diaryDate=new Date(today());
+  wlDate=new Date(today());
   const initKey=schedKeyForDate(today());
   activeDay=initKey;
   renderBanner();
   showDay(initKey);
+  renderCheckin();
+  checkReviewPrompt();
+  restoreWidgetState();
+  pruneWorklog();
   // FIX 11: Attach Ctrl+S only once
   if(!_ctrlSAttached){
     document.addEventListener('keydown',_ctrlSHandler);
@@ -1089,7 +1485,7 @@ function initApp(){
 
 function refreshView(){
   renderBanner();
-  ['schedule','tracker','habits','heatmap','diary','notes','holidays'].forEach(s=>{
+  ['schedule','tracker','habits','heatmap','diary','worklog','notes','insights','finance','holidays'].forEach(s=>{
     if($id('sec-'+s).classList.contains('on'))swRender(s);
   });
 }
@@ -1100,13 +1496,13 @@ function renderBanner(){
   const td=today(),sk=schedKeyForDate(td);
   const ti=DAY_TABS.find(t=>t.key===sk);
   const sp=(S.holidays||[]).find(h=>h.date===dk(td));
-  const badge=sp?`<span class="td-badge ${sp.type==='holiday'?'bhl':'bw'}">${sp.type==='holiday'?'Holiday':'Working day'}: ${sp.name}</span>`:
+  const badge=sp?`<span class="td-badge ${sp.type==='holiday'?'bhl':'bw'}">${sp.type==='holiday'?'Holiday':'Working day'}: ${esc(sp.name)}</span>`:
     (td.getDay()===0||td.getDay()===6?'<span class="td-badge bwk">Weekend</span>':'<span class="td-badge bwd">Weekday</span>');
   const ft=(S.focus||{})[dk(td)]||'';
   $id('today-banner').innerHTML=
     `<div style="flex:1;min-width:180px;"><div class="td-date">${fd(td)}</div>`+
     `<div class="td-info">Follow: <b>${ti?ti.label+' schedule':'Weekend schedule'}</b></div>`+
-    (ft?`<div class="td-info" style="margin-top:2px;">Focus: <b>${ft}</b></div>`:'')+
+    (ft?`<div class="td-info" style="margin-top:2px;">Focus: <b>${esc(ft)}</b></div>`:'')+
     `</div>${badge}<button class="tbtn" id="jump-today-btn" style="white-space:nowrap;">View today &#8594;</button>`;
   $id('jump-today-btn').addEventListener('click',()=>{sw('schedule');activeDay=schedKeyForDate(today());showDay(activeDay);});
   // BUG FIX 26: Only set focus input if not currently focused
@@ -1114,6 +1510,7 @@ function renderBanner(){
     $id('focus-input').value=ft;
   }
   renderWater();
+  updateCollapsedText();
 }
 $id('focus-save-btn').addEventListener('click',()=>{
   S.focus[dk(today())]=$id('focus-input').value.trim();
@@ -1121,11 +1518,11 @@ $id('focus-save-btn').addEventListener('click',()=>{
 });
 
 // ── WATER ──
-const DROP_E='<svg width="13" height="17" viewBox="0 0 14 18" fill="none"><path d="M7 1L13 9Q13 17 7 17Q1 17 1 9Z" stroke="#93C5FD" stroke-width="1.5" fill="none"/></svg>';
-const DROP_F='<svg width="13" height="17" viewBox="0 0 14 18" fill="none"><path d="M7 1L13 9Q13 17 7 17Q1 17 1 9Z" stroke="rgba(255,255,255,.9)" stroke-width="1.5" fill="rgba(255,255,255,.35)"/></svg>';
+const DROP_E='<svg width="13" height="17" viewBox="0 0 14 18" fill="none"><path d="M7 1L13 9Q13 17 7 17Q1 17 1 9Z" stroke="currentColor" stroke-width="1.5" fill="none" style="color:var(--pri2)"/></svg>';
+const DROP_F='<svg width="13" height="17" viewBox="0 0 14 18" fill="none"><path d="M7 1L13 9Q13 17 7 17Q1 17 1 9Z" stroke="rgba(255,255,255,.9)" stroke-width="1.5" fill="rgba(255,255,255,.4)"/></svg>';
 
 function getWaterHid(){
-  const h=S.habits.find(h=>h.name==='2.5 L water');
+  const h=(S.habits||[]).find(h=>h.name==='2.5 L water');
   return h?h.id:null;
 }
 function renderWater(){
@@ -1194,6 +1591,62 @@ $id('pom-close-btn').addEventListener('click',()=>{clearInterval(pomInterval);po
 function startPom(lbl,mins){clearInterval(pomInterval);pomSecs=(mins||25)*60;pomRunning=false;pomStartTime=null;$id('pom-bar').style.display='flex';$id('pom-label').textContent='Pomodoro: '+lbl;$id('pom-toggle-btn').textContent='Start';updatePomDisplay();}
 function updatePomDisplay(){const m=Math.floor(pomSecs/60),s=pomSecs%60;$id('pom-timer').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
 
+
+// ── CUSTOM COLOUR SYSTEM ──
+const COLOUR_SWATCHES=[
+  // Work (blues)
+  '#EFF6FF','#93C5FD','#3B82F6','#1E3A5F',
+  // Calls/Meetings (reds/pinks)
+  '#FFF1F2','#FDA4AF','#F43F5E','#9F1239',
+  // Learning (purples/indigos)
+  '#EEF2FF','#A5B4FC','#6366F1','#312E81',
+  // Health/Walk (greens)
+  '#F0FDF4','#86EFAC','#22C55E','#166534',
+  // Personal/Faith (amber/warm)
+  '#FFFBEB','#FDE68A','#F59E0B','#92400E',
+];
+let _blkCustomColor='';
+let checkinOpen=false;
+let _kbAttached=false;
+function initColorPicker(){
+  const sw=$id('blk-clr-swatches');
+  if(!sw)return;
+  sw.innerHTML=COLOUR_SWATCHES.map(c=>`<div class="clr-swatch" style="background:${c}" data-c="${c}" title="${c}"></div>`).join('');
+  sw.querySelectorAll('.clr-swatch').forEach(el=>el.addEventListener('click',()=>{
+    _blkCustomColor=el.dataset.c;
+    $id('blk-clr-custom').value=_blkCustomColor;
+    sw.querySelectorAll('.clr-swatch').forEach(s=>s.classList.toggle('sel',s.dataset.c===_blkCustomColor));
+    updateClrPreview();
+  }));
+  $id('blk-clr-custom').addEventListener('input',()=>{
+    _blkCustomColor=$id('blk-clr-custom').value;
+    sw.querySelectorAll('.clr-swatch').forEach(s=>s.classList.toggle('sel',s.dataset.c===_blkCustomColor));
+    updateClrPreview();
+  });
+  $id('blk-clr-clear').addEventListener('click',()=>{
+    _blkCustomColor='';
+    sw.querySelectorAll('.clr-swatch').forEach(s=>s.classList.remove('sel'));
+    updateClrPreview();
+  });
+}
+function updateClrPreview(){
+  const prev=$id('blk-clr-preview');
+  const lbl=$id('blk-clr-preview-label');
+  if(_blkCustomColor){
+    prev.style.background=_blkCustomColor;
+    prev.style.display='inline-block';
+    lbl.textContent=_blkCustomColor;
+  } else {
+    const cls=$id('b-cls').value;
+    prev.style.background=CLSC[cls]||'#ccc';
+    prev.style.display='inline-block';
+    lbl.textContent='Using category default';
+  }
+}
+$id('b-cls').addEventListener('change',updateClrPreview);
+// Init swatches when script loads (DOM already ready for module scripts)
+initColorPicker();
+
 // ── SCHEDULE ──
 function buildDayTabs(){
   const todayKey=schedKeyForDate(today());
@@ -1203,25 +1656,17 @@ function buildDayTabs(){
 function showDay(key){
   activeDay=key;buildDayTabs();
   const blocks=S.wd[key]||[];
-  const seen=new Set(blocks.map(b=>b.cls));
-  $id('sched-legend').innerHTML=[...seen].map(c=>`<div class="leg"><div class="ldot" style="background:${CLSC[c]||'#ccc'}"></div>${CLSL[c]||c}</div>`).join('');
+  // Build legend with custom colours
+  const legendMap=new Map();
+  blocks.forEach(b=>{if(!legendMap.has(b.cls))legendMap.set(b.cls,b.color||null);});
+  $id('sched-legend').innerHTML=[...legendMap.entries()].map(([c,cc])=>`<div class="leg"><div class="ldot" style="background:${cc||CLSC[c]||'#ccc'}"></div>${CLSL[c]||c}</div>`).join('');
   // BUG FIX 14+15: Scoped selectors, Pomodoro listener attached once per block
-  $id('sched-blocks').innerHTML=blocks.map((b,i)=>`
-    <div class="blk ${b.cls}">
-      <div class="blk-time">${esc(b.time)}</div>
-      <div class="blk-content">
-        <div class="blk-label">${esc(b.label)}</div>
-        <div class="blk-sub">${esc(b.sub)}</div>
-        <div class="blk-acts">
-          ${b.cls==='t-learn'?`<button class="bbtn pom" data-plbl="${esc(b.label)}">&#9201; 25m</button>`:''}
-          <button class="bbtn" data-up="${i}">&#8593;</button>
-          <button class="bbtn" data-dn="${i}">&#8595;</button>
-          <button class="bbtn" data-edit="${i}">Edit</button>
-          <button class="bbtn del" data-del="${i}">Del</button>
-        </div>
-      </div>
-    </div>`).join('');
+  $id('sched-blocks').innerHTML=blocks.map((b,i)=>{
+    const cc=b.color?`background:${b.color};border-color:${b.color};`:'';
+    return `<div class="blk ${b.cls}" style="${cc}"><div class="blk-time">${esc(b.time)}</div><div class="blk-content"><div class="blk-label">${esc(b.label)}</div><div class="blk-sub">${esc(b.sub)}</div><div class="blk-acts">${b.cls==='t-learn'?`<button class="bbtn pom" data-plbl="${esc(b.label)}">&#9201; 25m</button>`:''}<button class="bbtn" data-up="${i}">&#8593;</button><button class="bbtn" data-dn="${i}">&#8595;</button><button class="bbtn" data-edit="${i}">Edit</button><button class="bbtn del" data-del="${i}">Del</button></div></div></div>`;
+  }).join('');
   const sb=$id('sched-blocks');
+  attachDragHandlers();
   sb.querySelectorAll('[data-plbl]').forEach(el=>el.addEventListener('click',()=>startPom(el.dataset.plbl,25)));
   sb.querySelectorAll('[data-up]').forEach(el=>el.addEventListener('click',()=>{const i=+el.dataset.up;if(i===0)return;[S.wd[activeDay][i-1],S.wd[activeDay][i]]=[S.wd[activeDay][i],S.wd[activeDay][i-1]];saveS('meta');showDay(activeDay);}));
   sb.querySelectorAll('[data-dn]').forEach(el=>el.addEventListener('click',()=>{const i=+el.dataset.dn,arr=S.wd[activeDay];if(i>=arr.length-1)return;[arr[i],arr[i+1]]=[arr[i+1],arr[i]];saveS('meta');showDay(activeDay);}));
@@ -1253,18 +1698,26 @@ function openAddBlock(){
   ['b-time','b-label','b-sub'].forEach(id=>$id(id).value='');
   $id('b-cls').value='t-learn';$id('b-dup').value='';$id('b-habit').value='yes';
   $id('b-habit-fg').style.display='block';$id('b-del-btn').style.display='none';
+  _blkCustomColor='';
+  $id('blk-clr-swatches').querySelectorAll('.clr-swatch').forEach(s=>s.classList.remove('sel'));
+  updateClrPreview();
   $id('blk-modal').classList.add('on');
 }
 function openEditBlock(idx){
   editBlkMode='edit';editBlkIdx=idx;
   const b=S.wd[activeDay][idx];
+  if(!b)return;
   $id('blk-modal-title').textContent='Edit time block';
   $id('b-time').value=b.time;$id('b-label').value=b.label;$id('b-sub').value=b.sub;$id('b-cls').value=b.cls;
   $id('b-dup').value='';$id('b-habit-fg').style.display='none';$id('b-del-btn').style.display='inline-block';
+  _blkCustomColor=b.color||'';
+  $id('blk-clr-custom').value=_blkCustomColor||'#A5B4FC';
+  $id('blk-clr-swatches').querySelectorAll('.clr-swatch').forEach(s=>s.classList.toggle('sel',s.dataset.c===_blkCustomColor));
+  updateClrPreview();
   $id('blk-modal').classList.add('on');
 }
 $id('b-save-btn').addEventListener('click',()=>{
-  const b={time:$id('b-time').value.trim(),label:$id('b-label').value.trim(),sub:$id('b-sub').value.trim(),cls:$id('b-cls').value};
+  const b={time:$id('b-time').value.trim(),label:$id('b-label').value.trim(),sub:$id('b-sub').value.trim(),cls:$id('b-cls').value,...(_blkCustomColor?{color:_blkCustomColor}:{})};
   if(!b.label){toast('Enter a label');return;}
   const dup=$id('b-dup').value;
   if(editBlkMode==='add'){
@@ -1279,11 +1732,16 @@ $id('b-cancel-btn').addEventListener('click',()=>closeM('blk-modal'));
 
 // ── TRACKER ──
 function wkStart(off){const m=new Date(today()),dow=m.getDay();m.setDate(m.getDate()-(dow===0?6:dow-1)+off*7);m.setHours(0,0,0,0);return m;}
-// BUG FIX S4/9/10: monthPct now uses habit ID not index
+// monthPct memoized per render cycle
+let _monthPctCache={};
+let _monthPctDate='';
 function monthPct(hid){
-  const td=today();let done=0,poss=0;
-  for(let i=0;i<30;i++){const d=addD(td,-i);if(!isHabitPaused(hid,d)){poss++;if((S.tracker[dk(d)+'_'+hid]||'none')==='done')done++;}}
-  return poss?Math.round(done/poss*100):0;
+  const tdStr=dk(today());
+  if(tdStr!==_monthPctDate){_monthPctCache={};_monthPctDate=tdStr;}
+  if(_monthPctCache[hid]!==undefined)return _monthPctCache[hid];
+  const tdObj=today();let done=0,poss=0;
+  for(let i=0;i<30;i++){const d=addD(tdObj,-i);if(!isHabitPaused(hid,d)){poss++;if((S.tracker[dk(d)+'_'+hid]||'none')==='done')done++;}}
+  const r=poss?Math.round(done/poss*100):0;_monthPctCache[hid]=r;return r;
 }
 function renderTracker(){
   const ws=wkStart(weekOff),dates=Array.from({length:7},(_,i)=>addD(ws,i));
@@ -1318,9 +1776,9 @@ function renderTracker(){
   const wPct=totP?Math.round(totD/totP*100):0;
   $id('prog-bars').innerHTML=scores.map((s,i)=>{const pct=s.poss?Math.round(s.done/s.poss*100):0,isTd=dk(dates[i])===dk(td);return `<div class="prog-row" style="${isTd?'font-weight:700;':''}"><div class="prog-d">${DS[dates[i].getDay()]} ${dates[i].getDate()}</div><div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div><div class="prog-pct">${pct}%</div></div>`;}).join('')+
     `<div class="prog-row" style="border-top:1px solid var(--bdr);padding-top:6px;margin-top:5px;"><div class="prog-d" style="font-weight:700;">Week</div><div class="prog-bar"><div class="prog-fill" style="width:${wPct}%"></div></div><div class="prog-pct" style="font-weight:700;">${wPct}%</div></div>`;
-  // BUG FIX 23: Streak always starts from current week (weekOff=0), not viewing week
-  let streak=0;
-  outerLoop:for(let w=0;w>=0-52;w--){const ws2=wkStart(w);for(let di=6;di>=0;di--){const d=addD(ws2,di);d.setHours(0,0,0,0);if(d>td)continue;if(d<APP_START)break outerLoop;let d2=0,p2=0;(S.habits||[]).forEach(h=>{if(!isHabitPaused(h.id,d)){p2++;if((S.tracker[dk(d)+'_'+h.id]||'none')==='done')d2++;}});if(p2>0&&d2===p2)streak++;else if(p2>0)break outerLoop;}}
+  // IMPROVEMENT 3: Streak with 1 grace day per week
+  const {streak,graceUsed}=calcStreakWithGrace();
+  renderTrendChart();
   $id('stat-row').innerHTML=`<div class="stat"><div class="stat-n">${wPct}%</div><div class="stat-l">This week</div></div><div class="stat"><div class="stat-n">${totD}</div><div class="stat-l">Done</div></div><div class="stat"><div class="stat-n">${streak}</div><div class="stat-l">Streak &#128293;</div></div><div class="stat"><div class="stat-n">${(S.habits||[]).length}</div><div class="stat-l">Habits</div></div>`;
   const ms=$id('milestone');
   if(streak>=30){ms.style.display='block';ms.textContent='&#127942; 30-day perfect streak! Incredible!';}
@@ -1540,7 +1998,8 @@ $id('diary-edit-cancel-btn').addEventListener('click',()=>closeM('diary-modal'))
 // ── ALL NOTES ──
 function renderAllNotes(){
   const search=$id('notes-search-text').value.toLowerCase().trim();
-  const entries=Object.entries(S.diary||{}).sort((a,b)=>b[0].localeCompare(a[0]));
+  // C1 FIX: filter out non-object entries (e.g. boolean sentinels)
+  const entries=Object.entries(S.diary||{}).filter(([k,v])=>v&&typeof v==='object'&&v.text).sort((a,b)=>b[0].localeCompare(a[0]));
   const filtered=entries.filter(([k,v])=>{if(moodFilter!=='all'&&v.mood!==moodFilter)return false;if(search&&v.text.toLowerCase().indexOf(search)<0)return false;return true;});
   $id('notes-count').textContent=filtered.length+' of '+entries.length+' entries';
   const list=$id('all-notes-list');
@@ -1561,7 +2020,8 @@ function renderAllNotes(){
     delete S.diary[el.dataset.deld];saveS('diary');renderAllNotes();renderDiary();toast('Deleted');
   }));
 }
-$id('notes-search-text').addEventListener('input',renderAllNotes);
+let _notesSearchTimer=null;
+$id('notes-search-text').addEventListener('input',()=>{clearTimeout(_notesSearchTimer);_notesSearchTimer=setTimeout(renderAllNotes,200);});
 $id('notes-goto-btn').addEventListener('click',()=>{
   const dv=$id('notes-search-date').value;if(!dv)return;
   const el=$id('nentry-'+dv);
@@ -1641,6 +2101,773 @@ $id('dark-btn').addEventListener('click',()=>{
   saveS('meta');
 });
 
+
+// ── WORK LOG ──
+let wlDate=new Date();wlDate.setHours(0,0,0,0);
+let wlView='day';
+let wlWeekOff=0;
+let wlEditId=null;
+let wlStatus='done';
+const WL_DUR_CHIPS=['30 min','1 hr','1.5 hr','2 hr','3 hr'];
+const WL_STATUS_LABELS={done:'Done',inprogress:'In Progress',blocked:'Blocked'};
+const WL_STATUS_CLS={done:'wls-done',inprogress:'wls-inprogress',blocked:'wls-blocked'};
+const WL_STATUS_ICON={done:'✓',inprogress:'▶',blocked:'■'};
+
+function wlDayKey(d){return dk(d);}
+
+function wlGetDay(d){return (S.worklog||{})[wlDayKey(d)]||[];}
+
+function wlSave(){S.worklog=S.worklog||{};saveS('tracker');}
+
+function wlParseDuration(str){
+  if(!str)return 0;
+  str=str.trim().toLowerCase();
+  const mMatch=str.match(/(\d+\.?\d*)\s*(?:hr|hour|h)\s*(\d+\.?\d*)?\s*(?:min|m)?/);
+  if(mMatch)return Math.round(parseFloat(mMatch[1])*60+(parseFloat(mMatch[2])||0));
+  const minMatch=str.match(/^(\d+\.?\d*)\s*(?:min|m|mins)?$/);
+  if(minMatch)return parseInt(minMatch[1]);
+  return 0;
+}
+
+function wlFormatDuration(mins){
+  if(!mins)return '';
+  if(mins<60)return mins+'m';
+  const h=Math.floor(mins/60),m=mins%60;
+  return m?h+'h '+m+'m':h+'h';
+}
+
+function wlGetProjects(){
+  const all=S.worklog||{};
+  const projs=new Set();
+  Object.values(all).forEach(entries=>(entries||[]).forEach(e=>{if(e.project)projs.add(e.project);}));
+  return [...projs].sort();
+}
+
+function renderWorkLog(){
+  $id('wl-lbl').textContent=wlView==='day'?'Work Log — '+fd(wlDate):'Work Log — Weekly';
+  $id('wl-day-view').style.display=wlView==='day'?'block':'none';
+  $id('wl-week-view').style.display=wlView==='week'?'block':'none';
+  if(wlView==='day')renderWLDay();
+  else renderWLWeek();
+}
+
+function renderWLDay(){
+  const entries=wlGetDay(wlDate).slice().sort((a,b)=>(a.time||'').localeCompare(b.time||''));
+  const list=$id('wl-entries-list');
+  if(!entries.length){
+    list.innerHTML='<div class="wl-empty">&#128203; No work logged for this day.<br><small>Tap + Log work to add your first entry.</small></div>';
+    $id('wl-summary-box').style.display='none';
+    return;
+  }
+  // Summary
+  const projMap={};let totalMins=0;
+  entries.forEach(e=>{const m=e.duration||0;totalMins+=m;const p=e.project||'General';projMap[p]=(projMap[p]||0)+m;});
+  const maxMins=Math.max(...Object.values(projMap),1);
+  $id('wl-proj-bars').innerHTML=Object.entries(projMap).sort((a,b)=>b[1]-a[1]).map(([p,m])=>
+    `<div class="wl-proj-row"><div class="wl-proj-name">${esc(p)}</div><div class="wl-proj-bar"><div class="wl-proj-fill" style="width:${Math.round(m/maxMins*100)}%"></div></div><div class="wl-proj-dur">${wlFormatDuration(m)}</div></div>`
+  ).join('');
+  $id('wl-total').textContent='Total: '+wlFormatDuration(totalMins)+' across '+Object.keys(projMap).length+' project'+(Object.keys(projMap).length!==1?'s':'');
+  $id('wl-summary-title').textContent=dk(wlDate)===dk(today())?"Today's summary":"Summary — "+fd(wlDate);
+  $id('wl-summary-box').style.display='block';
+  // Entries
+  list.innerHTML=entries.map(e=>{
+    const sc=WL_STATUS_CLS[e.status]||'wls-done';
+    const si=WL_STATUS_ICON[e.status]||'✓';
+    const sl=WL_STATUS_LABELS[e.status]||e.status||'Done';
+    return `<div class="wl-card">
+      <div class="wl-time-col"><div class="wl-time">${esc(e.time||'—')}</div><div class="wl-dur">${wlFormatDuration(e.duration)}</div></div>
+      <div class="wl-body">
+        <div class="wl-project">${esc(e.project||'General')}</div>
+        <div class="wl-task">${esc(e.task||'')}</div>
+        ${e.notes?`<div class="wl-notes">${esc(e.notes)}</div>`:''}
+        <span class="wl-status ${sc}">${si} ${sl}</span>
+      </div>
+      <div class="wl-acts">
+        <button class="bbtn" data-wledit="${e.id}">Edit</button>
+        <button class="bbtn del" data-wldel="${e.id}">Del</button>
+      </div>
+    </div>`;
+  }).join('');
+  list.querySelectorAll('[data-wledit]').forEach(el=>el.addEventListener('click',()=>openWLEdit(el.dataset.wledit)));
+  list.querySelectorAll('[data-wldel]').forEach(el=>el.addEventListener('click',()=>{
+    if(!confirm('Delete this work log entry?'))return;
+    const key=wlDayKey(wlDate);
+    S.worklog[key]=(S.worklog[key]||[]).filter(e=>e.id!==el.dataset.wldel);
+    if(!S.worklog[key].length)delete S.worklog[key];
+    wlSave();renderWLDay();toast('Entry deleted');
+  }));
+}
+
+function renderWLWeek(){
+  const ws=wkStart(wlWeekOff);
+  const we=addD(ws,6);
+  $id('wl-week-lbl').textContent=fs(ws)+' — '+fs(we);
+  const days=Array.from({length:7},(_,i)=>addD(ws,i));
+  let allEntries=[];
+  days.forEach(d=>{
+    const entries=wlGetDay(d);
+    entries.forEach(e=>allEntries.push({...e,_date:d,_dateStr:fs(d)}));
+  });
+  allEntries.sort((a,b)=>dk(a._date).localeCompare(dk(b._date))||(a.time||'').localeCompare(b.time||''));
+  if(!allEntries.length){
+    $id('wl-week-content').innerHTML='<div class="wl-empty">No work logged this week.</div>';
+    return;
+  }
+  // Group by date
+  const byDate={};
+  allEntries.forEach(e=>{const k=dk(e._date);if(!byDate[k])byDate[k]={dateStr:e._dateStr,entries:[],mins:0};byDate[k].entries.push(e);byDate[k].mins+=e.duration||0;});
+  let totalWeekMins=0;
+  const rows=Object.entries(byDate).map(([k,{dateStr,entries,mins}])=>{
+    totalWeekMins+=mins;
+    const entryRows=entries.map(e=>`<tr><td>${esc(e.time||'—')}</td><td>${esc(e.project||'General')}</td><td>${esc(e.task||'')}</td><td>${wlFormatDuration(e.duration)}</td><td><span class="wl-status ${WL_STATUS_CLS[e.status]||'wls-done'}">${WL_STATUS_LABELS[e.status]||'Done'}</span></td></tr>`).join('');
+    return `<div style="margin-bottom:14px;"><div style="font-size:12px;font-weight:700;color:var(--pri);margin-bottom:4px;font-family:'Georgia',serif;">${dateStr} — ${wlFormatDuration(mins)}</div>
+    <table class="wl-week-table"><thead><tr><th>Time</th><th>Project</th><th>Task</th><th>Duration</th><th>Status</th></tr></thead><tbody>${entryRows}</tbody></table></div>`;
+  }).join('');
+  $id('wl-week-content').innerHTML=rows+`<div class="wl-total">Week total: ${wlFormatDuration(totalWeekMins)}</div>`;
+}
+
+// Copy week to clipboard
+$id('wl-copy-btn').addEventListener('click',()=>{
+  const ws=wkStart(wlWeekOff);
+  const days=Array.from({length:7},(_,i)=>addD(ws,i));
+  const lines=['=== Work Log: '+fs(ws)+' — '+fs(addD(ws,6))+' ===',''];
+  let totalMins=0;
+  days.forEach(d=>{
+    const entries=wlGetDay(d);
+    if(!entries.length)return;
+    lines.push(fd(d));
+    entries.forEach(e=>{
+      totalMins+=e.duration||0;
+      lines.push('  '+( e.time?e.time+' | ':'' )+(e.project?'['+e.project+'] ':'')+e.task+(e.duration?' ('+wlFormatDuration(e.duration)+')':'')+(e.status&&e.status!=='done'?' — '+WL_STATUS_LABELS[e.status]:''));
+      if(e.notes)lines.push('    '+e.notes);
+    });
+    lines.push('');
+  });
+  lines.push('Total: '+wlFormatDuration(totalMins));
+  const txt=lines.join('\n');
+  navigator.clipboard?navigator.clipboard.writeText(txt).then(()=>toast('Week copied!')):toast('Clipboard not available');
+});
+
+// Work Log modal
+function openWLAdd(){
+  wlEditId=null;wlStatus='done';
+  $id('wl-modal-title').textContent='Log work — '+fd(wlDate);
+  ['wl-time','wl-duration','wl-project','wl-task','wl-notes'].forEach(id=>$id(id).value='');
+  renderWLStatusChips();
+  renderWLDurChips();
+  $id('wl-del-btn').style.display='none';
+  renderWLScheduleChips();
+  $id('wl-modal').classList.add('on');
+  $id('wl-time').focus();
+}
+
+function openWLEdit(id){
+  const all=Object.values(S.worklog||{}).flat();
+  const e=all.find(x=>x.id===id);
+  if(!e)return;
+  wlEditId=id;wlStatus=e.status||'done';
+  $id('wl-modal-title').textContent='Edit work entry';
+  $id('wl-time').value=e.time||'';
+  $id('wl-duration').value=e.duration?wlFormatDuration(e.duration):'';
+  $id('wl-project').value=e.project||'';
+  $id('wl-task').value=e.task||'';
+  $id('wl-notes').value=e.notes||'';
+  renderWLStatusChips();
+  renderWLDurChips();
+  $id('wl-del-btn').style.display='inline-block';
+  $id('wl-modal').classList.add('on');
+}
+
+function renderWLStatusChips(){
+  $id('wl-status-chips').innerHTML=['done','inprogress','blocked'].map(s=>
+    `<button class="wl-chip${s===wlStatus?' sel':''}" data-status="${s}">${WL_STATUS_ICON[s]} ${WL_STATUS_LABELS[s]}</button>`
+  ).join('');
+  $id('wl-status-chips').querySelectorAll('[data-status]').forEach(el=>el.addEventListener('click',()=>{
+    wlStatus=el.dataset.status;
+    $id('wl-status-chips').querySelectorAll('[data-status]').forEach(x=>x.classList.toggle('sel',x.dataset.status===wlStatus));
+  }));
+}
+
+function renderWLDurChips(){
+  $id('wl-dur-chips').innerHTML=WL_DUR_CHIPS.map(c=>
+    `<button class="wl-chip" data-dur="${c}">${c}</button>`
+  ).join('');
+  $id('wl-dur-chips').querySelectorAll('[data-dur]').forEach(el=>el.addEventListener('click',()=>{
+    $id('wl-duration').value=el.dataset.dur;
+    $id('wl-dur-chips').querySelectorAll('[data-dur]').forEach(x=>x.classList.toggle('sel',x.dataset.dur===el.dataset.dur));
+  }));
+}
+
+// Project autocomplete
+$id('wl-project').addEventListener('input',()=>{
+  const val=$id('wl-project').value.toLowerCase().trim();
+  const projs=wlGetProjects().filter(p=>p.toLowerCase().includes(val)&&p.toLowerCase()!==val);
+  const ac=$id('wl-ac-list');
+  if(!val||!projs.length){ac.classList.remove('on');return;}
+  ac.innerHTML=projs.slice(0,5).map(p=>`<div class="wl-ac-item" data-p="${esc(p)}">${esc(p)}</div>`).join('');
+  ac.querySelectorAll('[data-p]').forEach(el=>el.addEventListener('click',()=>{$id('wl-project').value=el.dataset.p;ac.classList.remove('on');}));
+  ac.classList.add('on');
+});
+document.addEventListener('click',e=>{if(!e.target.closest('.wl-autocomplete'))$id('wl-ac-list').classList.remove('on');});
+
+$id('wl-save-btn').addEventListener('click',()=>{
+  const task=$id('wl-task').value.trim();
+  if(!task){toast('Enter a task description');return;}
+  const entry={
+    id:wlEditId||uuid(),
+    time:$id('wl-time').value.trim(),
+    duration:wlParseDuration($id('wl-duration').value),
+    project:$id('wl-project').value.trim(),
+    task,status:wlStatus,
+    notes:$id('wl-notes').value.trim(),
+    saved:new Date().toISOString()
+  };
+  S.worklog=S.worklog||{};
+  const key=wlDayKey(wlDate);
+  if(wlEditId){
+    // Find which day this entry is on
+    let found=false;
+    Object.keys(S.worklog).forEach(k=>{
+      const idx=(S.worklog[k]||[]).findIndex(e=>e.id===wlEditId);
+      if(idx>=0){S.worklog[k][idx]=entry;found=true;}
+    });
+    if(!found){S.worklog[key]=S.worklog[key]||[];S.worklog[key].push(entry);}
+  } else {
+    S.worklog[key]=S.worklog[key]||[];
+    S.worklog[key].push(entry);
+  }
+  wlSave();closeM('wl-modal');renderWorkLog();toast(wlEditId?'Entry updated':'Entry logged');
+});
+
+$id('wl-del-btn').addEventListener('click',()=>{
+  if(!confirm('Delete this entry?'))return;
+  Object.keys(S.worklog||{}).forEach(k=>{
+    S.worklog[k]=(S.worklog[k]||[]).filter(e=>e.id!==wlEditId);
+    if(!S.worklog[k].length)delete S.worklog[k];
+  });
+  wlSave();closeM('wl-modal');renderWorkLog();toast('Deleted');
+});
+$id('wl-cancel-btn').addEventListener('click',()=>closeM('wl-modal'));
+$id('wl-add-btn').addEventListener('click',openWLAdd);
+
+// Day navigation
+$id('wl-prev').addEventListener('click',()=>{wlDate=addD(wlDate,-1);renderWorkLog();});
+$id('wl-next').addEventListener('click',()=>{wlDate=addD(wlDate,1);renderWorkLog();});
+$id('wl-today-btn').addEventListener('click',()=>{wlDate=new Date(today());renderWorkLog();});
+// View toggle
+$id('wl-day-btn').addEventListener('click',()=>{wlView='day';$id('wl-day-btn').classList.add('active');$id('wl-week-btn').classList.remove('active');renderWorkLog();});
+$id('wl-week-btn').addEventListener('click',()=>{wlView='week';$id('wl-week-btn').classList.add('active');$id('wl-day-btn').classList.remove('active');renderWorkLog();});
+// Week navigation
+$id('wl-wprev').addEventListener('click',()=>{wlWeekOff--;renderWLWeek();});
+$id('wl-wnext').addEventListener('click',()=>{wlWeekOff++;renderWLWeek();});
+$id('wl-wtoday').addEventListener('click',()=>{wlWeekOff=0;renderWLWeek();});
+
+
+// ══════════════════════════════════════════════
+// IMPROVEMENT 1: Daily Check-in
+// ══════════════════════════════════════════════
+let _checkinRating=0;
+function renderCheckin(){
+  const tdKey=dk(today());
+  const ci=(S.checkin||{})[tdKey];
+  const bar=$id('checkin-bar');
+  const body=$id('checkin-body');
+  const title=$id('checkin-title');
+  const toggle=$id('checkin-toggle');
+  if(ci&&ci.saved){
+    bar.classList.add('done');
+    title.textContent='Check-in done ✓ — rating: '+ci.rating+'/5'+(ci.blocker?' · '+ci.blocker.slice(0,40):'');
+    body.classList.remove('on');
+    toggle.textContent='▶';
+    $id('checkin-blocker').value=ci.blocker||'';
+    _checkinRating=ci.rating||0;
+    renderCheckinStars();
+  } else {
+    bar.classList.remove('done');
+    title.textContent='Start your day — tap to check in';
+    const hr=new Date().getHours();
+    if(hr>=6&&hr<11){body.classList.add('on');toggle.textContent='▲';}
+    else{body.classList.remove('on');toggle.textContent='▼';}
+    _checkinRating=0;
+    renderCheckinStars();
+  }
+}
+function renderCheckinStars(){
+  $id('checkin-rating').querySelectorAll('.cr-btn').forEach(b=>{
+    b.classList.toggle('sel',+b.dataset.r<=_checkinRating);
+  });
+}
+$id('checkin-header').addEventListener('click',()=>{
+  const body=$id('checkin-body');
+  const on=body.classList.toggle('on');
+  $id('checkin-toggle').textContent=on?'▲':'▼';
+});
+$id('checkin-rating').querySelectorAll('.cr-btn').forEach(b=>{
+  b.addEventListener('click',()=>{_checkinRating=+b.dataset.r;renderCheckinStars();});
+});
+$id('checkin-save-btn').addEventListener('click',()=>{
+  if(!_checkinRating){toast('Pick a rating first');return;}
+  S.checkin=S.checkin||{};
+  S.checkin[dk(today())]={rating:_checkinRating,blocker:$id('checkin-blocker').value.trim(),saved:new Date().toISOString()};
+  saveS('meta');renderCheckin();toast('Check-in saved! Have a great day 🌟');
+});
+
+// ══════════════════════════════════════════════
+// IMPROVEMENT 2: Work log 90-day auto-prune
+// ══════════════════════════════════════════════
+function pruneWorklog(){
+  const cutoff=dk(addD(today(),-90));
+  let pruned=false;
+  const monthly={};
+  Object.keys(S.worklog||{}).forEach(k=>{
+    if(k<cutoff){
+      const mo=k.slice(0,7);
+      if(!monthly[mo]){monthly[mo]={mins:0,count:0,projs:new Set()};}
+      (S.worklog[k]||[]).forEach(e=>{monthly[mo].mins+=e.duration||0;monthly[mo].count++;if(e.project)monthly[mo].projs.add(e.project);});
+      delete S.worklog[k];
+      pruned=true;
+    }
+  });
+  // M1 FIX: store monthly summary entry so history isn't blank
+  Object.entries(monthly).forEach(([mo,sum])=>{
+    const summaryKey=mo+'-01';
+    if(!(S.worklog[summaryKey]||[]).some(e=>e.id&&e.id.startsWith('archive_'))){
+      S.worklog[summaryKey]=S.worklog[summaryKey]||[];
+      S.worklog[summaryKey].push({id:'archive_'+mo,time:'',duration:sum.mins,
+        project:[...sum.projs].slice(0,3).join(', ')||'Various',
+        task:'📦 Archived: '+sum.count+' entries ('+Math.round(sum.mins/60*10)/10+'h logged)',
+        status:'done',notes:'Auto-archived after 90 days',saved:new Date().toISOString()});
+    }
+  });
+  if(pruned)saveS('tracker');
+}
+
+// ══════════════════════════════════════════════
+// IMPROVEMENT 3: Habit streak with grace day
+// ══════════════════════════════════════════════
+function calcStreakWithGrace(){
+  const td=today();
+  let streak=0,graceUsed=false;
+  for(let w=0;w>=-52;w--){
+    const ws2=wkStart(w);
+    for(let di=6;di>=0;di--){
+      const d=addD(ws2,di);d.setHours(0,0,0,0);
+      if(d>td)continue;
+      if(d<APP_START)return {streak,graceUsed};
+      let done=0,poss=0;
+      (S.habits||[]).forEach(h=>{if(!isHabitPaused(h.id,d)){poss++;if((S.tracker[dk(d)+'_'+h.id]||'none')==='done')done++;}});
+      if(poss===0)continue;
+      if(done===poss){streak++;}
+      else if(!graceUsed&&done/poss>=0.5){streak++;graceUsed=true;}
+      else return {streak,graceUsed};
+    }
+  }
+  return {streak,graceUsed};
+}
+
+// ══════════════════════════════════════════════
+// IMPROVEMENT 4: Weekly review prompt
+// ══════════════════════════════════════════════
+let _rvRating=0;
+function checkReviewPrompt(){
+  const rp=$id('review-prompt');
+  if(!rp)return;
+  const dow=today().getDay();
+  const hr=new Date().getHours();
+  const todayKey=dk(today());
+  const alreadyDone=(S.checkin||{})[todayKey+'_review'];
+  if(dow===0&&hr>=18&&!alreadyDone){rp.style.display='block';}
+  else{rp.style.display='none';}
+}
+$id('rv-rating').querySelectorAll('.cr-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    _rvRating=+b.dataset.rr;
+    $id('rv-rating').querySelectorAll('.cr-btn').forEach(x=>x.classList.toggle('sel',+x.dataset.rr<=_rvRating));
+  });
+});
+$id('review-save-btn').addEventListener('click',()=>{
+  const wins=$id('rv-wins').value.trim();
+  const struggles=$id('rv-struggles').value.trim();
+  const focus=$id('rv-focus').value.trim();
+  const change=$id('rv-change').value.trim();
+  if(!wins){toast('Add at least your wins');return;}
+  // C3 FIX: use '\n' not a literal newline
+  const text=[
+    '📋 WEEKLY REVIEW — '+fd(today()),
+    '',
+    '✅ Wins: '+wins,
+    '',
+    '⚡ Struggles: '+(struggles||'—'),
+    '',
+    '⭐ Habit score: '+(_rvRating||'—')+'/5',
+    '',
+    '🎯 Next week focus: '+(focus||'—'),
+    '',
+    '🔄 One thing to change: '+(change||'—')
+  ].join('\n');
+  S.diary=S.diary||{};
+  // C1+C2 FIX: store as real diary entry only — NO boolean sentinel in diary
+  // Use checkin to mark review done (already in Firebase, correct type)
+  S.diary[dk(today())]={text,mood:_rvRating>=4?'great':_rvRating>=3?'good':'okay',saved:new Date().toISOString()};
+  S.checkin=S.checkin||{};
+  S.checkin[dk(today())+'_review']=true;
+  saveS('diary');saveS('meta');
+  $id('review-prompt').style.display='none';
+  toast('Weekly review saved to diary! 🌟');
+  ['rv-wins','rv-struggles','rv-focus','rv-change'].forEach(id=>$id(id).value='');
+  _rvRating=0;
+});
+
+// ══════════════════════════════════════════════
+// IMPROVEMENT 5: Drag-and-drop schedule
+// ══════════════════════════════════════════════
+let _dragIdx=null;
+function attachDragHandlers(){
+  const sb=$id('sched-blocks');
+  sb.querySelectorAll('.blk').forEach((el,i)=>{
+    el.setAttribute('draggable','true');
+    el.addEventListener('dragstart',()=>{_dragIdx=i;el.classList.add('dragging');});
+    el.addEventListener('dragend',()=>{el.classList.remove('dragging');sb.querySelectorAll('.blk').forEach(b=>b.classList.remove('drag-over'));});
+    el.addEventListener('dragover',e=>{e.preventDefault();sb.querySelectorAll('.blk').forEach(b=>b.classList.remove('drag-over'));el.classList.add('drag-over');});
+    el.addEventListener('drop',e=>{
+      e.preventDefault();
+      const toIdx=i;
+      if(_dragIdx===null||_dragIdx===toIdx)return;
+      const arr=S.wd[activeDay];
+      const [moved]=arr.splice(_dragIdx,1);
+      arr.splice(toIdx,0,moved);
+      _dragIdx=null;
+      saveS('meta');showDay(activeDay);
+    });
+  });
+}
+
+// ══════════════════════════════════════════════
+// IMPROVEMENT 6: Work log link to schedule blocks
+// ══════════════════════════════════════════════
+function getScheduleBlocksForToday(){
+  const sk=schedKeyForDate(wlDate);
+  return (S.wd[sk]||[]).filter(b=>b.cls==='t-work'||b.cls==='t-learn'||b.cls==='t-call'||b.cls==='t-scrum'||b.cls==='t-finance');
+}
+function renderWLScheduleChips(){
+  const blocks=getScheduleBlocksForToday();
+  const area=$id('wl-sched-chips');
+  if(!area)return;
+  if(!blocks.length){area.style.display='none';return;}
+  area.style.display='flex';
+  area.innerHTML=blocks.slice(0,6).map(b=>`<button class="wl-chip" data-slbl="${esc(b.label)}" data-stime="${esc(b.time)}">${esc(b.label)}</button>`).join('');
+  area.querySelectorAll('[data-slbl]').forEach(el=>el.addEventListener('click',()=>{
+    $id('wl-task').value=el.dataset.slbl;
+    $id('wl-time').value=el.dataset.stime.split('-')[0]||'';
+  }));
+}
+
+// ══════════════════════════════════════════════
+// IMPROVEMENT 7: Habit trend chart (12-week SVG)
+// ══════════════════════════════════════════════
+function renderTrendChart(){
+  const area=$id('trend-area');
+  if(!area)return;
+  const W=area.offsetWidth||300,H=120;
+  const weeks=12;
+  // Build weekly scores for each habit + overall
+  const weekData=[];
+  for(let w=weeks-1;w>=0;w--){
+    const ws=wkStart(-w);
+    const days=Array.from({length:7},(_,i)=>addD(ws,i));
+    let totD=0,totP=0;
+    const habPct={};
+    (S.habits||[]).forEach(h=>{
+      let hd=0,hp=0;
+      days.forEach(d=>{if(!isHabitPaused(h.id,d)){hp++;if((S.tracker[dk(d)+'_'+h.id]||'none')==='done')hd++;}});
+      totD+=hd;totP+=hp;
+      habPct[h.id]=hp?Math.round(hd/hp*100):0;
+    });
+    weekData.push({overall:totP?Math.round(totD/totP*100):0,habPct,weekStart:fs(ws)});
+  }
+  const COLORS=['#3B82F6','#10B981','#F59E0B','#EF4444','#8B5CF6','#EC4899','#06B6D4','#84CC16','#F97316','#6366F1','#14B8A6'];
+  const padL=24,padR=8,padT=10,padB=20;
+  const chartW=W-padL-padR,chartH=H-padT-padB;
+  const xStep=chartW/(weeks-1);
+  const yScale=v=>(H-padB)-v/100*chartH;
+  // Build SVG paths
+  let paths='';
+  // Overall line
+  const overallPts=weekData.map((d,i)=>`${padL+i*xStep},${yScale(d.overall)}`).join(' ');
+  paths+=`<polyline points="${overallPts}" class="trend-overall-line"/>`;
+  // X labels (every 3 weeks)
+  let xlabels='';
+  weekData.forEach((d,i)=>{if(i%3===0||i===weeks-1)xlabels+=`<text x="${padL+i*xStep}" y="${H-2}" text-anchor="middle" font-size="8" fill="var(--tx3)">${d.weekStart.replace(/\s\d+$/,'')}</text>`;});
+  // Y labels
+  let ylabels='';
+  [0,50,100].forEach(v=>{
+    const y=yScale(v);
+    ylabels+=`<line x1="${padL-2}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="var(--bdr)" stroke-width="0.5"/>`;
+    ylabels+=`<text x="${padL-4}" y="${y+3}" text-anchor="end" font-size="8" fill="var(--tx3)">${v}%</text>`;
+  });
+  area.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${ylabels}${xlabels}${paths}</svg>`;
+  // Legend
+  $id('trend-legend').innerHTML=`<div class="trend-leg-item"><div class="trend-leg-dot" style="background:var(--pri)"></div>Overall</div>`;
+}
+
+// ══════════════════════════════════════════════
+// IMPROVEMENT 8: PWA service worker registration
+// ══════════════════════════════════════════════
+if('serviceWorker' in navigator){
+  const swCode=`
+self.addEventListener('install',e=>self.skipWaiting());
+self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
+self.addEventListener('fetch',e=>{
+  if(e.request.method!=='GET')return;
+  e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));
+});`;
+  const blob=new Blob([swCode],{type:'application/javascript'});
+  const swUrl=URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl).catch(()=>{});
+}
+
+// ══════════════════════════════════════════════
+// IMPROVEMENT 9: Collapsible widgets
+// ══════════════════════════════════════════════
+function collapseWidget(name){
+  const widget=$id(name+'-widget');
+  const collapsed=$id(name+'-collapsed');
+  if(!widget||!collapsed)return;
+  widget.style.display='none';
+  collapsed.classList.add('on');
+  localStorage.setItem('widget_'+name+'_collapsed','1');
+  updateCollapsedText();
+}
+function expandWidget(name){
+  const widget=$id(name+'-widget');
+  const collapsed=$id(name+'-collapsed');
+  if(!widget||!collapsed)return;
+  widget.style.display='';
+  collapsed.classList.remove('on');
+  localStorage.removeItem('widget_'+name+'_collapsed');
+}
+function updateCollapsedText(){
+  const ft=(S.focus||{})[dk(today())]||'not set';
+  const wc=((S.water||{})[dk(today())]||0)*250;
+  const fEl=$id('focus-collapsed-text');
+  const wEl=$id('water-collapsed-text');
+  if(fEl)fEl.textContent="Today's focus: "+ft;
+  if(wEl)wEl.textContent='Water: '+(wc<1000?wc+'ml':(wc/1000).toFixed(1)+'L')+' / 2.5L';
+}
+function restoreWidgetState(){
+  ['focus','water'].forEach(name=>{
+    if(localStorage.getItem('widget_'+name+'_collapsed')==='1'){
+      const widget=$id(name+'-widget');
+      const collapsed=$id(name+'-collapsed');
+      if(widget)widget.style.display='none';
+      if(collapsed)collapsed.classList.add('on');
+    }
+  });
+  updateCollapsedText();
+}
+
+// ══════════════════════════════════════════════
+// IMPROVEMENT 10: Finance tracker
+// ══════════════════════════════════════════════
+let finMonthOff=0;
+function finMonthKey(off){
+  const d=new Date(today().getFullYear(),today().getMonth()+(off||0),1);
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+}
+function finMonthLabel(off){
+  const d=new Date(today().getFullYear(),today().getMonth()+(off||0),1);
+  return MS[d.getMonth()]+' '+d.getFullYear();
+}
+const FIN_CATS={income:{label:'Income',cls:'fin-cat-income'},expense:{label:'Expense',cls:'fin-cat-expense'},invest:{label:'Investment',cls:'fin-cat-invest'},saving:{label:'Saving',cls:'fin-cat-saving'}};
+function renderFinance(){
+  const mk=finMonthKey(finMonthOff);
+  $id('fin-lbl').textContent=finMonthLabel(finMonthOff);
+  const entries=(S.finance||{})[mk]||[];
+  const goal=(S.finGoals||{})[mk]||0;
+  // Summary
+  let income=0,expense=0,invest=0,saving=0;
+  entries.forEach(e=>{if(e.cat==='income')income+=e.amt;else if(e.cat==='expense')expense+=e.amt;else if(e.cat==='invest')invest+=e.amt;else if(e.cat==='saving')saving+=e.amt;});
+  const net=income-expense-invest-saving;
+  const fmt=n=>'₹'+Math.abs(n).toLocaleString('en-IN');
+  $id('fin-summary-cards').innerHTML=[
+    {label:'Income',val:fmt(income),cls:'positive',sub:'this month'},
+    {label:'Expenses',val:fmt(expense),cls:'negative',sub:'this month'},
+    {label:'Invested',val:fmt(invest),cls:'',sub:'this month'},
+    {label:'Saved',val:fmt(saving),cls:'positive',sub:'this month'},
+    {label:'Net balance',val:(net>=0?'+':'-')+fmt(net),cls:net>=0?'positive':'negative',sub:'income - all outflows'},
+    {label:'Savings rate',val:income?Math.round((saving+invest)/income*100)+'%':'—',cls:'',sub:'(savings+invest)/income'},
+  ].map(c=>`<div class="fin-card"><div class="fin-card-label">${c.label}</div><div class="fin-card-val ${c.cls}">${c.val}</div><div class="fin-card-sub">${c.sub}</div></div>`).join('');
+  // Savings goal bar
+  if(goal>0){
+    const pct=Math.min(Math.round((saving+invest)/goal*100),100);
+    $id('fin-savings-fill').style.width=pct+'%';
+    $id('fin-savings-pct').textContent=pct+'% of ₹'+goal.toLocaleString('en-IN')+' goal ('+fmt(saving+invest)+' saved/invested)';
+  } else {
+    $id('fin-savings-fill').style.width='0%';
+    $id('fin-savings-pct').textContent='No savings goal set for this month';
+  }
+  $id('fin-goal-input').value=goal||'';
+  // Entries
+  if(!entries.length){$id('fin-entries-list').innerHTML='<div class="empty">No entries for this month. Add your first entry above.</div>';return;}
+  $id('fin-entries-list').innerHTML=entries.slice().reverse().map(e=>{
+    const cat=FIN_CATS[e.cat]||{label:e.cat,cls:''};
+    return `<div class="fin-entry"><span class="fin-entry-cat ${cat.cls}">${cat.label}</span><span class="fin-entry-desc">${esc(e.desc)}</span><span class="fin-entry-amt">₹${e.amt.toLocaleString('en-IN')}</span><button class="fin-entry-del" data-fid="${e.id}" data-fmo="${mk}">✕</button></div>`;
+  }).join('');
+  $id('fin-entries-list').querySelectorAll('[data-fid]').forEach(el=>el.addEventListener('click',()=>{
+    const mk2=el.dataset.fmo||finMonthKey(finMonthOff);
+    // C4+C5 FIX: use data-fmo for correct month, ensure array
+    if(Array.isArray(S.finance[mk2])){
+      S.finance[mk2]=S.finance[mk2].filter(e=>e.id!==el.dataset.fid);
+      if(!S.finance[mk2].length)delete S.finance[mk2];
+    }
+    saveS('meta');renderFinance();toast('Entry deleted');
+  }));
+}
+$id('fin-add-btn').addEventListener('click',()=>{
+  const cat=$id('fin-cat').value;
+  const desc=$id('fin-desc').value.trim();
+  const amt=parseFloat($id('fin-amt').value)||0;
+  if(!desc||!amt){toast('Fill description and amount');return;}
+  const mk=finMonthKey(finMonthOff);
+  S.finance=S.finance||{};
+  S.finance[mk]=S.finance[mk]||[];
+  S.finance[mk].push({id:uuid(),cat,desc,amt,saved:new Date().toISOString()});
+  saveS('meta');$id('fin-desc').value='';$id('fin-amt').value='';renderFinance();toast('Entry added');
+});
+$id('fin-goal-btn').addEventListener('click',()=>{
+  const g=parseFloat($id('fin-goal-input').value)||0;
+  const mk=finMonthKey(finMonthOff);
+  S.finGoals=S.finGoals||{};
+  S.finGoals[mk]=g;
+  saveS('meta');renderFinance();toast('Goal set');
+});
+$id('fin-prev').addEventListener('click',()=>{finMonthOff--;renderFinance();});
+$id('fin-next').addEventListener('click',()=>{finMonthOff++;renderFinance();});
+$id('fin-today-btn').addEventListener('click',()=>{finMonthOff=0;renderFinance();});
+
+// ══════════════════════════════════════════════
+// IMPROVEMENT 11: Schedule templates
+// ══════════════════════════════════════════════
+$id('save-tpl-btn').addEventListener('click',()=>{
+  const name=prompt('Template name (e.g. "Standard weekday"):');
+  if(!name)return;
+  S.templates=S.templates||{};
+  S.templates[name]={blocks:JSON.parse(JSON.stringify(S.wd[activeDay]||[])),created:new Date().toISOString()};
+  saveS('meta');toast('Template saved: '+name);
+});
+$id('apply-tpl-btn').addEventListener('click',()=>{
+  S.templates=S.templates||{};
+  const tpls=Object.keys(S.templates);
+  if(!tpls.length){toast('No templates saved yet. Save one first.');return;}
+  const list=$id('tpl-list');
+  list.innerHTML=tpls.map(name=>{
+    const t=S.templates[name];
+    return `<div class="tpl-item"><div><div class="tpl-item-name">${esc(name)}</div><div class="tpl-item-sub">${t.blocks.length} blocks</div></div><button class="btn-p" style="padding:5px 12px;font-size:11px;" data-tname="${esc(name)}">Apply</button><button class="btn-d" style="padding:5px 10px;font-size:11px;" data-tdel="${esc(name)}">Del</button></div>`;
+  }).join('');
+  list.querySelectorAll('[data-tname]').forEach(el=>el.addEventListener('click',()=>{
+    if(!confirm('Replace current '+activeDay+' schedule with this template?'))return;
+    S.wd[activeDay]=JSON.parse(JSON.stringify(S.templates[el.dataset.tname].blocks));
+    saveS('meta');closeM('tpl-modal');showDay(activeDay);toast('Template applied');
+  }));
+  list.querySelectorAll('[data-tdel]').forEach(el=>el.addEventListener('click',()=>{
+    delete S.templates[el.dataset.tdel];saveS('meta');$id('apply-tpl-btn').click();toast('Template deleted');
+  }));
+  $id('tpl-modal-title').textContent='Apply template to '+activeDay;
+  $id('tpl-modal').classList.add('on');
+});
+$id('tpl-cancel-btn').addEventListener('click',()=>closeM('tpl-modal'));
+
+// ══════════════════════════════════════════════
+// IMPROVEMENT 12: Keyboard shortcuts
+// ══════════════════════════════════════════════
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'||e.target.tagName==='SELECT')return;
+  if(e.ctrlKey||e.metaKey||e.altKey)return;
+  const activeSec=[...document.querySelectorAll('.sec.on')].map(el=>el.id.replace('sec-',''))[0]||'';
+  if(e.key==='j'||e.key==='J'){
+    if(activeSec==='diary'){diaryDate=addD(diaryDate,-1);renderDiary();}
+    else if(activeSec==='worklog'){wlDate=addD(wlDate,-1);renderWorkLog();}
+  } else if(e.key==='k'||e.key==='K'){
+    if(activeSec==='diary'){diaryDate=addD(diaryDate,1);renderDiary();}
+    else if(activeSec==='worklog'){wlDate=addD(wlDate,1);renderWorkLog();}
+  } else if(e.key==='t'||e.key==='T'){
+    if(activeSec==='diary'){diaryDate=new Date(today());renderDiary();}
+    else if(activeSec==='worklog'){wlDate=new Date(today());renderWorkLog();}
+    else if(activeSec==='tracker'){weekOff=0;renderTracker();}
+    else if(activeSec==='schedule'){activeDay=schedKeyForDate(today());showDay(activeDay);}
+  } else if(e.key==='n'||e.key==='N'){
+    if(activeSec==='worklog')openWLAdd();
+    else if(activeSec==='diary'){$id('diary-input').focus();}
+  } else if(e.key==='?'){
+    toast('J/K=prev/next day · T=today · N=new entry · ?=shortcuts');
+  }
+});
+
+// ══════════════════════════════════════════════
+// IMPROVEMENT 13: Monthly Insights
+// ══════════════════════════════════════════════
+let insMonthOff=0;
+function renderInsights(){
+  const td=today();
+  const d=new Date(td.getFullYear(),td.getMonth()+insMonthOff,1);
+  const lastDay=new Date(d.getFullYear(),d.getMonth()+1,0);
+  $id('ins-lbl').textContent=MS[d.getMonth()]+' '+d.getFullYear();
+  const days=[];
+  for(let i=new Date(d);i<=lastDay;i=addD(i,1))days.push(new Date(i));
+  // Habit stats
+  let habDone=0,habPoss=0,perfectDays=0;
+  const habStreaks={};
+  days.forEach(day=>{
+    if(day>td)return;
+    let dd=0,dp=0;
+    (S.habits||[]).forEach(h=>{
+      if(!isHabitPaused(h.id,day)){dp++;if((S.tracker[dk(day)+'_'+h.id]||'none')==='done'){dd++;habStreaks[h.id]=(habStreaks[h.id]||0)+1;}}
+    });
+    habDone+=dd;habPoss+=dp;
+    if(dp>0&&dd===dp)perfectDays++;
+  });
+  // Diary stats
+  const diaryEntries=days.filter(d2=>d2<=td&&(S.diary||{})[dk(d2)]).length;
+  const diaryWords=days.reduce((t,d2)=>{const e=(S.diary||{})[dk(d2)];return t+(e&&e.text?e.text.split(/\s+/).length:0);},0);
+  // Water stats
+  const waterDays=days.filter(d2=>d2<=td&&((S.water||{})[dk(d2)]||0)>=10).length;
+  // Work log stats
+  const wlEntries=days.reduce((t,d2)=>{return t+((S.worklog||{})[dk(d2)]||[]).length;},0);
+  const wlMins=days.reduce((t,d2)=>{return t+((S.worklog||{})[dk(d2)]||[]).reduce((s,e)=>s+(e.duration||0),0);},0);
+  // Best habit
+  const bestHab=Object.entries(habStreaks).sort((a,b)=>b[1]-a[1])[0];
+  const bestHabName=bestHab?(S.habits||[]).find(h=>h.id===bestHab[0])?.name||'':'-';
+  // Mood stats
+  const moodCounts={};
+  days.forEach(d2=>{const e=(S.diary||{})[dk(d2)];if(e&&e.mood)moodCounts[e.mood]=(moodCounts[e.mood]||0)+1;});
+  const topMood=Object.entries(moodCounts).sort((a,b)=>b[1]-a[1])[0];
+  const daysElapsed=days.filter(d2=>d2<=td).length||1;
+  $id('insights-grid').innerHTML=[
+    {val:habPoss?Math.round(habDone/habPoss*100)+'%':'—',label:'Habit rate',sub:habDone+' of '+habPoss+' completions'},
+    {val:perfectDays,label:'Perfect days',sub:'All habits done'},
+    {val:diaryEntries,label:'Diary entries',sub:diaryWords.toLocaleString()+' words written'},
+    {val:waterDays,label:'Water goal days',sub:'≥2.5L / day'},
+    {val:wlEntries,label:'Work log entries',sub:Math.round(wlMins/60*10)/10+'h logged'},
+    {val:topMood?MOOD_LABELS[topMood[0]]||topMood[0]:'—',label:'Top mood',sub:topMood?topMood[1]+' day(s)':'no diary entries'},
+    {val:bestHabName||'—',label:'Top habit',sub:bestHab?bestHab[1]+' days this month':''},
+  ].map(c=>`<div class="insight-card"><div class="insight-val">${c.val}</div><div class="insight-label">${c.label}</div><div class="insight-sub">${c.sub}</div></div>`).join('');
+  // Mood breakdown
+  const moodHTML=Object.entries(moodCounts).map(([m,n])=>`<div class="ws-row"><div class="ws-icon">${MOOD_EMOJI[m]||''}</div><div class="ws-text">${MOOD_LABELS[m]||m}: <b>${n} day${n!==1?'s':''}</b></div></div>`).join('');
+  $id('insights-body').innerHTML=(moodHTML||'<div class="empty">No diary entries this month.</div>');
+}
+$id('ins-prev').addEventListener('click',()=>{insMonthOff--;renderInsights();});
+$id('ins-next').addEventListener('click',()=>{insMonthOff++;renderInsights();});
+$id('ins-today-btn').addEventListener('click',()=>{insMonthOff=0;renderInsights();});
+
+// ══════════════════════════════════════════════
+// IMPROVEMENT 14: Mobile top-bar more menu
+// ══════════════════════════════════════════════
+$id('more-menu-btn').addEventListener('click',e=>{e.stopPropagation();$id('more-menu-dd').classList.toggle('on');});
+document.addEventListener('click',e=>{if(!e.target.closest('.more-menu'))$id('more-menu-dd').classList.remove('on');});
+$id('m-snapshot').addEventListener('click',()=>{$id('more-menu-dd').classList.remove('on');$id('snapshot-btn').click();});
+$id('m-export').addEventListener('click',()=>{$id('more-menu-dd').classList.remove('on');$id('export-btn').click();});
+$id('m-import').addEventListener('click',()=>{$id('more-menu-dd').classList.remove('on');$id('import-trigger').click();});
+
 // ── TAB SWITCHING ──
 // BUG FIX S10: Auto-save diary when switching away
 function swRender(sec){
@@ -1650,6 +2877,9 @@ function swRender(sec){
   else if(sec==='diary')renderDiary();
   else if(sec==='notes')renderAllNotes();
   else if(sec==='holidays')renderHolidays();
+  else if(sec==='worklog')renderWorkLog();
+  else if(sec==='insights')renderInsights();
+  else if(sec==='finance')renderFinance();
   else if(sec==='schedule')showDay(activeDay);
 }
 function sw(sec){
@@ -1657,14 +2887,14 @@ function sw(sec){
   if($id('sec-diary').classList.contains('on')&&sec!=='diary'){
     if(diaryDirty&&$id('diary-input').value.trim())autoSaveDiary();
   }
-  ['schedule','tracker','habits','heatmap','diary','notes','holidays'].forEach(s=>$id('sec-'+s).classList.toggle('on',s===sec));
+  ['schedule','tracker','habits','heatmap','diary','worklog','notes','insights','finance','holidays'].forEach(s=>$id('sec-'+s).classList.toggle('on',s===sec));
   document.querySelectorAll('.mtab').forEach(t=>t.classList.toggle('active',t.dataset.sec===sec));
   swRender(sec);
 }
 document.querySelectorAll('.mtab[data-sec]').forEach(t=>t.addEventListener('click',()=>sw(t.dataset.sec)));
 
 // ── MODAL CLOSE ON OVERLAY CLICK ──
-['blk-modal','hab-modal','pause-modal','note-modal','diary-modal'].forEach(id=>{
+['blk-modal','hab-modal','pause-modal','note-modal','diary-modal','wl-modal','tpl-modal'].forEach(id=>{
   $id(id).addEventListener('click',function(e){if(e.target===this)closeM(id);});
 });
 
