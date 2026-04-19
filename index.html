@@ -3145,21 +3145,40 @@ $id('m-import').addEventListener('click',()=>{$id('more-menu-dd').classList.remo
 async function registerUserPresence(){
   if(!currentUser)return;
   try{
+    const now=new Date().toISOString();
+
+    // Read existing profile so we preserve admin-set fields
     const profileRef=doc(db,'users',currentUser.uid,'profile','info');
     const snap=await getDoc(profileRef);
-    const now=new Date().toISOString();
     const existing=snap.exists()?snap.data():{};
-    await setDoc(profileRef,{
+
+    const profileData={
       uid:currentUser.uid,
       email:currentUser.email||'',
       displayName:currentUser.displayName||'',
       photoURL:currentUser.photoURL||'',
       firstSeen:existing.firstSeen||now,
       lastSeen:now,
-      // Carry over admin-set fields
       adminNote:existing.adminNote||'',
       status:existing.status||'active',
+    };
+
+    // Write detailed profile to /users/{uid}/profile/info
+    await setDoc(profileRef,profileData,{merge:true});
+
+    // CRITICAL FIX: Also write a root document at /users/{uid}
+    // getDocs(collection(db,'users')) only returns documents that physically
+    // exist at /users/{uid}. Writing to subcollections (data/meta, profile/info)
+    // does NOT auto-create the parent — so new users were invisible in admin panel.
+    const userRootRef=doc(db,'users',currentUser.uid);
+    await setDoc(userRootRef,{
+      uid:currentUser.uid,
+      email:currentUser.email||'',
+      displayName:currentUser.displayName||'',
+      lastSeen:now,
+      firstSeen:existing.firstSeen||now,
     },{merge:true});
+
   }catch(e){
     // Non-fatal — just for admin visibility
     console.warn('Could not register presence:',e);
@@ -3198,20 +3217,39 @@ async function loadAdminUsers(){
   const users=[];
   const profileFetches=usersSnap.docs.map(async userDoc=>{
     const uid=userDoc.id;
+    // rootData holds the basic info written by registerUserPresence() at /users/{uid}
+    const rootData=userDoc.data()||{};
     try{
       const profileSnap=await getDoc(doc(db,'users',uid,'profile','info'));
       const metaSnap=await getDoc(doc(db,'users',uid,'data','meta'));
-      const profile=profileSnap.exists()?profileSnap.data():{uid,email:'Unknown',displayName:'Unknown'};
+      // Use profile/info if it exists, otherwise fall back to root document data
+      const profile=profileSnap.exists()?profileSnap.data():{
+        uid,
+        email:rootData.email||'Unknown',
+        displayName:rootData.displayName||'Unknown',
+        lastSeen:rootData.lastSeen||null,
+        firstSeen:rootData.firstSeen||null,
+        adminNote:'',
+        status:'active',
+      };
       const meta=metaSnap.exists()?metaSnap.data():{};
       users.push({uid, profile, meta,
         habitCount:(meta.habits||[]).length,
-        lastSeen:profile.lastSeen||null,
-        firstSeen:profile.firstSeen||null,
+        lastSeen:profile.lastSeen||rootData.lastSeen||null,
+        firstSeen:profile.firstSeen||rootData.firstSeen||null,
         status:profile.status||'active',
         adminNote:profile.adminNote||'',
       });
     }catch(e2){
-      users.push({uid,profile:{uid,email:'(no profile)',displayName:'Unknown'},meta:{},habitCount:0,status:'active',adminNote:''});
+      // Even on error, show the user with whatever root doc data we have
+      users.push({uid,profile:{
+        uid,
+        email:rootData.email||'(no profile)',
+        displayName:rootData.displayName||'Unknown',
+        lastSeen:rootData.lastSeen||null,
+        firstSeen:rootData.firstSeen||null,
+        adminNote:'',status:'active',
+      },meta:{},habitCount:0,status:'active',adminNote:''});
     }
   });
   await Promise.all(profileFetches);
