@@ -1346,6 +1346,8 @@ let pomInterval=null, pomSecs=0, pomRunning=false, pomStartTime=null;
 // BUG FIX S8+S10: Auto-save diary
 let diaryAutoSaveTimeout=null;
 let pendingSave={meta:false,tracker:false,diary:false};
+// Account creation date — days before this are shown as grey (pre-account), not red missed
+let _accountCreatedDate=null;
 
 // ── UUID GENERATOR (BUG FIX S4/Bug9/10) ──
 function uuid(){try{return 'h'+crypto.randomUUID().replace(/-/g,'').slice(0,12);}catch(e){return 'h'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);}}
@@ -1586,6 +1588,7 @@ $id('signout-btn').addEventListener('click',async()=>{
   _pruning=false;
   _checkinRating=0;_rvRating=0;insMonthOff=0;finMonthOff=0;
   _adminUsers=[];_adminEditUid=null;
+  _accountCreatedDate=null;
   _kbAttached=false;_dragIdx=null;checkinOpen=false;
   _monthPctCache={};_monthPctDate='';_notesSearchTimer=null;
   $id('wl-day-btn').classList.add('active');$id('wl-week-btn').classList.remove('active');
@@ -2038,8 +2041,11 @@ function renderTracker(){
       if(paused)return '<td><div class="chk paused" title="Paused">P</div></td>';
       const st=S.tracker[k]||'none',note=(S.notes||{})[k]||'';
       const isPast=dk(d)<dk(today());
-      const chkCls=st==='done'?'done':st==='skip'?'skip':isPast?'missed':'';
-      return `<td style="padding:2px 3px;"><div class="chk ${chkCls}" data-hid="${h.id}" data-dk="${dk(d)}">${st==='done'?'&#10003;':st==='skip'?'&#8212;':isPast?'&#10007;':''}</div><div class="chk-note" data-nhid="${h.id}" data-ndk="${dk(d)}" title="${(note||'Add note').replace(/"/g,'&quot;')}">${note?'&#128203;':'+'}</div></td>`;
+      // Days before account creation date are shown as grey (pre-account — not user's responsibility)
+      const isPreAccount=_accountCreatedDate&&d<_accountCreatedDate;
+      const chkCls=st==='done'?'done':st==='skip'?'skip':isPast&&!isPreAccount?'missed':isPast&&isPreAccount?'skip':'';
+      const chkIcon=st==='done'?'&#10003;':st==='skip'?'&#8212;':isPast&&!isPreAccount?'&#10007;':'';
+      return `<td style="padding:2px 3px;"><div class="chk ${chkCls}" data-hid="${h.id}" data-dk="${dk(d)}">${chkIcon}</div><div class="chk-note" data-nhid="${h.id}" data-ndk="${dk(d)}" title="${(note||'Add note').replace(/"/g,'&quot;')}">${note?'&#128203;':'+'}</div></td>`;
     }).join('');
     return `<tr><td class="hn" data-ehid="${h.id}" title="Edit habit">${esc(h.name)}<small>${esc(h.sub)}</small><span class="hpct">${pct}% this month</span></td>${cells}</tr>`;
   }).join('');
@@ -3176,6 +3182,11 @@ async function registerUserPresence(){
     const profileRef=doc(db,'users',currentUser.uid,'profile','info');
     const snap=await getDoc(profileRef);
     const existing=snap.exists()?snap.data():{};
+
+    // Store account creation date for tracker rendering (pre-account days shown as grey)
+    const fsStr=existing.firstSeen||new Date().toISOString();
+    const fsDate=new Date(fsStr);fsDate.setHours(0,0,0,0);
+    _accountCreatedDate=fsDate;
 
     const profileData={
       uid:currentUser.uid,
