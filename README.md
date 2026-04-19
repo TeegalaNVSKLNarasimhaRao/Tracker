@@ -1,147 +1,61 @@
 # My Schedule & Habit Tracker
 
-A personal productivity app — daily schedule, habits, work log, diary, finance tracking, and insights — synced across all devices via Firebase.
+A **fully real-time** personal productivity application — daily schedule, habits, diary, work log, finance tracking, and insights — synced live across all devices via **Firebase Firestore**.
 
 **Live:** https://teegalanvsklnarasimharao.github.io/Tracker/
 
 ---
 
-## Setup
+## Is This a Real-Time Application?
 
-1. **Clone / download** `index.html` from the repository
-2. **Push to GitHub Pages** — the file is entirely self-contained (no build step)
-3. **Firebase** is already configured. Each Google account gets its own private data space
+**Yes — fully real-time and production-ready.**
 
----
+| Question | Answer |
+|----------|--------|
+| Is data lost on refresh? | **No.** Everything is saved to Firebase Firestore in real time |
+| Does it work on multiple devices? | **Yes.** Sign in on any device — data syncs within seconds |
+| Is data private? | **Yes.** Firebase Auth + Firestore rules ensure each user only sees their own data |
+| Does it need a backend server? | **No.** Firebase provides the entire backend (auth, database, hosting) |
+| What persists across sessions? | Everything — schedule, habits, diary, water, focus, finance, work log |
 
-## Features
-
-| Tab | What it does |
-|-----|-------------|
-| **Schedule** | Day-by-day timetable (Mon–Fri + Weekend). Drag to reorder blocks, save/apply templates, reset to defaults |
-| **Tracker** | Weekly habit grid. Tick habits, add notes per cell, view 12-week trend chart |
-| **Habits** | Add/edit/delete habits, pause habits for date ranges |
-| **Heatmap** | 6-month visual habit consistency calendar |
-| **Diary** | Daily journal with mood tags, auto-save, search |
-| **Work Log** | Day/week work entry log with project tracking and time summaries |
-| **All Notes** | Full diary search, mood filter, go-to-date |
-| **Insights** | Monthly stats: habit rate, perfect days, diary words, water goals, mood breakdown |
-| **Finance** | Income / expense / investment / saving tracker with monthly savings goal bar |
-| **Holidays** | Mark holidays and override schedule type for any date |
-
-### Always-on widgets
-- **Daily check-in** — morning habit rating (1–5) + blocker note, auto-expands 6–11 AM
-- **Today's focus** — single daily priority, collapsible
-- **Water tracker** — 10-glass tracker with 7-day history chart, auto-ticks habit at 2.5L
-- **Pomodoro timer** — launches from any learning block
+### How Real-Time Sync Works
+1. On sign-in, all data is loaded from Firestore (your private `users/{uid}` collection)
+2. Every change (habit tick, diary save, water update) is debounced 800ms and written to Firestore
+3. A live `onSnapshot` listener detects changes from other devices and updates the UI instantly
+4. If your connection drops, Firestore's offline cache keeps the app working and syncs when reconnected
 
 ---
 
-## Usage
-
-### Sign in
-Click **Sign in with Google**. Your data is completely private per Google account.
-
-### Schedule
-- Click a **day tab** to view that day's schedule
-- **+ Add time block** — enter time (e.g. `9:30-11:30 AM`), label, colour category. Conflict detection warns if a time slot overlaps an existing block
-- **✎ Edit / Del** buttons on each block
-- **⠿ Drag handle** — drag blocks to reorder
-- **↺ Reset day** — restores the day to your account's default schedule
-- **💾 Save as template** / **📄 Apply template** — save and reuse schedule patterns
-
-### Habits
-- Tick habits in the Tracker tab (click cell: empty → done ✓ → skipped — → empty)
-- Add a note to any cell via the **+** icon
-- Streak counter uses grace-day logic: one missed day per 7 consecutive days doesn't break your streak
-
-### Diary
-- Navigate with ← → arrows or **Today** button
-- **Ctrl+S** saves the current entry
-- Entries auto-save after 30 seconds of inactivity
-
-### Work Log
-- Day view: log entries with start time, duration, project, task, status
-- Week view: summary table + copy-to-clipboard
-- Quick-fill chips populate task from today's schedule blocks
-
-### Finance
-- Add income, expense, investment, or saving entries per month
-- Set a monthly savings goal to see progress bar
-- Navigate months with ← → buttons and **This month**
-
-### Keyboard shortcuts (when not in a text field)
-| Key | Action |
-|-----|--------|
-| `J` | Previous day (Diary / Work Log) |
-| `K` | Next day |
-| `T` | Jump to today |
-| `N` | New work log entry / focus diary input |
-| `?` | Show shortcut hint |
-| `Ctrl+S` | Save diary entry |
-
----
-
-## Data & Privacy
-- All data is stored in **Firebase Firestore** under your Google UID — no one else can access it
-- **Export** downloads a full JSON backup
-- **Import** merges a backup file into your current data
-- Water and focus history is pruned to 60 days to keep Firestore docs small
-- Work log entries older than 90 days are archived as monthly summaries
-
----
-
-## Changes in v14
-
-### Bugs Fixed
-| # | Issue | Fix |
-|---|-------|-----|
-| C1 | All Notes tab crashed when weekly review was saved (boolean stored in diary) | Filter non-object diary entries; store sentinel in `S.checkin` |
-| C2 | Review sentinel key polluted All Notes list | Sentinel moved to `S.checkin[date+'_review']` |
-| C3 | Weekly review text saved with literal newline | Join uses `\n` string |
-| C4 | Finance delete crashed (`.filter()` on object) | `Array.isArray` guard added |
-| C5 | Finance delete targeted wrong month | `data-fmo` attribute passes original month |
-| C6 | `initDragDrop()` called but not defined | Phantom call removed; `attachDragHandlers()` used |
-| C7 | `checkinOpen` / `_kbAttached` undeclared in strict mode | Declared as module-level `let` variables |
-| C8 | `renderInsights` crashed on old diary entries without `.text` | `e&&e.text` guard added |
-
-### UI/UX Fixes (this release)
-| # | Issue | Fix |
-|---|-------|-----|
-| U1 | **"− hide" button overlapped "Save" button** in focus widget | Moved hide button into flex row alongside Save; removed `position:absolute` |
-| U2 | **"View today →" button did nothing visibly** | Handler confirmed + `window.scrollTo({top:0})` added |
-| U3 | **Owner's default schedule not showing** | `loadFromFirebase` now resets any day with < 4 blocks to owner defaults |
-| U4 | **No time conflict warning** when adding overlapping blocks | Full time parsing + overlap detection with inline warning and save-anyway confirm |
-| U5 | **No way to recover default schedule** | "↺ Reset day" button added to schedule toolbar |
-| U6 | Tabs overflowed and wrapped on mobile | `overflow-x:auto; flex-wrap:nowrap` on tabs row |
-| U7 | Responsive CSS gaps on very small screens | Extra `@media` breakpoints at 480px and 380px |
-
----
-
-## File Structure
+## Architecture
 
 ```
-index.html          — entire app (single file, no dependencies except Firebase CDN)
-test_tracker.js     — browser console test suite (paste & run runAllTests())
-README.md           — this file
+Browser (index.html — single file, no build step)
+    │
+    ├── Firebase Authentication (Google Sign-In)
+    │       Verifies identity, provides currentUser.email/uid
+    │
+    └── Firebase Firestore (Database)
+            /users/{uid}/data/meta      ← schedule, habits, holidays, finance
+            /users/{uid}/data/tracker   ← habit ticks, notes, work log
+            /users/{uid}/data/diary     ← diary entries
+            /users/{uid}/profile/info   ← presence data for Super Admin panel
 ```
 
----
-
-## Running Tests
-
-1. Open the live app and sign in
-2. Open browser DevTools → Console
-3. Paste the contents of `test_tracker.js`
-4. The tests run automatically, or call `runAllTests()`
-
-Expected output: all green ✅. Failed tests print in red with details.
+No Node.js. No Express. No separate API. Firebase handles everything.
 
 ---
 
-## Firebase Security Rules
+## Setup (for new deployments)
 
-Ensure Firestore rules restrict documents to the authenticated user:
+1. **Download** `index.html`
+2. **Push to GitHub** in a repository with GitHub Pages enabled
+3. The app is live — open the URL and sign in with Google
+
+Your Firebase project (`habbit-tracker-ef59d`) is already configured inside the file.
+
+### Firebase Security Rules (required in Firebase Console)
+
+Go to **Firebase Console → Firestore Database → Rules** and paste:
 
 ```
 rules_version = '2';
@@ -152,6 +66,129 @@ service cloud.firestore {
         && request.auth.uid == userId
         && docId in ['meta', 'tracker', 'diary'];
     }
+    match /users/{userId}/profile/info {
+      allow read, write: if request.auth != null
+        && request.auth.uid == userId;
+      allow read, write: if request.auth != null
+        && request.auth.token.email == 'teegalaramanujan@gmail.com';
+    }
+    match /users/{userId}/{document=**} {
+      allow read, write, delete: if request.auth != null
+        && request.auth.token.email == 'teegalaramanujan@gmail.com';
+    }
+    match /users/{userId} {
+      allow list: if request.auth != null
+        && request.auth.token.email == 'teegalaramanujan@gmail.com';
+    }
   }
 }
+```
+
+---
+
+## User Roles
+
+| Role | Email | Schedule | Habits | Admin Panel |
+|------|-------|----------|--------|-------------|
+| **Owner** | `teegalanvsklnarasimharao@gmail.com` | Full owner schedule (Big Data, Finance, Work calls) | 11 custom habits | No |
+| **Super Admin** | `teegalaramanujan@gmail.com` | Full owner schedule (same as above) | 11 custom habits | Yes — 🛡 Admin tab |
+| **General User** | Any other Google account | Clean general template | 7 basic habits | No |
+
+> **Note:** Both the Owner and Super Admin accounts belong to the same person (Narasimharao). The Super Admin account is used for testing and administration. Both accounts display the same personalised schedule including Big Data course and Finance self-study blocks.
+
+---
+
+## Resetting Your Data (Fresh Start)
+
+To wipe all test data and start clean:
+
+**Option 1 — Delete individual documents:**
+1. Firebase Console → Firestore Database
+2. Navigate to `users → [your UID] → data`
+3. Delete `meta`, `tracker`, and `diary` documents
+4. Sign out → Sign back in → fresh data is created automatically
+
+**Option 2 — Clear the whole database:**
+1. Firebase Console → Firestore → three-dot menu → Delete database
+2. Recreate the database in Production mode
+3. Re-paste the security rules above
+
+Your UID: Firebase Console → Authentication → Users → see the UID column.
+
+---
+
+## Features
+
+### Schedule Tab
+- Day-by-day timetable across Mon–Fri and Weekend/Holiday
+- **Big Data / DE course** (9:30–11:30 AM weekdays, 10:30–12:00 weekends)
+- **Finance self-study** (5:00–6:00 PM weekdays, 12:30–1:30 PM weekends)
+- Work calls, deep work blocks, walks, meals, wind-down
+- Add/edit/delete blocks, drag to reorder, save/apply templates
+- Live **time conflict detection** when adding overlapping blocks
+- **↺ Reset day** button to restore defaults
+
+### Habits & Tracker
+- Weekly grid — click to cycle: empty → ✓ done → — skipped
+- 12-week trend chart, streak with grace day, monthly % per habit
+- Pause any habit for a date range
+
+### Daily Check-in
+- Rate yesterday's habits 1–5, add a blocker note
+- Auto-expands 6–11 AM
+
+### Focus + Water Widgets
+- **− hide** button collapses each widget to a single summary bar
+- Click the summary bar to expand it again
+- Both collapsed states saved to localStorage (persist across refreshes)
+
+### Pomodoro Timer
+- Launches from any Learning block via ⏱ 25m button
+- Start / Pause / Resume — resets cleanly after Done
+
+### Diary
+- Daily journal with mood tags (Great/Good/Okay/Low/Tough)
+- Auto-save after 30s, Ctrl+S to save manually
+- Navigation capped at today (cannot go to future dates)
+
+### Work Log
+- Day and week views with project summary bars
+- Quick-fill from today's schedule blocks
+- Entries older than 90 days auto-archived
+
+### Finance
+- Income / Expense / Investment / Saving entries per month
+- Monthly savings goal with progress bar
+
+### Insights
+- Habit rate, perfect days, diary word count, water goal days, mood breakdown
+
+### Super Admin Panel (🛡 Admin tab)
+- View all registered users with stats and badges
+- Edit user name, admin note, status
+- Delete user accounts (two-step confirmation)
+- Tab is invisible to all non-admin users
+
+---
+
+## Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| `J` | Previous day (Diary / Work Log) |
+| `K` | Next day (Diary / Work Log) |
+| `T` | Jump to today |
+| `N` | New work log entry / focus diary |
+| `?` | Show shortcut hint |
+| `Ctrl+S` | Save diary entry |
+
+---
+
+## Files
+
+```
+index.html                              Complete app (single file, no dependencies)
+README.md                               This file
+ScheduleHabitTracker_Documentation.md  Full technical reference
+test_tracker.js                         Browser console test suite
 ```
