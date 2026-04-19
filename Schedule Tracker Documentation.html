@@ -308,7 +308,7 @@ footer strong{color:#fff;}
     <button class="nav-link active" onclick="scrollTo('overview')">Overview</button>
     <button class="nav-link" onclick="scrollTo('realtime')">Real-Time</button>
     <button class="nav-link" onclick="scrollTo('roles')">Roles</button>
-    <button class="nav-link" onclick="scrollTo('schedule')">Schedule</button>
+    
     <button class="nav-link" onclick="scrollTo('features')">Features</button>
     <button class="nav-link" onclick="scrollTo('setup')">Setup</button>
     <button class="nav-link" onclick="scrollTo('admin')">Admin</button>
@@ -340,7 +340,7 @@ footer strong{color:#fff;}
       <li><a href="#overview">Application Overview</a></li>
       <li><a href="#realtime">Real-Time Architecture</a></li>
       <li><a href="#roles">User Roles</a></li>
-      <li><a href="#schedule">Owner Schedule</a></li>
+      
       <li><a href="#features">All Features</a></li>
       <li><a href="#setup">Setup & Rules</a></li>
       <li><a href="#admin">Super Admin Panel</a></li>
@@ -403,7 +403,7 @@ footer strong{color:#fff;}
       <div class="card">
         <div class="card-icon">🛡</div>
         <div class="card-title">Super Admin</div>
-        <div class="card-body">View/edit/delete all user accounts. Visible only to teegalaramanujan@gmail.com.</div>
+        <div class="card-body">View/edit/delete all user accounts. Visible only to the designated Super Admin account.</div>
       </div>
     </div>
 
@@ -512,14 +512,14 @@ footer strong{color:#fff;}
         <tbody>
           <tr>
             <td><span class="tag role">Owner</span></td>
-            <td><code class="inline">teegalanvsklnarasimharao@gmail.com</code></td>
+            <td><code class="inline">owner@yourdomain.com</code></td>
             <td>Full owner schedule (Big Data, Finance, Work calls)</td>
             <td>11 custom habits</td>
             <td><span class="tag no">No</span></td>
           </tr>
           <tr>
             <td><span class="tag admin">Super Admin</span></td>
-            <td><code class="inline">teegalaramanujan@gmail.com</code></td>
+            <td><code class="inline">admin@yourdomain.com</code></td>
             <td>Full owner schedule (same as above)</td>
             <td>11 custom habits</td>
             <td><span class="tag yes">Yes — 🛡 Admin</span></td>
@@ -538,10 +538,10 @@ footer strong{color:#fff;}
     <h3>Role detection logic</h3>
     <div class="code-block">
 <span class="cf">function</span> <span class="ck">isOwner</span>(){
-  <span class="cf">return</span> currentUser?.email === <span class="cs">'teegalanvsklnarasimharao@gmail.com'</span>;
+  <span class="cf">return</span> currentUser?.email === <span class="cs">'owner@yourdomain.com'</span> <span class="cm">// replace with your email</span>;
 }
 
-<span class="cf">const</span> <span class="cv">SUPER_ADMIN_EMAIL</span> = <span class="cs">'teegalaramanujan@gmail.com'</span>;
+<span class="cf">const</span> <span class="cv">SUPER_ADMIN_EMAIL</span> = <span class="cs">'admin@yourdomain.com'</span> <span class="cm">// replace with admin email</span>;
 <span class="cf">function</span> <span class="ck">isSuperAdmin</span>(){
   <span class="cf">return</span> currentUser?.email === <span class="cv">SUPER_ADMIN_EMAIL</span>;
 }
@@ -572,82 +572,9 @@ footer strong{color:#fff;}
   </div>
 
   <!-- ══ 4. SCHEDULE ══ -->
-  <div class="section" id="schedule">
-    <div class="section-header">
-      <div class="section-num">4</div>
-      <div>
-        <div class="section-title">Owner / Super Admin Schedule</div>
-        <div class="section-lead">Full weekday and weekend default blocks</div>
-      </div>
-    </div>
-
-    <h3>Weekday (Mon / Tue / Wed / Thu / Fri base)</h3>
-    <div class="tbl-wrap">
-      <table class="sched-table">
-        <thead><tr><th>Time</th><th>Block</th><th>Type</th></tr></thead>
-        <tbody>
-          <tr><td class="time">6:15 AM</td><td><span class="sched-block b-wake"></span><span class="lbl">Wake up</span><div class="sub">Water immediately, no phone</div></td><td>Wake</td></tr>
-          <tr><td class="time">6:15–6:45</td><td><span class="sched-block b-walk"></span><span class="lbl">Morning walk</span><div class="sub">Outside, no earphones</div></td><td>Walk</td></tr>
-          <tr><td class="time">6:45–7:30</td><td><span class="sched-block b-break"></span><span class="lbl">Freshen up + breakfast</span><div class="sub">Light meal, no screen</div></td><td>Break</td></tr>
-          <tr><td class="time">7:30–9:00</td><td><span class="sched-block b-personal"></span><span class="lbl">Personal / family time</span><div class="sub">Prayer, family, calm reading</div></td><td>Personal</td></tr>
-          <tr><td class="time">9:00–9:30</td><td><span class="sched-block b-break"></span><span class="lbl">Prep + settle in</span><div class="sub">Desk ready, water filled, write 3 goals</div></td><td>Break</td></tr>
-          <tr style="background:#f0f9ff"><td class="time">9:30–11:30</td><td><span class="sched-block b-learn"></span><span class="lbl highlight">Big Data / DE course</span><div class="sub">2 hrs focused learning</div></td><td><strong>Learning</strong></td></tr>
-          <tr><td class="time">11:30–12:30</td><td><span class="sched-block b-call"></span><span class="lbl">Work call 1</span><div class="sub">Fixed call</div></td><td>Call</td></tr>
-          <tr><td class="time">12:30–1:00</td><td><span class="sched-block b-call"></span><span class="lbl">Work call 2</span><div class="sub">Fixed call</div></td><td>Call</td></tr>
-          <tr><td class="time">1:00–2:00</td><td><span class="sched-block b-break"></span><span class="lbl">Lunch + rest</span><div class="sub">Away from screens</div></td><td>Break</td></tr>
-          <tr><td class="time">2:00–3:00</td><td><span class="sched-block b-work"></span><span class="lbl">Deep work block 1</span><div class="sub">Office tasks, coding, project work</div></td><td>Work</td></tr>
-          <tr><td class="time">3:00–4:00</td><td><span class="sched-block b-call"></span><span class="lbl">Work call 3</span><div class="sub">Fixed call</div></td><td>Call</td></tr>
-          <tr><td class="time">4:00–5:00</td><td><span class="sched-block b-work"></span><span class="lbl">Deep work block 2</span><div class="sub">Deliverables, review, wrap up</div></td><td>Work</td></tr>
-          <tr style="background:#f0fdf4"><td class="time">5:00–6:00</td><td><span class="sched-block b-finance"></span><span class="lbl highlight">Finance self-study</span><div class="sub">Investing, markets, reading</div></td><td><strong>Finance</strong></td></tr>
-          <tr><td class="time">6:00–6:45</td><td><span class="sched-block b-walk"></span><span class="lbl">Evening walk</span><div class="sub">No screens, reduces headaches</div></td><td>Walk</td></tr>
-          <tr><td class="time">6:45–7:30</td><td><span class="sched-block b-personal"></span><span class="lbl">Personal / family time</span></td><td>Personal</td></tr>
-          <tr><td class="time">7:30–8:00</td><td><span class="sched-block b-break"></span><span class="lbl">Dinner</span><div class="sub">No screens at the table</div></td><td>Break</td></tr>
-          <tr><td class="time">8:00–9:00</td><td><span class="sched-block b-personal"></span><span class="lbl">Free time</span></td><td>Personal</td></tr>
-          <tr><td class="time">9:00–9:30</td><td><span class="sched-block b-scrum"></span><span class="lbl">Daily scrum</span></td><td>Scrum</td></tr>
-          <tr><td class="time">9:30–10:00</td><td><span class="sched-block b-personal"></span><span class="lbl">Instagram (max 20 min)</span><div class="sub">Only allowed slot</div></td><td>Personal</td></tr>
-          <tr><td class="time">10:00–10:30</td><td><span class="sched-block b-sleep"></span><span class="lbl">Wind down</span></td><td>Sleep</td></tr>
-          <tr><td class="time">10:30 PM</td><td><span class="sched-block b-sleep"></span><span class="lbl">Sleep</span><div class="sub">7.5 hrs rest</div></td><td>Sleep</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p style="font-size:13px;color:var(--ink3);margin-top:8px;">
-      <strong>Monday</strong> adds: 9:00–10:00 PM Monday extra call &nbsp;·&nbsp;
-      <strong>Wednesday</strong> adds: 9:30–10:00 PM Wednesday extra call &nbsp;·&nbsp;
-      <strong>Thursday</strong> adds: 9:00–10:00 PM Thursday extra call
-    </p>
-
-    <h3>Weekend</h3>
-    <div class="tbl-wrap">
-      <table class="sched-table">
-        <thead><tr><th>Time</th><th>Block</th><th>Type</th></tr></thead>
-        <tbody>
-          <tr><td class="time">7:00 AM</td><td><span class="sched-block b-wake"></span><span class="lbl">Wake up, no alarm</span></td><td>Wake</td></tr>
-          <tr><td class="time">7:00–7:30</td><td><span class="sched-block b-faith"></span><span class="lbl">Morning prayer / faith</span></td><td>Faith</td></tr>
-          <tr><td class="time">7:30–8:15</td><td><span class="sched-block b-walk"></span><span class="lbl">Morning walk</span><div class="sub">Longer walk, no earphones</div></td><td>Walk</td></tr>
-          <tr><td class="time">8:15–9:15</td><td><span class="sched-block b-personal"></span><span class="lbl">Breakfast + family time</span></td><td>Personal</td></tr>
-          <tr><td class="time">9:15–10:30</td><td><span class="sched-block b-personal"></span><span class="lbl">Personal / free time</span></td><td>Personal</td></tr>
-          <tr style="background:#f0f9ff"><td class="time">10:30–12:00</td><td><span class="sched-block b-learn"></span><span class="lbl highlight">Big Data / DE course</span><div class="sub">1.5 hrs, keep momentum</div></td><td><strong>Learning</strong></td></tr>
-          <tr><td class="time">12:00–12:30</td><td><span class="sched-block b-break"></span><span class="lbl">Short break</span></td><td>Break</td></tr>
-          <tr style="background:#f0fdf4"><td class="time">12:30–1:30</td><td><span class="sched-block b-finance"></span><span class="lbl highlight">Finance self-study</span><div class="sub">Books, articles, investing concepts</div></td><td><strong>Finance</strong></td></tr>
-          <tr><td class="time">1:30–2:30</td><td><span class="sched-block b-break"></span><span class="lbl">Lunch + rest</span></td><td>Break</td></tr>
-          <tr><td class="time">2:30–4:00</td><td><span class="sched-block b-personal"></span><span class="lbl">Family time / outing</span></td><td>Explore</td></tr>
-          <tr><td class="time">4:00–5:00</td><td><span class="sched-block b-personal"></span><span class="lbl">Personal project or skill</span></td><td>Growth</td></tr>
-          <tr><td class="time">5:00–6:00</td><td><span class="sched-block b-walk"></span><span class="lbl">Evening walk or exercise</span></td><td>Health</td></tr>
-          <tr><td class="time">6:00–7:30</td><td><span class="sched-block b-personal"></span><span class="lbl">Personal / family time</span></td><td>Personal</td></tr>
-          <tr><td class="time">7:30–8:15</td><td><span class="sched-block b-break"></span><span class="lbl">Dinner</span></td><td>Break</td></tr>
-          <tr><td class="time">8:15–9:30</td><td><span class="sched-block b-personal"></span><span class="lbl">Leisure time</span></td><td>Explore</td></tr>
-          <tr><td class="time">9:30–10:00</td><td><span class="sched-block b-work"></span><span class="lbl">Weekly review</span></td><td>Growth</td></tr>
-          <tr><td class="time">10:00–10:30</td><td><span class="sched-block b-faith"></span><span class="lbl">Wind down</span></td><td>Faith</td></tr>
-          <tr><td class="time">10:30 PM</td><td><span class="sched-block b-sleep"></span><span class="lbl">Sleep</span><div class="sub">8 hrs on weekends</div></td><td>Sleep</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- ══ 5. FEATURES ══ -->
   <div class="section" id="features">
     <div class="section-header">
-      <div class="section-num">5</div>
+      <div class="section-num">4</div>
       <div>
         <div class="section-title">All Features</div>
         <div class="section-lead">Every tab, widget, and function explained</div>
@@ -716,7 +643,7 @@ footer strong{color:#fff;}
   <!-- ══ 6. SETUP ══ -->
   <div class="section" id="setup">
     <div class="section-header">
-      <div class="section-num">6</div>
+      <div class="section-num">5</div>
       <div>
         <div class="section-title">Setup & Firestore Rules</div>
         <div class="section-lead">Deploy the app and configure security</div>
@@ -726,9 +653,9 @@ footer strong{color:#fff;}
     <h3>Deploy (GitHub Pages)</h3>
     <div class="steps">
       <div class="step"><div class="step-body"><div class="step-title">Download index.html</div><div class="step-desc">Get the latest version from the outputs folder.</div></div></div>
-      <div class="step"><div class="step-body"><div class="step-title">Push to GitHub</div><div class="step-desc">Place <code class="inline">index.html</code> in the root of your repository (e.g. <code class="inline">TeegalaNVSKLNarasimharao/Tracker</code>). No other files required.</div></div></div>
+      <div class="step"><div class="step-body"><div class="step-title">Push to GitHub</div><div class="step-desc">Place <code class="inline">index.html</code> in the root of your repository (e.g. <code class="inline">your-username/your-repo</code>). No other files required.</div></div></div>
       <div class="step"><div class="step-body"><div class="step-title">Enable GitHub Pages</div><div class="step-desc">Repository Settings → Pages → Source: Deploy from branch → main → / (root) → Save.</div></div></div>
-      <div class="step"><div class="step-body"><div class="step-title">Open the live URL</div><div class="step-desc">e.g. <code class="inline">https://teegalanvsklnarasimharao.github.io/Tracker/</code> — sign in with Google, done.</div></div></div>
+      <div class="step"><div class="step-body"><div class="step-title">Open the live URL</div><div class="step-desc">e.g. <code class="inline">https://your-username.github.io/your-repo/</code> — sign in with Google, done.</div></div></div>
     </div>
 
     <h3>Required Firestore Security Rules</h3>
@@ -750,19 +677,19 @@ footer strong{color:#fff;}
       allow read, write: <span class="ck">if</span> request.auth != null
         && request.auth.uid == userId;
       allow read, write: <span class="ck">if</span> request.auth != null
-        && request.auth.token.email == <span class="cs">'teegalaramanujan@gmail.com'</span>;
+        && request.auth.token.email == <span class="cs">'admin@yourdomain.com'</span>;
     }
 
     <span class="cm">// Super Admin: full access to all user data</span>
     match /users/{userId}/{document=**} {
       allow read, write, delete: <span class="ck">if</span> request.auth != null
-        && request.auth.token.email == <span class="cs">'teegalaramanujan@gmail.com'</span>;
+        && request.auth.token.email == <span class="cs">'admin@yourdomain.com'</span>;
     }
 
     <span class="cm">// Super Admin: list all users</span>
     match /users/{userId} {
       allow list: <span class="ck">if</span> request.auth != null
-        && request.auth.token.email == <span class="cs">'teegalaramanujan@gmail.com'</span>;
+        && request.auth.token.email == <span class="cs">'admin@yourdomain.com'</span>;
     }
   }
 }
@@ -781,16 +708,16 @@ footer strong{color:#fff;}
   <!-- ══ 7. ADMIN ══ -->
   <div class="section" id="admin">
     <div class="section-header">
-      <div class="section-num">7</div>
+      <div class="section-num">6</div>
       <div>
         <div class="section-title">Super Admin Panel</div>
-        <div class="section-lead">User management for teegalaramanujan@gmail.com only</div>
+        <div class="section-lead">User management — visible to the Super Admin account only</div>
       </div>
     </div>
 
     <div class="callout navy">
       <div class="callout-title">🛡 Access</div>
-      <p>Sign in as <code class="inline">teegalaramanujan@gmail.com</code> → a red <strong>🛡 Admin</strong> tab appears at the right end of the tab bar. It is completely invisible to all other users — not just hidden, it is absent from the DOM entirely at render time.</p>
+      <p>Sign in with the Super Admin Google account → a red <strong>🛡 Admin</strong> tab appears at the right end of the tab bar. It is completely invisible to all other users — not just hidden, it is absent from the DOM entirely at render time.</p>
     </div>
 
     <h3>What the Admin Panel shows</h3>
@@ -822,7 +749,7 @@ footer strong{color:#fff;}
   <!-- ══ 8. BUG FIXES ══ -->
   <div class="section" id="bugs">
     <div class="section-header">
-      <div class="section-num">8</div>
+      <div class="section-num">7</div>
       <div>
         <div class="section-title">Bug Fixes Log</div>
         <div class="section-lead">All confirmed bugs and their exact fixes</div>
@@ -853,7 +780,7 @@ footer strong{color:#fff;}
 
     <div class="bugfix">
       <div class="bugfix-title">🐛 Super Admin saw general schedule instead of Big Data / Finance</div>
-      <p><strong>Root cause:</strong> <code class="inline">DEF_WD()</code>, <code class="inline">applyOwnerSchedule()</code>, and <code class="inline">loadFromFirebase()</code> all checked <code class="inline">isOwner()</code> only — which returns <code class="inline">false</code> for <code class="inline">teegalaramanujan@gmail.com</code>. The Super Admin account received the blank "Work / Study block" general template.</p>
+      <p><strong>Root cause:</strong> <code class="inline">DEF_WD()</code>, <code class="inline">applyOwnerSchedule()</code>, and <code class="inline">loadFromFirebase()</code> all checked <code class="inline">isOwner()</code> only — which returns <code class="inline">false</code> for <code class="inline">admin@yourdomain.com</code>. The Super Admin account received the blank "Work / Study block" general template.</p>
       <div class="fix">
         <div class="fix-title">✅ Fix</div>
         Added <code class="inline">isOwnerOrAdmin()</code> helper and updated all 4 enforcement points to use it. Both accounts now receive the full 21-block owner schedule.
@@ -887,7 +814,7 @@ footer strong{color:#fff;}
   <!-- ══ 9. SHORTCUTS ══ -->
   <div class="section" id="shortcuts">
     <div class="section-header">
-      <div class="section-num">9</div>
+      <div class="section-num">8</div>
       <div>
         <div class="section-title">Keyboard Shortcuts</div>
         <div class="section-lead">Active when focus is not inside a text input</div>
@@ -904,15 +831,15 @@ footer strong{color:#fff;}
     </div>
 
     <div class="callout navy" style="margin-top:24px;">
-      <div class="callout-title">📌 Live URL</div>
-      <p><strong>https://teegalanvsklnarasimharao.github.io/Tracker/</strong><br/>Sign in with Google. All data syncs to Firebase automatically. Nothing is lost on refresh.</p>
+      <div class="callout-title">📌 Live Application</div>
+      <p>Sign in with Google. All data syncs to Firebase automatically. Nothing is lost on refresh.</p>
     </div>
   </div>
 
 </div><!-- /page -->
 
 <footer>
-  <strong>Schedule &amp; Habit Tracker</strong> — v14 Final &nbsp;·&nbsp; Built with Firebase Firestore &nbsp;·&nbsp; April 2026
+  <strong>Schedule &amp; Habit Tracker</strong> — v14 Final &nbsp;·&nbsp; Built with Firebase Firestore
 </footer>
 
 <script>
