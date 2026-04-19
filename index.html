@@ -178,6 +178,7 @@ table.ht th.today-col{color:var(--pri);font-weight:700;}
 .chk:hover{border-color:var(--pri);}
 .chk.done{background:var(--gr2);border-color:var(--gr2);color:#fff;}
 .chk.skip{background:var(--sur2);border-color:var(--bdr);color:var(--tx3);font-size:11px;}
+.chk.missed{background:var(--rdl);border-color:var(--rd2);color:var(--rd2);}
 .chk.paused{background:var(--aml);border-color:var(--am2);color:var(--am);font-size:10px;cursor:default;}
 .chk-note{font-size:9px;color:var(--tx3);cursor:pointer;margin-top:2px;text-align:center;transition:color .1s;}
 .chk-note:hover{color:var(--pri);}
@@ -2036,7 +2037,9 @@ function renderTracker(){
       const k=dk(d)+'_'+h.id,paused=isHabitPaused(h.id,d);
       if(paused)return '<td><div class="chk paused" title="Paused">P</div></td>';
       const st=S.tracker[k]||'none',note=(S.notes||{})[k]||'';
-      return `<td style="padding:2px 3px;"><div class="chk ${st==='done'?'done':st==='skip'?'skip':''}" data-hid="${h.id}" data-dk="${dk(d)}">${st==='done'?'&#10003;':st==='skip'?'&#8212;':''}</div><div class="chk-note" data-nhid="${h.id}" data-ndk="${dk(d)}" title="${(note||'Add note').replace(/"/g,'&quot;')}">${note?'&#128203;':'+'}</div></td>`;
+      const isPast=dk(d)<dk(today());
+      const chkCls=st==='done'?'done':st==='skip'?'skip':isPast?'missed':'';
+      return `<td style="padding:2px 3px;"><div class="chk ${chkCls}" data-hid="${h.id}" data-dk="${dk(d)}">${st==='done'?'&#10003;':st==='skip'?'&#8212;':isPast?'&#10007;':''}</div><div class="chk-note" data-nhid="${h.id}" data-ndk="${dk(d)}" title="${(note||'Add note').replace(/"/g,'&quot;')}">${note?'&#128203;':'+'}</div></td>`;
     }).join('');
     return `<tr><td class="hn" data-ehid="${h.id}" title="Edit habit">${esc(h.name)}<small>${esc(h.sub)}</small><span class="hpct">${pct}% this month</span></td>${cells}</tr>`;
   }).join('');
