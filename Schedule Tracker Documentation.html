@@ -3,295 +3,946 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>App Documentation — v10</title>
+<title>Schedule & Habit Tracker — Support Documentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f1;color:#1a1a1a;line-height:1.7;font-size:15px;}
-.page{max-width:820px;margin:0 auto;padding:32px 20px;}
-h1{font-size:26px;font-weight:700;color:#1E3A5F;margin-bottom:6px;}
-.tagline{font-size:13px;color:#888;margin-bottom:32px;}
-h2{font-size:19px;font-weight:700;color:#1E3A5F;margin:32px 0 10px;padding-top:16px;border-top:2px solid #EBF0F7;}
-h3{font-size:15px;font-weight:700;color:#1a1a1a;margin:18px 0 6px;}
-p{margin-bottom:12px;color:#333;}
-ul,ol{padding-left:20px;margin-bottom:12px;}
-li{margin-bottom:5px;color:#333;}
-code{background:#EBF0F7;color:#1E3A5F;padding:2px 6px;border-radius:4px;font-size:13px;}
-.note{background:#FEF3C7;border-left:4px solid #D97706;padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13px;color:#92400E;}
-.tip{background:#DCFCE7;border-left:4px solid #16A34A;padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13px;color:#166534;}
-.warn{background:#FEE2E2;border-left:4px solid #DC2626;padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13px;color:#991B1B;}
-table{width:100%;border-collapse:collapse;margin:12px 0;}
-th{background:#EBF0F7;color:#1E3A5F;padding:8px 12px;text-align:left;font-size:13px;}
-td{padding:8px 12px;border-top:1px solid #e5e5e5;font-size:13px;color:#333;}
-.toc{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:16px 20px;margin-bottom:28px;}
-.toc h4{font-size:13px;font-weight:700;color:#1E3A5F;margin-bottom:10px;}
-.toc a{display:block;font-size:13px;color:#1E3A5F;text-decoration:none;padding:2px 0;}
-.toc a:hover{text-decoration:underline;}
-.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;margin-left:6px;}
-.new{background:#DCFCE7;color:#166534;}
-.updated{background:#DBEAFE;color:#1E3A5F;}
+:root{
+  --ink:#1A1614;--ink2:#4A3F3A;--ink3:#8A7E79;
+  --parch:#F9F7F3;--parch2:#F0EDE6;--parch3:#E4DFD6;
+  --navy:#1E3A5F;--navy2:#2D5A8E;--navyL:#EBF0F7;
+  --gold:#B8860B;--goldL:#FDF6E3;
+  --green:#166534;--greenL:#DCFCE7;
+  --red:#991B1B;--redL:#FEE2E2;
+  --amber:#92400E;--amberL:#FEF3C7;
+  --shadow:0 2px 8px rgba(26,22,20,.08),0 1px 3px rgba(26,22,20,.06);
+  --shadow-lg:0 8px 32px rgba(26,22,20,.12),0 2px 8px rgba(26,22,20,.08);
+  --r:10px;
+}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Source Serif 4',serif;
+  background:var(--parch);
+  color:var(--ink);
+  font-size:15px;
+  line-height:1.7;
+}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:var(--navy);
+  padding:0 24px;
+  display:flex;align-items:center;gap:0;
+  box-shadow:0 2px 16px rgba(0,0,0,.25);
+}
+.nav-brand{
+  font-family:'Playfair Display',serif;
+  font-size:15px;font-weight:700;color:#fff;
+  padding:14px 0;margin-right:auto;
+  letter-spacing:.01em;
+  display:flex;align-items:center;gap:8px;
+}
+.nav-brand span{font-size:18px;}
+.nav-links{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-link{
+  padding:16px 14px;font-size:12px;font-weight:600;
+  color:rgba(255,255,255,.65);cursor:pointer;
+  border-bottom:2px solid transparent;
+  transition:color .15s,border-color .15s;
+  white-space:nowrap;font-family:inherit;
+  background:none;border-top:none;border-left:none;border-right:none;
+}
+.nav-link:hover,.nav-link.active{color:#fff;border-bottom-color:rgba(255,255,255,.6);}
+.nav-ver{font-size:10px;color:rgba(255,255,255,.4);padding:0 12px;letter-spacing:.06em;font-family:inherit;white-space:nowrap;}
+
+/* ── HERO ── */
+.hero{
+  background:var(--navy);
+  padding:56px 24px 52px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 120%,rgba(45,90,142,.5) 0%,transparent 70%);
+}
+.hero-badge{
+  display:inline-block;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:20px;padding:4px 14px;
+  font-size:11px;font-weight:600;color:rgba(255,255,255,.8);
+  letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:16px;font-family:inherit;
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,5vw,44px);
+  font-weight:700;color:#fff;
+  line-height:1.15;margin-bottom:12px;
+  position:relative;
+}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.65);max-width:520px;margin:0 auto 28px;position:relative;}
+.hero-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:relative;}
+.pill{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  border-radius:20px;padding:5px 14px;font-size:12px;
+  color:rgba(255,255,255,.85);font-family:inherit;
+}
+.pill.green{background:rgba(22,101,52,.5);border-color:rgba(74,222,128,.3);color:#86efac;}
+
+/* ── LAYOUT ── */
+.page{max-width:900px;margin:0 auto;padding:0 20px 80px;}
+
+/* ── SECTION ── */
+.section{padding:44px 0 0;}
+.section-header{
+  display:flex;align-items:flex-start;gap:14px;
+  margin-bottom:24px;padding-bottom:16px;
+  border-bottom:2px solid var(--parch3);
+}
+.section-num{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--navy);color:#fff;
+  font-family:'Playfair Display',serif;font-size:15px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  margin-top:3px;
+}
+.section-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--navy);line-height:1.2;}
+.section-lead{font-size:14px;color:var(--ink3);margin-top:3px;font-style:italic;}
+
+h3{font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--ink);margin:24px 0 10px;}
+p{margin-bottom:12px;color:var(--ink2);}
+p:last-child{margin-bottom:0;}
+
+/* ── CALLOUT BOXES ── */
+.callout{border-radius:var(--r);padding:16px 18px;margin:16px 0;}
+.callout-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
+.callout p{font-size:14px;margin-bottom:0;}
+.callout.green{background:var(--greenL);border:1px solid #86efac;}
+.callout.green .callout-title{color:var(--green);}
+.callout.navy{background:var(--navyL);border:1px solid #93c5fd;}
+.callout.navy .callout-title{color:var(--navy);}
+.callout.amber{background:var(--amberL);border:1px solid #fcd34d;}
+.callout.amber .callout-title{color:var(--amber);}
+.callout.red{background:var(--redL);border:1px solid #fca5a5;}
+.callout.red .callout-title{color:var(--red);}
+
+/* ── CARDS GRID ── */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:16px 0;}
+.card{
+  background:var(--parch2);border:1px solid var(--parch3);
+  border-radius:var(--r);padding:16px 18px;
+  box-shadow:var(--shadow);
+  transition:box-shadow .15s,transform .15s;
+}
+.card:hover{box-shadow:var(--shadow-lg);transform:translateY(-1px);}
+.card-icon{font-size:22px;margin-bottom:8px;}
+.card-title{font-family:'Playfair Display',serif;font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px;}
+.card-body{font-size:13px;color:var(--ink3);line-height:1.6;}
+
+/* ── TABLE ── */
+.tbl-wrap{overflow-x:auto;margin:16px 0;border-radius:var(--r);box-shadow:var(--shadow);}
+table{width:100%;border-collapse:collapse;background:white;font-size:13.5px;}
+thead tr{background:var(--navy);}
+thead th{color:#fff;padding:10px 14px;text-align:left;font-weight:600;font-size:12px;letter-spacing:.04em;text-transform:uppercase;font-family:inherit;white-space:nowrap;}
+tbody tr{border-bottom:1px solid var(--parch3);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:var(--navyL);}
+tbody td{padding:10px 14px;color:var(--ink2);vertical-align:top;}
+tbody td:first-child{color:var(--ink);font-weight:500;}
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;}
+.tag.yes{background:var(--greenL);color:var(--green);}
+.tag.no{background:var(--redL);color:var(--red);}
+.tag.role{background:var(--navyL);color:var(--navy);}
+.tag.admin{background:#ede9fe;color:#5b21b6;}
+
+/* ── CODE ── */
+pre,code{font-family:'Courier New',Courier,monospace;}
+.code-block{
+  background:#1a1614;color:#e8e0d6;
+  border-radius:var(--r);padding:18px 20px;
+  font-size:13px;line-height:1.7;
+  overflow-x:auto;margin:14px 0;
+  box-shadow:var(--shadow-lg);
+}
+.code-block .cm{color:#8a7e79;font-style:italic;}
+.code-block .ck{color:#93c5fd;}
+.code-block .cs{color:#86efac;}
+.code-block .cv{color:#fcd34d;}
+.code-block .cf{color:#fda4af;}
+code.inline{background:var(--parch3);border:1px solid var(--parch3);border-radius:4px;padding:1px 6px;font-size:13px;color:var(--navy2);}
+
+/* ── SCHEDULE TABLE ── */
+.sched-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0;}
+.sched-table th{background:var(--parch3);padding:7px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);font-weight:700;font-family:inherit;}
+.sched-table td{padding:8px 12px;border-bottom:1px solid var(--parch3);vertical-align:top;}
+.sched-table tr:hover td{background:var(--navyL);}
+.sched-table .time{color:var(--ink3);font-size:12px;white-space:nowrap;font-family:'Courier New',monospace;}
+.sched-table .lbl{font-weight:600;color:var(--ink);}
+.sched-table .lbl.highlight{color:var(--navy2);}
+.sched-table .sub{font-size:11px;color:var(--ink3);margin-top:1px;}
+.sched-block{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:middle;}
+.b-learn{background:#A5B4FC;}.b-finance{background:#4ADE80;}.b-call{background:#FDA4AF;}
+.b-work{background:#93C5FD;}.b-walk{background:#86EFAC;}.b-break{background:#D1D5DB;}
+.b-personal{background:#F0ABFC;}.b-sleep{background:#E5E7EB;}.b-wake{background:#FCD34D;}
+.b-scrum{background:#FDBA74;}.b-faith{background:#FDE68A;}
+
+/* ── STEPS ── */
+.steps{counter-reset:step;display:flex;flex-direction:column;gap:12px;margin:16px 0;}
+.step{
+  display:flex;gap:14px;align-items:flex-start;
+  background:white;border:1px solid var(--parch3);
+  border-radius:var(--r);padding:14px 16px;box-shadow:var(--shadow);
+}
+.step::before{
+  counter-increment:step;content:counter(step);
+  width:26px;height:26px;border-radius:50%;
+  background:var(--navy);color:#fff;
+  font-size:13px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-family:'Playfair Display',serif;
+}
+.step-body{flex:1;}
+.step-title{font-weight:600;color:var(--ink);margin-bottom:3px;font-size:14px;}
+.step-desc{font-size:13px;color:var(--ink3);}
+
+/* ── KEY → VALUE LIST ── */
+.kv{display:flex;flex-direction:column;gap:8px;margin:14px 0;}
+.kv-row{display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:white;border:1px solid var(--parch3);border-radius:8px;}
+.kv-key{font-size:12px;font-weight:700;color:var(--navy2);min-width:140px;flex-shrink:0;padding-top:1px;}
+.kv-val{font-size:13px;color:var(--ink2);}
+
+/* ── FIRESTORE DIAGRAM ── */
+.firestore-tree{
+  background:#1a1614;color:#e8e0d6;
+  border-radius:var(--r);padding:20px 22px;
+  font-family:'Courier New',monospace;
+  font-size:13px;line-height:1.9;
+  margin:14px 0;box-shadow:var(--shadow-lg);
+}
+.ft-root{color:#93c5fd;font-weight:700;}
+.ft-coll{color:#fcd34d;}
+.ft-doc{color:#86efac;}
+.ft-field{color:#fda4af;}
+.ft-comment{color:#8a7e79;font-style:italic;}
+
+/* ── SHORTCUTS TABLE ── */
+.shortcut-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:14px 0;}
+.shortcut-row{
+  display:flex;align-items:center;gap:10px;
+  background:white;border:1px solid var(--parch3);
+  border-radius:8px;padding:10px 14px;
+}
+kbd{
+  background:var(--ink);color:white;
+  border-radius:5px;padding:3px 8px;
+  font-size:12px;font-family:'Courier New',monospace;
+  font-weight:700;flex-shrink:0;min-width:32px;text-align:center;
+}
+.shortcut-desc{font-size:12px;color:var(--ink3);}
+
+/* ── BUG FIXES ── */
+.bugfix{
+  border-left:3px solid var(--red);
+  background:var(--redL);
+  border-radius:0 var(--r) var(--r) 0;
+  padding:12px 16px;margin:10px 0;
+}
+.bugfix-title{font-weight:700;color:var(--red);font-size:13px;margin-bottom:4px;}
+.bugfix p{font-size:13px;color:var(--ink2);margin-bottom:6px;}
+.bugfix .fix{
+  border-left:3px solid var(--green);
+  background:var(--greenL);
+  border-radius:0 6px 6px 0;
+  padding:8px 12px;margin-top:6px;
+}
+.bugfix .fix-title{font-weight:700;color:var(--green);font-size:12px;margin-bottom:3px;}
+
+/* ── TOC ── */
+.toc{
+  background:white;border:1px solid var(--parch3);
+  border-radius:var(--r);padding:20px 22px;
+  margin:24px 0;box-shadow:var(--shadow);
+}
+.toc-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--navy);margin-bottom:12px;}
+.toc-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:4px;}
+.toc-list a{
+  font-size:13px;color:var(--navy2);text-decoration:none;
+  padding:4px 0;display:block;
+  border-bottom:1px dashed transparent;
+  transition:border-color .15s,color .15s;
+}
+.toc-list a:hover{color:var(--navy);border-bottom-color:var(--parch3);}
+.toc-list a::before{content:'→ ';color:var(--parch3);font-size:11px;}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--navy);color:rgba(255,255,255,.5);
+  text-align:center;padding:24px;font-size:12px;
+}
+footer strong{color:#fff;}
+
+@media(max-width:600px){
+  nav{padding:0 12px;}
+  .nav-ver{display:none;}
+  .hero{padding:36px 16px 32px;}
+  .page{padding:0 14px 60px;}
+  .section{padding:32px 0 0;}
+  .cards{grid-template-columns:1fr;}
+  .shortcut-grid{grid-template-columns:1fr;}
+}
+
+/* Animate sections in */
+.section{opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease;}
+.section.visible{opacity:1;transform:translateY(0);}
 </style>
 </head>
 <body>
+
+<nav>
+  <div class="nav-brand"><span>📅</span> Schedule &amp; Habit Tracker</div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="scrollTo('overview')">Overview</button>
+    <button class="nav-link" onclick="scrollTo('realtime')">Real-Time</button>
+    <button class="nav-link" onclick="scrollTo('roles')">Roles</button>
+    <button class="nav-link" onclick="scrollTo('schedule')">Schedule</button>
+    <button class="nav-link" onclick="scrollTo('features')">Features</button>
+    <button class="nav-link" onclick="scrollTo('setup')">Setup</button>
+    <button class="nav-link" onclick="scrollTo('admin')">Admin</button>
+    <button class="nav-link" onclick="scrollTo('bugs')">Bug Fixes</button>
+    <button class="nav-link" onclick="scrollTo('shortcuts')">Shortcuts</button>
+  </div>
+  <span class="nav-ver">v14 Final</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Support Documentation</div>
+  <h1>Schedule &amp; Habit Tracker</h1>
+  <p class="hero-sub">Complete technical reference — architecture, features, roles, real-time behaviour, and all bug fixes.</p>
+  <div class="hero-pills">
+    <div class="pill green">✓ Real-time Firebase</div>
+    <div class="pill">v14 Final</div>
+    <div class="pill">Single HTML File</div>
+    <div class="pill">3 User Roles</div>
+  </div>
+</div>
+
 <div class="page">
-<h1>My Schedule &amp; Habit Tracker</h1>
-<p class="tagline">Complete documentation &mdash; Version 10 &mdash; Starting April 20, 2026</p>
 
-<div class="toc">
-<h4>Contents</h4>
-<a href="#getting-started">1. Getting started</a>
-<a href="#sign-in">2. Sign in and multiple users</a>
-<a href="#top-bar">3. Top bar</a>
-<a href="#sync-bar">4. Sync bar</a>
-<a href="#always-visible">5. Always-visible widgets</a>
-<a href="#schedule">6. Schedule tab</a>
-<a href="#tracker">7. Habit Tracker tab</a>
-<a href="#manage-habits">8. Manage Habits tab</a>
-<a href="#heatmap">9. Heatmap tab</a>
-<a href="#diary">10. Diary tab</a>
-<a href="#all-notes">11. All Notes tab</a>
-<a href="#holidays">12. Holidays tab</a>
-<a href="#data">13. Data, backup and cloud sync</a>
-<a href="#reference">14. Quick reference &amp; FAQ</a>
-</div>
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">Table of Contents</div>
+    <ul class="toc-list">
+      <li><a href="#overview">Application Overview</a></li>
+      <li><a href="#realtime">Real-Time Architecture</a></li>
+      <li><a href="#roles">User Roles</a></li>
+      <li><a href="#schedule">Owner Schedule</a></li>
+      <li><a href="#features">All Features</a></li>
+      <li><a href="#setup">Setup & Rules</a></li>
+      <li><a href="#admin">Super Admin Panel</a></li>
+      <li><a href="#bugs">Bug Fixes Log</a></li>
+      <li><a href="#shortcuts">Keyboard Shortcuts</a></li>
+    </ul>
+  </div>
 
-<h2 id="getting-started">1. Getting started</h2>
-<p>The app is a single HTML file hosted on GitHub Pages. No installation, no app store, no subscription. Open it from any browser on any device.</p>
-<ol>
-<li>Open your GitHub Pages URL: <code>https://teegalanvsklnarasimharao.github.io/Tracker/</code></li>
-<li>Sign in with your Google account.</li>
-<li>Your data loads automatically from the cloud and stays in sync across all your devices.</li>
-<li>Bookmark the URL or add it to your phone home screen for quick daily access.</li>
-</ol>
-<div class="tip">On Android: open Chrome, tap the three-dot menu, tap <b>Add to Home Screen</b>. On iPhone: open Safari, tap Share, tap <b>Add to Home Screen</b>. The app appears on your home screen like a native app.</div>
-<div class="note">The app works offline after the first load. Firebase caches your data locally so you can use it without internet. Changes sync automatically when you reconnect.</div>
+  <!-- ══ 1. OVERVIEW ══ -->
+  <div class="section" id="overview">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div>
+        <div class="section-title">Application Overview</div>
+        <div class="section-lead">What it is, what it does, how it's built</div>
+      </div>
+    </div>
 
-<h2 id="sign-in">2. Sign in and multiple users</h2>
-<p>The app uses Google Sign-In via Firebase. Every person who signs in gets their own completely private space — no data is shared between users.</p>
-<h3>How multiple users work</h3>
-<p>Each Google account gets its own independent data — their own schedules, habits, diary, tracker history, holidays, and settings. When Narasimharao signs in, he sees his data. If a family member signs in with their own Google account on the same device, they see their own completely separate data. Nothing is shared.</p>
-<h3>Signing in</h3>
-<p>Click <b>Sign in with Google</b> on the login screen. A Google account picker appears. Select your account. If the popup is blocked by your browser, the app automatically falls back to a redirect-based sign-in. After signing in, your data loads from the cloud in a few seconds.</p>
-<h3>Signing out</h3>
-<p>Click <b>Sign out</b> in the top bar. A confirmation dialog appears before signing out. Your data is saved to the cloud before sign-out. The next person to sign in on the same device gets a clean, fresh session with their own data.</p>
+    <div class="callout navy">
+      <div class="callout-title">🏗 Architecture in one sentence</div>
+      <p>A single self-contained <code class="inline">index.html</code> file with no build step, no backend server, and no external dependencies beyond Firebase — which provides authentication, real-time database, and offline support.</p>
+    </div>
 
-<h2 id="top-bar">3. Top bar</h2>
-<h3>&#9790; Dark mode / &#9728; Light mode <span class="badge updated">Updated</span></h3>
-<p>The button shows what will happen when you click it. When you are in light mode the button shows <b>&#9790; Dark mode</b>. When you are in dark mode it shows <b>&#9728; Light mode</b>. Click it to switch. Your preference is saved to the cloud and remembered across all your devices and browsers.</p>
-<h3>&#128247; Snapshot</h3>
-<p>Generates a plain-text summary of today: your focus, water intake, habits done, and the full schedule for today. The text copies to your clipboard automatically so you can paste it into WhatsApp, Notion, email, or anywhere else. A preview also appears below the schedule.</p>
-<h3>&#8595; Export</h3>
-<p>Downloads all your data as a JSON backup file named <code>habit_backup_YYYY-MM-DD.json</code>. The file contains everything: schedules, habits, tracker history, diary entries, holidays, water logs, focus entries, and pauses. Use this as a safety backup even though your data is also in the cloud.</p>
-<h3>&#8593; Import</h3>
-<p>Restores data from a previously exported JSON backup file. After importing, your data is immediately saved to the cloud. Use this to migrate data from an old version of the app or to restore from a backup.</p>
-<h3>Sign out</h3>
-<p>Signs out of the app safely after a confirmation. All pending saves are cancelled cleanly. Any running Pomodoro timer is stopped. The session is reset for the next user.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">📅</div>
+        <div class="card-title">Schedule</div>
+        <div class="card-body">Day-by-day timetable with drag reorder, time conflict detection, templates, and role-based defaults.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">✅</div>
+        <div class="card-title">Habits & Tracker</div>
+        <div class="card-body">Weekly grid, streak with grace days, 12-week trend chart, pause ranges.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📖</div>
+        <div class="card-title">Diary</div>
+        <div class="card-body">Daily journal with mood tags, auto-save every 30s, search across all entries.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">💼</div>
+        <div class="card-title">Work Log</div>
+        <div class="card-body">Day/week views, project bars, quick-fill from schedule, 90-day auto-archive.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">💰</div>
+        <div class="card-title">Finance</div>
+        <div class="card-body">Income/expense/invest/saving per month, savings goal progress bar.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <div class="card-title">Insights</div>
+        <div class="card-body">Monthly stats — habit rate, perfect days, diary words, water goals, mood breakdown.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌊</div>
+        <div class="card-title">Water + Focus</div>
+        <div class="card-body">10-glass tracker (auto-ticks habit at 2.5L), daily focus input, collapsible widgets.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🛡</div>
+        <div class="card-title">Super Admin</div>
+        <div class="card-body">View/edit/delete all user accounts. Visible only to teegalaramanujan@gmail.com.</div>
+      </div>
+    </div>
 
-<h2 id="sync-bar">4. Sync bar <span class="badge new">New</span></h2>
-<p>The coloured bar below the top bar shows the real-time sync status of your data.</p>
-<table>
-<tr><th>Dot colour</th><th>Meaning</th></tr>
-<tr><td>&#128994; Green</td><td>All data saved and synced. Shows your name and the time of last save.</td></tr>
-<tr><td>&#128993; Amber (pulsing)</td><td>Currently saving. Data is being written to Firebase.</td></tr>
-<tr><td>&#128308; Red</td><td>Save failed. Check your internet connection. Your data is safe locally.</td></tr>
-</table>
-<p>When a change is made on another device, the sync bar briefly shows <b>Synced from another device</b> and the current view refreshes automatically.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>File</th><th>Purpose</th><th>Size</th></tr></thead>
+        <tbody>
+          <tr><td><code class="inline">index.html</code></td><td>Complete application — all HTML, CSS, JS in one file</td><td>~195 KB</td></tr>
+          <tr><td><code class="inline">README.md</code></td><td>User-facing setup and feature guide</td><td>~7 KB</td></tr>
+          <tr><td><code class="inline">support_documentation.html</code></td><td>This file — full technical reference</td><td>~28 KB</td></tr>
+          <tr><td><code class="inline">test_tracker.js</code></td><td>Browser console test suite (paste &amp; run)</td><td>~12 KB</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-<h2 id="always-visible">5. Always-visible widgets</h2>
-<h3>Today&#8217;s banner</h3>
-<p>Shows today&#8217;s full date, which schedule to follow today (auto-detected from day of week and holidays), a badge showing weekday / weekend / holiday status, your saved focus for today, and a <b>View today</b> button that jumps directly to today&#8217;s schedule tab.</p>
+  <!-- ══ 2. REAL-TIME ══ -->
+  <div class="section" id="realtime">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div>
+        <div class="section-title">Real-Time Architecture</div>
+        <div class="section-lead">Is data lost on refresh? No. Here is why.</div>
+      </div>
+    </div>
 
-<h3>Today&#8217;s focus</h3>
-<p>A single text field for your most important priority today. Type it and press <b>Save</b>. It appears in the banner and in the daily snapshot. Each day gets its own focus entry. Old focus entries are automatically cleaned up after 60 days to keep your data lean.</p>
+    <div class="callout green">
+      <div class="callout-title">✓ Yes — fully real-time and production-ready</div>
+      <p>All data is persisted in <strong>Firebase Firestore</strong>. Nothing is lost on refresh, tab close, or browser restart. The app works offline and syncs when reconnected.</p>
+    </div>
 
-<h3>Water tracker <span class="badge updated">Updated</span></h3>
-<p>Ten water drop icons representing glasses of water (250ml each, 2500ml total goal).</p>
-<ul>
-<li><b>Tap any drop</b> to set your intake to that many glasses. Tap the 6th drop = 1500ml logged.</li>
-<li><b>Tap a lower drop</b> to reduce your intake. If you had hit the goal (10 glasses) and reduce below 10, the water habit is automatically un-ticked in the tracker.</li>
-<li><b>Auto-tick:</b> When you reach 2500ml, the <code>2.5 L water</code> habit is automatically marked done.</li>
-<li><b>7-day bar chart:</b> Shows your water intake for each of the last 7 days. Each bar now shows the exact amount in ml or L above it.</li>
-<li><b>Water streak:</b> Consecutive days hitting the 2500ml goal, counted backwards from today.</li>
-<li><b>Reset:</b> Sets today back to zero.</li>
-</ul>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Question</th><th>Answer</th></tr></thead>
+        <tbody>
+          <tr><td>Is data lost on refresh?</td><td><span class="tag yes">No</span> — saved to Firestore within 800ms of every action</td></tr>
+          <tr><td>Data lost on browser close?</td><td><span class="tag yes">No</span> — Firestore is a permanent cloud database</td></tr>
+          <tr><td>Works on multiple devices?</td><td><span class="tag yes">Yes</span> — live onSnapshot sync across all tabs/devices</td></tr>
+          <tr><td>Works offline?</td><td><span class="tag yes">Yes</span> — Firestore offline cache; syncs on reconnect</td></tr>
+          <tr><td>Needs a backend server?</td><td><span class="tag no">No</span> — Firebase is the entire backend</td></tr>
+          <tr><td>Needs Node.js / Express?</td><td><span class="tag no">No</span> — browser-only JavaScript</td></tr>
+          <tr><td>Data isolated per user?</td><td><span class="tag yes">Yes</span> — Firestore rules enforce UID-scoped access</td></tr>
+        </tbody>
+      </table>
+    </div>
 
-<h3>Pomodoro timer <span class="badge updated">Updated</span></h3>
-<p>A 25-minute focus countdown timer. Start it by clicking the <b>25m</b> button on any purple Learning block in the schedule. The timer uses real timestamps so it stays accurate even if your phone screen turns off or you switch browser tabs. Starting a new Pomodoro while one is running correctly replaces the old timer.</p>
+    <h3>How the sync cycle works</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-body">
+          <div class="step-title">Sign in with Google</div>
+          <div class="step-desc"><code class="inline">onAuthStateChanged</code> fires → <code class="inline">currentUser</code> set → <code class="inline">loadFromFirebase()</code> reads all 3 Firestore documents in parallel (meta, tracker, diary).</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <div class="step-title">Any user action (habit tick, water click, diary type…)</div>
+          <div class="step-desc"><code class="inline">saveS(type)</code> is called. It marks the relevant document (meta / tracker / diary) as dirty and starts an 800ms debounce timer. If another action fires within 800ms, the timer resets. After 800ms of silence, all dirty documents are written to Firestore with <code class="inline">Promise.all</code>.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <div class="step-title">Change from another device</div>
+          <div class="step-desc">The <code class="inline">onSnapshot</code> listener on the meta document fires. If habits or holidays changed, the in-memory state updates and <code class="inline">refreshView()</code> re-renders the active tab.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <div class="step-title">Connection lost</div>
+          <div class="step-desc">Firestore's persistent local cache (IndexedDB) serves all reads and queues writes. When connectivity returns, writes flush automatically.</div>
+        </div>
+      </div>
+    </div>
 
-<h2 id="schedule">6. Schedule tab</h2>
-<p>Your daily time plan. Six separate tabs — one for each weekday and one for weekends. The app automatically opens the correct tab for today.</p>
-<h3>Day tabs</h3>
-<table>
-<tr><th>Tab</th><th>Used when</th></tr>
-<tr><td>Monday</td><td>Every Monday (includes extra 9–10 PM call)</td></tr>
-<tr><td>Tuesday</td><td>Every Tuesday</td></tr>
-<tr><td>Wednesday</td><td>Every Wednesday (includes extra 9:30–10 PM call)</td></tr>
-<tr><td>Thursday</td><td>Every Thursday (includes extra 9–10 PM call)</td></tr>
-<tr><td>Friday</td><td>Every Friday</td></tr>
-<tr><td>Weekend/Holiday</td><td>Saturday, Sunday, or any day marked as Holiday</td></tr>
-</table>
-<p>The current day&#8217;s tab has a small &#9660; arrow next to it.</p>
-<h3>Editing blocks <span class="badge updated">Updated</span></h3>
-<p>On desktop, hover over any block to reveal action buttons on the right. On mobile, the buttons are always visible below each block so you never have to hover.</p>
-<ul>
-<li><b>&#8593; &#8595;</b> — Move the block up or down in the schedule</li>
-<li><b>Edit</b> — Change time, label, description, colour type</li>
-<li><b>Del</b> — Delete the block (asks for confirmation)</li>
-<li><b>&#9201; 25m</b> (purple Learning blocks only) — Start a Pomodoro timer</li>
-</ul>
-<h3>Adding a new block</h3>
-<p>Tap <b>+ Add time block</b>. Fill in the time slot, label, description, and colour. Optionally duplicate to another day at the same time, and choose whether to also add it as a tracked habit.</p>
-<h3>Block colour types</h3>
-<table>
-<tr><th>Colour</th><th>Type</th></tr>
-<tr><td>Amber</td><td>Morning / Wake up</td></tr>
-<tr><td>Green</td><td>Walk / Exercise</td></tr>
-<tr><td>Purple</td><td>Learning / Course (has Pomodoro button)</td></tr>
-<tr><td>Red/Pink</td><td>Call / Meeting</td></tr>
-<tr><td>Blue</td><td>Deep work</td></tr>
-<tr><td>Teal</td><td>Finance study</td></tr>
-<tr><td>Pink/Purple</td><td>Personal / Family</td></tr>
-<tr><td>Orange</td><td>Scrum / Team</td></tr>
-<tr><td>Dark amber</td><td>Faith / Prayer</td></tr>
-<tr><td>Dark green</td><td>Health / Fitness</td></tr>
-<tr><td>Indigo</td><td>Growth / Review</td></tr>
-<tr><td>Mint</td><td>Leisure / Explore</td></tr>
-<tr><td>Grey</td><td>Break / Rest</td></tr>
-<tr><td>Stone</td><td>Sleep / Wind down</td></tr>
-</table>
-<p>All colours have full dark mode support with proper contrast.</p>
+    <h3>Firestore data structure</h3>
+    <div class="firestore-tree">
+<span class="ft-root">users/</span>
+  <span class="ft-coll">{uid}/</span>             <span class="ft-comment">← your Google UID — completely private</span>
+    <span class="ft-doc">data/</span>
+      <span class="ft-doc">meta</span>            <span class="ft-comment">← schedule, habits, holidays, focus, water, finance, templates, checkin</span>
+      <span class="ft-doc">tracker</span>         <span class="ft-comment">← habit ticks ("YYYY-MM-DD_habitId": "done"), notes, work log</span>
+      <span class="ft-doc">diary</span>           <span class="ft-comment">← diary entries ("YYYY-MM-DD": {text, mood, saved})</span>
+    <span class="ft-doc">profile/</span>
+      <span class="ft-doc">info</span>            <span class="ft-comment">← display name, email, lastSeen (for Super Admin panel only)</span>
+    </div>
 
-<h2 id="tracker">7. Habit Tracker tab <span class="badge updated">Updated</span></h2>
-<p>Track which habits you complete each day of the week. Each habit is identified by a unique internal ID so reordering or deleting habits never corrupts historical data.</p>
-<h3>The table</h3>
-<p>Each row is one habit. Each column is one day. Tap any circle to cycle through states:</p>
-<ol>
-<li><b>Empty</b> — not yet logged</li>
-<li><b>Green &#10003;</b> — done</li>
-<li><b>Grey &#8212;</b> — skipped intentionally</li>
-</ol>
-<h3>Week navigation</h3>
-<ul>
-<li><b>&#8592; Prev / Next &#8594;</b> — browse past and future weeks</li>
-<li><b>This week</b> — jump back to the current week instantly</li>
-<li><b>Reset week</b> — clears all habit data for the currently viewed week (asks confirmation)</li>
-</ul>
-<div class="note">A warning banner appears whenever you are viewing a past or future week, reminding you that any changes save to those dates, not today.</div>
-<h3>Habit notes</h3>
-<p>Tap the small + below any circle to add a note for that habit on that day. Quick chips help: Done!, Skipped - busy, Skipped - forgot, Partial done, Extra effort, Will catch up.</p>
-<h3>Month percentage</h3>
-<p>Each habit shows its completion rate for the last 30 days — more honest than just looking at one week.</p>
-<h3>Stats and streak</h3>
-<p>The streak counter shows consecutive days where every non-paused habit was completed. The streak always reflects your actual current streak regardless of which week you are browsing.</p>
-<h3>Milestones</h3>
-<p>Special celebration messages appear at 7, 14, and 30 consecutive perfect days.</p>
+    <div class="callout amber">
+      <div class="callout-title">⚠ Only two things use localStorage (not Firestore)</div>
+      <p><strong>Widget collapse state</strong> (focus/water hide) and <strong>dark mode preference</strong> are stored in <code class="inline">localStorage</code> for instant load-time restore. These are preferences, not data — clearing browser cache resets them only. All actual content lives in Firestore.</p>
+    </div>
+  </div>
 
-<h2 id="manage-habits">8. Manage Habits tab</h2>
-<p>Add, edit, delete, reorder, and pause habits. Reordering habits never affects historical tracker data because each habit has a unique ID, not a position number.</p>
-<h3>Habit cards</h3>
-<p>Each habit shows its name, description, monthly completion percentage, and action buttons: &#8593; &#8595; to reorder, Edit to change name/description, Delete to remove permanently.</p>
-<h3>Adding a habit</h3>
-<p>Tap <b>+ Add habit</b>. Enter a name and goal description. You can also add habits automatically when creating a new schedule block by selecting <b>Also add as a habit</b> in the block form.</p>
-<h3>Pausing a habit</h3>
-<p>Tap <b>Pause a habit</b>. Select the habit and enter a from/to date range. Paused days show as <b>P</b> in amber and are completely excluded from scores, streaks, and monthly percentages. All active pauses are listed at the bottom of this tab with a Remove button.</p>
+  <!-- ══ 3. ROLES ══ -->
+  <div class="section" id="roles">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div>
+        <div class="section-title">User Roles</div>
+        <div class="section-lead">Three roles, two accounts for the same person</div>
+      </div>
+    </div>
 
-<h2 id="heatmap">9. Heatmap tab</h2>
-<p>A visual calendar showing 6 months of habit consistency. Each square is one day.</p>
-<table>
-<tr><th>Colour</th><th>Meaning</th></tr>
-<tr><td>Light grey</td><td>No data logged</td></tr>
-<tr><td>Light green</td><td>Some habits done (1–49%)</td></tr>
-<tr><td>Medium green</td><td>Good day (50–79%)</td></tr>
-<tr><td>Dark green</td><td>Excellent day (80–100%)</td></tr>
-<tr><td>Amber outline</td><td>Today</td></tr>
-</table>
-<p>Hover over any square to see the exact date and your score. Paused habits are excluded from calculations.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Role</th><th>Email</th><th>Schedule</th><th>Habits</th><th>Admin Tab</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="tag role">Owner</span></td>
+            <td><code class="inline">teegalanvsklnarasimharao@gmail.com</code></td>
+            <td>Full owner schedule (Big Data, Finance, Work calls)</td>
+            <td>11 custom habits</td>
+            <td><span class="tag no">No</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag admin">Super Admin</span></td>
+            <td><code class="inline">teegalaramanujan@gmail.com</code></td>
+            <td>Full owner schedule (same as above)</td>
+            <td>11 custom habits</td>
+            <td><span class="tag yes">Yes — 🛡 Admin</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag role">General User</span></td>
+            <td>Any other Google account</td>
+            <td>Clean general template (editable)</td>
+            <td>7 basic habits</td>
+            <td><span class="tag no">No</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-<h2 id="diary">10. Diary tab <span class="badge updated">Updated</span></h2>
-<p>A private daily journal. One entry per day, synced to the cloud.</p>
-<h3>Writing an entry</h3>
-<p>Use &#8592; &#8594; arrows to navigate between dates. Tap <b>Today</b> to return to the current date. Select a mood, write in the text area, press <b>Save entry</b>.</p>
-<h3>Auto-save</h3>
-<p>The diary automatically saves your entry after 30 seconds of inactivity. The auto-save timestamp appears below the text area. If you navigate to a different date or switch tabs while typing, the entry is auto-saved immediately so nothing is lost.</p>
-<h3>Ctrl+S / Cmd+S</h3>
-<p>Press Ctrl+S (Windows) or Cmd+S (Mac) while on the Diary tab to save your entry instantly without clicking the button.</p>
-<h3>Last entry hint</h3>
-<p>If today has no entry yet, the diary title shows when you last wrote — helpful for remembering your writing habit.</p>
-<h3>Mood tags</h3>
-<table>
-<tr><th>Mood</th><th>Use for</th></tr>
-<tr><td>&#128515; Great</td><td>Excellent day, high energy</td></tr>
-<tr><td>&#128512; Good</td><td>Solid productive day</td></tr>
-<tr><td>&#128528; Okay</td><td>Average, nothing special</td></tr>
-<tr><td>&#128542; Low</td><td>Emotionally difficult day</td></tr>
-<tr><td>&#128546; Tough</td><td>Really hard day</td></tr>
-</table>
+    <h3>Role detection logic</h3>
+    <div class="code-block">
+<span class="cf">function</span> <span class="ck">isOwner</span>(){
+  <span class="cf">return</span> currentUser?.email === <span class="cs">'teegalanvsklnarasimharao@gmail.com'</span>;
+}
 
-<h2 id="all-notes">11. All Notes tab</h2>
-<p>A searchable, filterable view of every diary entry.</p>
-<ul>
-<li><b>Text search</b> — type any word, the list filters instantly, matching text highlighted in context</li>
-<li><b>Mood filter</b> — filter by mood, combinable with text search</li>
-<li><b>Go to date</b> — enter a date and the page scrolls and highlights that entry</li>
-<li><b>Open in diary</b> — switches to the Diary tab and opens that exact date</li>
-<li><b>Edit / Delete</b> — edit or delete any entry directly from this tab</li>
-</ul>
+<span class="cf">const</span> <span class="cv">SUPER_ADMIN_EMAIL</span> = <span class="cs">'teegalaramanujan@gmail.com'</span>;
+<span class="cf">function</span> <span class="ck">isSuperAdmin</span>(){
+  <span class="cf">return</span> currentUser?.email === <span class="cv">SUPER_ADMIN_EMAIL</span>;
+}
 
-<h2 id="holidays">12. Holidays tab</h2>
-<p>Mark days that need a different schedule from the normal weekday/weekend auto-detection.</p>
-<h3>Single day</h3>
-<p>Enter a date, a name, and whether it is a Holiday (uses Weekend schedule) or a Working day (uses that day&#8217;s weekday schedule).</p>
-<h3>Date range</h3>
-<p>Enter from/to dates and a name. Saturdays and Sundays within a holiday range are automatically skipped. Existing entries are not overwritten.</p>
-<h3>Indian holiday presets</h3>
-<p>All major Indian national holidays for 2026–2027 are available as one-tap quick-add buttons.</p>
-<h3>How auto-detection works</h3>
-<table>
-<tr><th>Day</th><th>Schedule used</th></tr>
-<tr><td>Monday</td><td>Monday schedule</td></tr>
-<tr><td>Tuesday</td><td>Tuesday schedule</td></tr>
-<tr><td>Wednesday</td><td>Wednesday schedule</td></tr>
-<tr><td>Thursday</td><td>Thursday schedule</td></tr>
-<tr><td>Friday</td><td>Friday schedule</td></tr>
-<tr><td>Saturday / Sunday</td><td>Weekend/Holiday schedule</td></tr>
-<tr><td>Any day marked Holiday</td><td>Weekend/Holiday schedule</td></tr>
-<tr><td>Any day marked Working day</td><td>That day&#8217;s weekday schedule</td></tr>
-</table>
+<span class="cm">// Both accounts belong to the same person — both get owner schedule</span>
+<span class="cf">function</span> <span class="ck">isOwnerOrAdmin</span>(){ <span class="cf">return</span> <span class="ck">isOwner</span>() || <span class="ck">isSuperAdmin</span>(); }
+<span class="cf">function</span> <span class="ck">DEF_WD</span>(){ <span class="cf">return</span> <span class="ck">isOwnerOrAdmin</span>() ? <span class="cv">OWNER_WD</span> : <span class="cv">GENERAL_WD</span>; }
+<span class="cf">function</span> <span class="ck">DEF_HABITS</span>(){ <span class="cf">return</span> <span class="ck">isOwnerOrAdmin</span>() ? <span class="cv">OWNER_HABITS</span> : <span class="cv">GENERAL_HABITS</span>; }
+    </div>
 
-<h2 id="data">13. Data, backup and cloud sync</h2>
-<h3>Where your data lives</h3>
-<p>All data is stored in <b>Firebase Firestore</b> — Google&#8217;s cloud database — under your unique Google account ID. Data is split into three separate documents for efficiency: one for settings and schedules, one for habit tracker history, and one for diary entries.</p>
-<h3>Offline support</h3>
-<p>The app works offline after the first successful load. Firebase caches your data in the browser&#8217;s IndexedDB. Changes made offline are queued and automatically synced when you reconnect.</p>
-<h3>Real-time sync</h3>
-<p>When you make a change on one device, it automatically appears on your other open devices within seconds — no refresh needed.</p>
-<h3>Privacy and security</h3>
-<p>Firebase security rules ensure that only you, when signed in with your Google account, can read or write your data. No other user, and no one browsing your GitHub Pages URL, can access your habits or diary.</p>
-<h3>Export backup</h3>
-<p>Tap <b>&#8595; Export</b> to download a complete JSON backup of all your data. Do this weekly as an extra safety net. Store it in Google Drive or another cloud location.</p>
-<h3>Import / restore</h3>
-<p>Tap <b>&#8593; Import</b> and select a backup JSON file. Your data is restored and immediately saved to the cloud. Works for migrating from old versions of the app.</p>
-<h3>Data pruning</h3>
-<p>Water intake logs and daily focus entries older than 60 days are automatically cleaned up during saves. This keeps your data lean without affecting any habits, diary entries, or tracker history.</p>
-<h3>Storage usage</h3>
-<p>With daily use, the app uses approximately 500KB per year. The Firebase free tier allows 1GB of storage — enough for well over 1,000 years of daily use. You will never need to pay for Firebase with this app.</p>
+    <div class="callout green">
+      <div class="callout-title">✓ Security: roles cannot be spoofed</div>
+      <p>Role checks use <code class="inline">currentUser.email</code> from Firebase Auth — a verified Google identity that cannot be modified client-side. The same check is enforced server-side in Firestore security rules via <code class="inline">request.auth.token.email</code>.</p>
+    </div>
 
-<h2 id="reference">14. Quick reference &amp; FAQ</h2>
-<h3>Keyboard shortcuts</h3>
-<table>
-<tr><th>Shortcut</th><th>Action</th></tr>
-<tr><td>Ctrl+S / Cmd+S</td><td>Save diary entry (only works on Diary tab)</td></tr>
-</table>
-<h3>FAQ</h3>
-<p><b>Q: I signed in on a new device and my data is there immediately. Is that correct?</b><br/>A: Yes. Your data is in Firebase. Any device you sign into with the same Google account loads your complete data automatically.</p>
-<p><b>Q: I reordered my habits and my old tracker data changed.</b><br/>A: This should not happen in v10. Each habit has a unique ID. Reordering, deleting, or renaming habits does not affect historical tracker data. If you see this, you may be on an old version — upload the latest index.html to GitHub.</p>
-<p><b>Q: The water habit did not auto-tick even though I hit 2500ml.</b><br/>A: Make sure a habit named exactly <code>2.5 L water</code> exists in Manage Habits. The auto-tick looks for that exact name. If you renamed it, the auto-tick will not find it.</p>
-<p><b>Q: I deleted a habit. Is the tracker history gone?</b><br/>A: The tracker data (ticks and notes) remains in your database but is no longer linked to any habit. The heatmap and monthly percentages will not include it. The raw data stays and will be pruned naturally over time.</p>
-<p><b>Q: How do I undo a habit tick?</b><br/>A: Tap the circle again. It cycles: empty &#8594; done &#8594; skip &#8594; empty.</p>
-<p><b>Q: Can I use this offline?</b><br/>A: Yes after the first load. The app caches all data locally via Firebase offline persistence. Changes sync when you reconnect.</p>
-<p><b>Q: My diary entry was not saved.</b><br/>A: The diary auto-saves after 30 seconds of inactivity and also when you switch tabs or navigate to a different date. You can also press Ctrl+S / Cmd+S to save instantly. If you close the browser very quickly without saving, the auto-save may not have fired — always tap Save entry for important entries.</p>
-<p><b>Q: What does the past/future week banner mean?</b><br/>A: When you navigate away from the current week in the Tracker tab, a warning banner appears. Any habits you tick there will save to those past or future dates, not today.</p>
-<p><b>Q: The sync bar shows a red dot.</b><br/>A: A save failed. This usually means you lost internet connection. Your data is safe locally via offline persistence and will sync automatically when you reconnect. You can also try refreshing the page.</p>
-<p><b>Q: Can other people see my diary or habits?</b><br/>A: No. Firebase security rules restrict all data to your Google account only. Even someone with your GitHub URL cannot access your data — they would see the app but no data, because they are not you.</p>
-</div>
+    <h3>Owner schedule enforcement</h3>
+    <p>Firebase Firestore may contain a stale general schedule from an earlier session. The app enforces the correct owner defaults at <strong>two separate points</strong> to prevent any race condition:</p>
+    <div class="kv">
+      <div class="kv-row">
+        <div class="kv-key">1. loadFromFirebase()</div>
+        <div class="kv-val">After loading data, if <code class="inline">isOwnerOrAdmin()</code>, all 6 days are force-set from <code class="inline">OWNER_WD</code>. Then <code class="inline">saveS('meta')</code> is queued 1.5s later to write the correct schedule back to Firestore.</div>
+      </div>
+      <div class="kv-row">
+        <div class="kv-key">2. applyOwnerSchedule()</div>
+        <div class="kv-val">Called inside <code class="inline">startSync()</code> on every Firestore snapshot. Ensures no subsequent snapshot can overwrite the in-memory owner schedule before the corrected data is saved back.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 4. SCHEDULE ══ -->
+  <div class="section" id="schedule">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div>
+        <div class="section-title">Owner / Super Admin Schedule</div>
+        <div class="section-lead">Full weekday and weekend default blocks</div>
+      </div>
+    </div>
+
+    <h3>Weekday (Mon / Tue / Wed / Thu / Fri base)</h3>
+    <div class="tbl-wrap">
+      <table class="sched-table">
+        <thead><tr><th>Time</th><th>Block</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td class="time">6:15 AM</td><td><span class="sched-block b-wake"></span><span class="lbl">Wake up</span><div class="sub">Water immediately, no phone</div></td><td>Wake</td></tr>
+          <tr><td class="time">6:15–6:45</td><td><span class="sched-block b-walk"></span><span class="lbl">Morning walk</span><div class="sub">Outside, no earphones</div></td><td>Walk</td></tr>
+          <tr><td class="time">6:45–7:30</td><td><span class="sched-block b-break"></span><span class="lbl">Freshen up + breakfast</span><div class="sub">Light meal, no screen</div></td><td>Break</td></tr>
+          <tr><td class="time">7:30–9:00</td><td><span class="sched-block b-personal"></span><span class="lbl">Personal / family time</span><div class="sub">Prayer, family, calm reading</div></td><td>Personal</td></tr>
+          <tr><td class="time">9:00–9:30</td><td><span class="sched-block b-break"></span><span class="lbl">Prep + settle in</span><div class="sub">Desk ready, water filled, write 3 goals</div></td><td>Break</td></tr>
+          <tr style="background:#f0f9ff"><td class="time">9:30–11:30</td><td><span class="sched-block b-learn"></span><span class="lbl highlight">Big Data / DE course</span><div class="sub">2 hrs focused learning</div></td><td><strong>Learning</strong></td></tr>
+          <tr><td class="time">11:30–12:30</td><td><span class="sched-block b-call"></span><span class="lbl">Work call 1</span><div class="sub">Fixed call</div></td><td>Call</td></tr>
+          <tr><td class="time">12:30–1:00</td><td><span class="sched-block b-call"></span><span class="lbl">Work call 2</span><div class="sub">Fixed call</div></td><td>Call</td></tr>
+          <tr><td class="time">1:00–2:00</td><td><span class="sched-block b-break"></span><span class="lbl">Lunch + rest</span><div class="sub">Away from screens</div></td><td>Break</td></tr>
+          <tr><td class="time">2:00–3:00</td><td><span class="sched-block b-work"></span><span class="lbl">Deep work block 1</span><div class="sub">Office tasks, coding, project work</div></td><td>Work</td></tr>
+          <tr><td class="time">3:00–4:00</td><td><span class="sched-block b-call"></span><span class="lbl">Work call 3</span><div class="sub">Fixed call</div></td><td>Call</td></tr>
+          <tr><td class="time">4:00–5:00</td><td><span class="sched-block b-work"></span><span class="lbl">Deep work block 2</span><div class="sub">Deliverables, review, wrap up</div></td><td>Work</td></tr>
+          <tr style="background:#f0fdf4"><td class="time">5:00–6:00</td><td><span class="sched-block b-finance"></span><span class="lbl highlight">Finance self-study</span><div class="sub">Investing, markets, reading</div></td><td><strong>Finance</strong></td></tr>
+          <tr><td class="time">6:00–6:45</td><td><span class="sched-block b-walk"></span><span class="lbl">Evening walk</span><div class="sub">No screens, reduces headaches</div></td><td>Walk</td></tr>
+          <tr><td class="time">6:45–7:30</td><td><span class="sched-block b-personal"></span><span class="lbl">Personal / family time</span></td><td>Personal</td></tr>
+          <tr><td class="time">7:30–8:00</td><td><span class="sched-block b-break"></span><span class="lbl">Dinner</span><div class="sub">No screens at the table</div></td><td>Break</td></tr>
+          <tr><td class="time">8:00–9:00</td><td><span class="sched-block b-personal"></span><span class="lbl">Free time</span></td><td>Personal</td></tr>
+          <tr><td class="time">9:00–9:30</td><td><span class="sched-block b-scrum"></span><span class="lbl">Daily scrum</span></td><td>Scrum</td></tr>
+          <tr><td class="time">9:30–10:00</td><td><span class="sched-block b-personal"></span><span class="lbl">Instagram (max 20 min)</span><div class="sub">Only allowed slot</div></td><td>Personal</td></tr>
+          <tr><td class="time">10:00–10:30</td><td><span class="sched-block b-sleep"></span><span class="lbl">Wind down</span></td><td>Sleep</td></tr>
+          <tr><td class="time">10:30 PM</td><td><span class="sched-block b-sleep"></span><span class="lbl">Sleep</span><div class="sub">7.5 hrs rest</div></td><td>Sleep</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px;color:var(--ink3);margin-top:8px;">
+      <strong>Monday</strong> adds: 9:00–10:00 PM Monday extra call &nbsp;·&nbsp;
+      <strong>Wednesday</strong> adds: 9:30–10:00 PM Wednesday extra call &nbsp;·&nbsp;
+      <strong>Thursday</strong> adds: 9:00–10:00 PM Thursday extra call
+    </p>
+
+    <h3>Weekend</h3>
+    <div class="tbl-wrap">
+      <table class="sched-table">
+        <thead><tr><th>Time</th><th>Block</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td class="time">7:00 AM</td><td><span class="sched-block b-wake"></span><span class="lbl">Wake up, no alarm</span></td><td>Wake</td></tr>
+          <tr><td class="time">7:00–7:30</td><td><span class="sched-block b-faith"></span><span class="lbl">Morning prayer / faith</span></td><td>Faith</td></tr>
+          <tr><td class="time">7:30–8:15</td><td><span class="sched-block b-walk"></span><span class="lbl">Morning walk</span><div class="sub">Longer walk, no earphones</div></td><td>Walk</td></tr>
+          <tr><td class="time">8:15–9:15</td><td><span class="sched-block b-personal"></span><span class="lbl">Breakfast + family time</span></td><td>Personal</td></tr>
+          <tr><td class="time">9:15–10:30</td><td><span class="sched-block b-personal"></span><span class="lbl">Personal / free time</span></td><td>Personal</td></tr>
+          <tr style="background:#f0f9ff"><td class="time">10:30–12:00</td><td><span class="sched-block b-learn"></span><span class="lbl highlight">Big Data / DE course</span><div class="sub">1.5 hrs, keep momentum</div></td><td><strong>Learning</strong></td></tr>
+          <tr><td class="time">12:00–12:30</td><td><span class="sched-block b-break"></span><span class="lbl">Short break</span></td><td>Break</td></tr>
+          <tr style="background:#f0fdf4"><td class="time">12:30–1:30</td><td><span class="sched-block b-finance"></span><span class="lbl highlight">Finance self-study</span><div class="sub">Books, articles, investing concepts</div></td><td><strong>Finance</strong></td></tr>
+          <tr><td class="time">1:30–2:30</td><td><span class="sched-block b-break"></span><span class="lbl">Lunch + rest</span></td><td>Break</td></tr>
+          <tr><td class="time">2:30–4:00</td><td><span class="sched-block b-personal"></span><span class="lbl">Family time / outing</span></td><td>Explore</td></tr>
+          <tr><td class="time">4:00–5:00</td><td><span class="sched-block b-personal"></span><span class="lbl">Personal project or skill</span></td><td>Growth</td></tr>
+          <tr><td class="time">5:00–6:00</td><td><span class="sched-block b-walk"></span><span class="lbl">Evening walk or exercise</span></td><td>Health</td></tr>
+          <tr><td class="time">6:00–7:30</td><td><span class="sched-block b-personal"></span><span class="lbl">Personal / family time</span></td><td>Personal</td></tr>
+          <tr><td class="time">7:30–8:15</td><td><span class="sched-block b-break"></span><span class="lbl">Dinner</span></td><td>Break</td></tr>
+          <tr><td class="time">8:15–9:30</td><td><span class="sched-block b-personal"></span><span class="lbl">Leisure time</span></td><td>Explore</td></tr>
+          <tr><td class="time">9:30–10:00</td><td><span class="sched-block b-work"></span><span class="lbl">Weekly review</span></td><td>Growth</td></tr>
+          <tr><td class="time">10:00–10:30</td><td><span class="sched-block b-faith"></span><span class="lbl">Wind down</span></td><td>Faith</td></tr>
+          <tr><td class="time">10:30 PM</td><td><span class="sched-block b-sleep"></span><span class="lbl">Sleep</span><div class="sub">8 hrs on weekends</div></td><td>Sleep</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══ 5. FEATURES ══ -->
+  <div class="section" id="features">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div>
+        <div class="section-title">All Features</div>
+        <div class="section-lead">Every tab, widget, and function explained</div>
+      </div>
+    </div>
+
+    <h3>Schedule Tab</h3>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-key">Day tabs</div><div class="kv-val">Mon / Tue / Wed / Thu / Fri / Weekend. Today's tab is highlighted with ▼.</div></div>
+      <div class="kv-row"><div class="kv-key">+ Add time block</div><div class="kv-val">Enter time slot (e.g. <code class="inline">9:30-11:30 AM</code>), label, description, colour category, optional custom colour. Live conflict warning if the time overlaps an existing block. Can duplicate to another day.</div></div>
+      <div class="kv-row"><div class="kv-key">Edit / Delete</div><div class="kv-val">Appear on block hover (desktop) or always visible (mobile). Edit opens the same modal pre-filled.</div></div>
+      <div class="kv-row"><div class="kv-key">Drag to reorder</div><div class="kv-val">Drag any block up or down. Saves immediately.</div></div>
+      <div class="kv-row"><div class="kv-key">↺ Reset day</div><div class="kv-val">Restores the current day's schedule to the code-defined default (owner or general). Requires confirmation.</div></div>
+      <div class="kv-row"><div class="kv-key">💾 Save / 📄 Apply template</div><div class="kv-val">Save the current day's blocks as a named template. Apply any saved template to the current day.</div></div>
+      <div class="kv-row"><div class="kv-key">⏱ 25m button</div><div class="kv-val">Appears on Learning-type blocks. Launches Pomodoro timer.</div></div>
+    </div>
+
+    <h3>Habits & Tracker Tab</h3>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-key">Weekly grid</div><div class="kv-val">Click a cell to cycle: empty → ✓ done → — skipped → empty. Shows 30-day % per habit.</div></div>
+      <div class="kv-row"><div class="kv-key">Note icon (+)</div><div class="kv-val">Add a note to any specific habit/day cell. Quick-fill chips provided.</div></div>
+      <div class="kv-row"><div class="kv-key">Streak with grace</div><div class="kv-val">Counts consecutive perfect days. One grace day earned per 7 perfect days (≥50% habits done on a missed day still continues streak).</div></div>
+      <div class="kv-row"><div class="kv-key">12-week trend chart</div><div class="kv-val">SVG line chart showing weekly completion % over the past 12 weeks.</div></div>
+      <div class="kv-row"><div class="kv-key">Pause a habit</div><div class="kv-val">Set a from/to date range. Paused days are excluded from streak and score calculations.</div></div>
+    </div>
+
+    <h3>Daily Check-in Widget</h3>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-key">Auto-expands</div><div class="kv-val">6 AM – 11 AM only. Collapses otherwise (can be manually opened).</div></div>
+      <div class="kv-row"><div class="kv-key">Rating 1–5</div><div class="kv-val">How did yesterday's habits go? Saved to <code class="inline">S.checkin[date]</code>.</div></div>
+      <div class="kv-row"><div class="kv-key">Blocker note</div><div class="kv-val">Free-text note for today's obstacles. Shown in title after saving.</div></div>
+    </div>
+
+    <h3>Focus + Water Widgets</h3>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-key">− hide button</div><div class="kv-val">Collapses widget to a one-line summary bar. State saved in localStorage — survives refresh.</div></div>
+      <div class="kv-row"><div class="kv-key">Summary bar</div><div class="kv-val">Shows "Today's focus: [text]" or "Water: 750ml / 2.5L". Click to expand back.</div></div>
+      <div class="kv-row"><div class="kv-key">Water auto-tick</div><div class="kv-val">When 10 glasses reached (2.5L), the "2.5 L water" habit is automatically ticked done for today.</div></div>
+    </div>
+
+    <h3>Diary Tab</h3>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-key">Navigation</div><div class="kv-val">← → arrows navigate days. Capped at today — cannot navigate to future dates.</div></div>
+      <div class="kv-row"><div class="kv-key">Mood tags</div><div class="kv-val">😁 Great / 😀 Good / 😐 Okay / 😢 Low / 😭 Tough. Shown as coloured pills in All Notes.</div></div>
+      <div class="kv-row"><div class="kv-key">Auto-save</div><div class="kv-val">Saves automatically after 30 seconds of inactivity.</div></div>
+      <div class="kv-row"><div class="kv-key">Ctrl+S</div><div class="kv-val">Manual save shortcut when Diary tab is active.</div></div>
+    </div>
+
+    <h3>Work Log Tab</h3>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-key">Day view</div><div class="kv-val">All entries for selected date with project summary bars and total hours.</div></div>
+      <div class="kv-row"><div class="kv-key">Week view</div><div class="kv-val">Table of all entries for the selected week. Copy-to-clipboard button.</div></div>
+      <div class="kv-row"><div class="kv-key">Quick-fill chips</div><div class="kv-val">Chips appear from today's schedule blocks (Work, Learning, Call, Finance types). Click to pre-fill task and time.</div></div>
+      <div class="kv-row"><div class="kv-key">90-day auto-archive</div><div class="kv-val">Entries older than 90 days are removed and replaced with a monthly summary entry (📦 Archived).</div></div>
+    </div>
+
+    <h3>Finance Tab</h3>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-key">Categories</div><div class="kv-val">Income 📈 / Expense 📉 / Investment 💼 / Saving 🪙</div></div>
+      <div class="kv-row"><div class="kv-key">Monthly navigation</div><div class="kv-val">← → buttons navigate months. "This month" resets to current.</div></div>
+      <div class="kv-row"><div class="kv-key">Savings goal</div><div class="kv-val">Set a monthly target (₹). Progress bar shows actual savings vs goal.</div></div>
+      <div class="kv-row"><div class="kv-key">Validation</div><div class="kv-val">Amount must be a positive number. Empty or zero amounts show a toast error.</div></div>
+    </div>
+  </div>
+
+  <!-- ══ 6. SETUP ══ -->
+  <div class="section" id="setup">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div>
+        <div class="section-title">Setup & Firestore Rules</div>
+        <div class="section-lead">Deploy the app and configure security</div>
+      </div>
+    </div>
+
+    <h3>Deploy (GitHub Pages)</h3>
+    <div class="steps">
+      <div class="step"><div class="step-body"><div class="step-title">Download index.html</div><div class="step-desc">Get the latest version from the outputs folder.</div></div></div>
+      <div class="step"><div class="step-body"><div class="step-title">Push to GitHub</div><div class="step-desc">Place <code class="inline">index.html</code> in the root of your repository (e.g. <code class="inline">TeegalaNVSKLNarasimharao/Tracker</code>). No other files required.</div></div></div>
+      <div class="step"><div class="step-body"><div class="step-title">Enable GitHub Pages</div><div class="step-desc">Repository Settings → Pages → Source: Deploy from branch → main → / (root) → Save.</div></div></div>
+      <div class="step"><div class="step-body"><div class="step-title">Open the live URL</div><div class="step-desc">e.g. <code class="inline">https://teegalanvsklnarasimharao.github.io/Tracker/</code> — sign in with Google, done.</div></div></div>
+    </div>
+
+    <h3>Required Firestore Security Rules</h3>
+    <p>Go to <strong>Firebase Console → Firestore Database → Rules</strong> and paste the following, then click <strong>Publish</strong>:</p>
+    <div class="code-block">
+<span class="cm">rules_version = '2';</span>
+<span class="ck">service</span> cloud.firestore {
+  match /databases/{database}/documents {
+
+    <span class="cm">// Regular users: own data only</span>
+    match /users/{userId}/data/{docId} {
+      allow read, write: <span class="ck">if</span> request.auth != null
+        && request.auth.uid == userId
+        && docId <span class="ck">in</span> [<span class="cs">'meta'</span>, <span class="cs">'tracker'</span>, <span class="cs">'diary'</span>];
+    }
+
+    <span class="cm">// Profile: user writes own, Super Admin reads/writes all</span>
+    match /users/{userId}/profile/info {
+      allow read, write: <span class="ck">if</span> request.auth != null
+        && request.auth.uid == userId;
+      allow read, write: <span class="ck">if</span> request.auth != null
+        && request.auth.token.email == <span class="cs">'teegalaramanujan@gmail.com'</span>;
+    }
+
+    <span class="cm">// Super Admin: full access to all user data</span>
+    match /users/{userId}/{document=**} {
+      allow read, write, delete: <span class="ck">if</span> request.auth != null
+        && request.auth.token.email == <span class="cs">'teegalaramanujan@gmail.com'</span>;
+    }
+
+    <span class="cm">// Super Admin: list all users</span>
+    match /users/{userId} {
+      allow list: <span class="ck">if</span> request.auth != null
+        && request.auth.token.email == <span class="cs">'teegalaramanujan@gmail.com'</span>;
+    }
+  }
+}
+    </div>
+
+    <h3>Resetting Your Data (Fresh Start)</h3>
+    <p>To wipe all test data and start clean:</p>
+    <div class="steps">
+      <div class="step"><div class="step-body"><div class="step-title">Firebase Console → Firestore Database</div><div class="step-desc">Navigate to the <code class="inline">users</code> collection and find your UID document.</div></div></div>
+      <div class="step"><div class="step-body"><div class="step-title">Delete the data documents</div><div class="step-desc">Inside <code class="inline">users/{your-uid}/data/</code> — delete <code class="inline">meta</code>, <code class="inline">tracker</code>, and <code class="inline">diary</code>. Also delete <code class="inline">users/{uid}/profile/info</code>.</div></div></div>
+      <div class="step"><div class="step-body"><div class="step-title">Sign out and sign back in</div><div class="step-desc">The app detects no existing data and creates a fresh set with your correct owner schedule automatically.</div></div></div>
+    </div>
+    <p><strong>Finding your UID:</strong> Firebase Console → Authentication → Users → see the UID column next to your email.</p>
+  </div>
+
+  <!-- ══ 7. ADMIN ══ -->
+  <div class="section" id="admin">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <div>
+        <div class="section-title">Super Admin Panel</div>
+        <div class="section-lead">User management for teegalaramanujan@gmail.com only</div>
+      </div>
+    </div>
+
+    <div class="callout navy">
+      <div class="callout-title">🛡 Access</div>
+      <p>Sign in as <code class="inline">teegalaramanujan@gmail.com</code> → a red <strong>🛡 Admin</strong> tab appears at the right end of the tab bar. It is completely invisible to all other users — not just hidden, it is absent from the DOM entirely at render time.</p>
+    </div>
+
+    <h3>What the Admin Panel shows</h3>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-key">Stats bar</div><div class="kv-val">Total users / Active / Suspended / Total habits across all accounts.</div></div>
+      <div class="kv-row"><div class="kv-key">User cards</div><div class="kv-val">Avatar (initials), display name, email, UID, role badges (⭐ Owner, 🛡 Super Admin, Active, Suspended, New ≤7 days), admin note, join date, last seen, habit count.</div></div>
+      <div class="kv-row"><div class="kv-key">Search</div><div class="kv-val">Filter user cards by name or email in real time.</div></div>
+      <div class="kv-row"><div class="kv-key">Sort order</div><div class="kv-val">Super Admin first → Owner → others by last seen descending.</div></div>
+    </div>
+
+    <h3>Admin Actions</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Action</th><th>What it does</th><th>Protected?</th></tr></thead>
+        <tbody>
+          <tr><td>✎ Edit</td><td>Change display name, admin note, account status (Active/Suspended). Saves with <code class="inline">adminEditedBy</code> + <code class="inline">adminEditedAt</code> audit fields.</td><td>Available for all users</td></tr>
+          <tr><td>🗑 Delete</td><td>Two-step: confirm dialog → type exact email → atomic <code class="inline">writeBatch</code> deletes meta + tracker + diary + profile docs.</td><td>Cannot delete self or Super Admin account</td></tr>
+          <tr><td>🔄 Refresh</td><td>Reloads all user profiles from Firestore.</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout amber">
+      <div class="callout-title">⚠ "Suspended" is a flag only</div>
+      <p>Setting status to Suspended marks the user in the admin panel but does <strong>not</strong> block Firebase Authentication. To truly block a user from signing in, go to Firebase Console → Authentication → Users → Disable account.</p>
+    </div>
+  </div>
+
+  <!-- ══ 8. BUG FIXES ══ -->
+  <div class="section" id="bugs">
+    <div class="section-header">
+      <div class="section-num">8</div>
+      <div>
+        <div class="section-title">Bug Fixes Log</div>
+        <div class="section-lead">All confirmed bugs and their exact fixes</div>
+      </div>
+    </div>
+
+    <h3>v14 Final — Latest Release</h3>
+
+    <div class="bugfix">
+      <div class="bugfix-title">🐛 Admin tab disappeared after every save / interaction</div>
+      <p><strong>Root cause:</strong> Inside <code class="inline">saveS()</code>, the function called on every habit tick, water click, diary keystroke, etc., there was a stray line: <code class="inline">const _at=$id('admin-tab');if(_at)_at.style.display='none';</code></p>
+      <p>This hid the Admin tab on every single save operation.</p>
+      <div class="fix">
+        <div class="fix-title">✅ Fix</div>
+        Removed the erroneous line from <code class="inline">saveS()</code>. Admin tab visibility is now managed only in <code class="inline">initApp()</code> (show for Super Admin) and sign-out (always hide).
+      </div>
+    </div>
+
+    <div class="bugfix">
+      <div class="bugfix-title">🐛 Hide buttons (− hide) did nothing</div>
+      <p><strong>Root cause:</strong> Buttons used <code class="inline">onclick="collapseWidget('focus')"</code> HTML attribute syntax. JavaScript <code class="inline">&lt;script type="module"&gt;</code> creates a private scope — functions inside it are NOT accessible via <code class="inline">onclick</code> attributes on HTML elements. The browser found <code class="inline">collapseWidget</code> as <code class="inline">undefined</code> on <code class="inline">window</code> and silently did nothing.</p>
+      <div class="fix">
+        <div class="fix-title">✅ Fix</div>
+        Removed all <code class="inline">onclick=</code> attributes from HTML. Added proper listeners inside the module script:
+        <code class="inline">$id('focus-collapse-btn').addEventListener('click', ()=&gt;collapseWidget('focus'));</code> — same for water, focus-collapsed, water-collapsed.
+      </div>
+    </div>
+
+    <div class="bugfix">
+      <div class="bugfix-title">🐛 Super Admin saw general schedule instead of Big Data / Finance</div>
+      <p><strong>Root cause:</strong> <code class="inline">DEF_WD()</code>, <code class="inline">applyOwnerSchedule()</code>, and <code class="inline">loadFromFirebase()</code> all checked <code class="inline">isOwner()</code> only — which returns <code class="inline">false</code> for <code class="inline">teegalaramanujan@gmail.com</code>. The Super Admin account received the blank "Work / Study block" general template.</p>
+      <div class="fix">
+        <div class="fix-title">✅ Fix</div>
+        Added <code class="inline">isOwnerOrAdmin()</code> helper and updated all 4 enforcement points to use it. Both accounts now receive the full 21-block owner schedule.
+      </div>
+    </div>
+
+    <h3>Previous Releases</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Code</th><th>Bug</th><th>Fix</th></tr></thead>
+        <tbody>
+          <tr><td>C1</td><td>All Notes tab crashed when weekly review saved (boolean stored in diary)</td><td><code class="inline">typeof v==='object'&amp;&amp;v.text</code> filter in renderAllNotes</td></tr>
+          <tr><td>C2</td><td>Weekly review sentinel polluted All Notes list</td><td>Sentinel moved to <code class="inline">S.checkin[date+'_review']</code></td></tr>
+          <tr><td>C3</td><td>Weekly review text joined with literal newline</td><td>Changed to <code class="inline">'\n'</code> string</td></tr>
+          <tr><td>C4</td><td>Finance delete crashed (<code class="inline">.filter()</code> on object)</td><td><code class="inline">Array.isArray</code> guard added</td></tr>
+          <tr><td>C5</td><td>Finance delete used wrong month</td><td><code class="inline">data-fmo</code> attribute passes original month</td></tr>
+          <tr><td>C6</td><td><code class="inline">initDragDrop()</code> called but not defined</td><td>Phantom call removed; <code class="inline">attachDragHandlers()</code> used</td></tr>
+          <tr><td>C7</td><td><code class="inline">checkinOpen</code> / <code class="inline">_kbAttached</code> undeclared in strict mode</td><td><code class="inline">let</code> declarations added</td></tr>
+          <tr><td>C8</td><td><code class="inline">renderInsights</code> crashed on old diary entries</td><td><code class="inline">e&amp;&amp;e.text</code> null guard added</td></tr>
+          <tr><td>F1</td><td><code class="inline">wlFormatDuration(0)</code> returned empty string</td><td>Changed to return <code class="inline">'0m'</code></td></tr>
+          <tr><td>F3</td><td>Hardcoded stale date minimums on 5 inputs</td><td>Dynamic min set from <code class="inline">dk(today())</code> in <code class="inline">initApp()</code></td></tr>
+          <tr><td>F4</td><td>Diary next button allowed future navigation</td><td>Capped with <code class="inline">if(nextD &gt; today())</code> guard</td></tr>
+          <tr><td>F9</td><td>Pomodoro "Done" → Start reused <code class="inline">pomSecs=0</code></td><td>Added <code class="inline">if(pomSecs&lt;=0)pomSecs=25*60</code> reset</td></tr>
+          <tr><td>F14</td><td>Snapshot box had no close button</td><td>Added ✕ Close button + <code class="inline">display:none</code> default</td></tr>
+          <tr><td>F15</td><td>Tracker showed blank screen when no habits</td><td>Empty state row: "No habits yet"</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══ 9. SHORTCUTS ══ -->
+  <div class="section" id="shortcuts">
+    <div class="section-header">
+      <div class="section-num">9</div>
+      <div>
+        <div class="section-title">Keyboard Shortcuts</div>
+        <div class="section-lead">Active when focus is not inside a text input</div>
+      </div>
+    </div>
+
+    <div class="shortcut-grid">
+      <div class="shortcut-row"><kbd>J</kbd><div class="shortcut-desc">Previous day (Diary / Work Log)</div></div>
+      <div class="shortcut-row"><kbd>K</kbd><div class="shortcut-desc">Next day — capped at today</div></div>
+      <div class="shortcut-row"><kbd>T</kbd><div class="shortcut-desc">Jump to today (any date-based tab)</div></div>
+      <div class="shortcut-row"><kbd>N</kbd><div class="shortcut-desc">New work log entry / Focus diary</div></div>
+      <div class="shortcut-row"><kbd>?</kbd><div class="shortcut-desc">Show shortcut hint toast</div></div>
+      <div class="shortcut-row"><kbd>Ctrl+S</kbd><div class="shortcut-desc">Save diary entry (Diary tab only)</div></div>
+    </div>
+
+    <div class="callout navy" style="margin-top:24px;">
+      <div class="callout-title">📌 Live URL</div>
+      <p><strong>https://teegalanvsklnarasimharao.github.io/Tracker/</strong><br/>Sign in with Google. All data syncs to Firebase automatically. Nothing is lost on refresh.</p>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<footer>
+  <strong>Schedule &amp; Habit Tracker</strong> — v14 Final &nbsp;·&nbsp; Built with Firebase Firestore &nbsp;·&nbsp; April 2026
+</footer>
+
+<script>
+// Smooth scroll to section
+function scrollTo(id){
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// Update active nav link on scroll
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(l=>l.classList.remove('active'));
+      const active = document.querySelector(`.nav-link[onclick*="${e.target.id}"]`);
+      if(active) active.classList.add('active');
+    }
+  });
+},{rootMargin:'-20% 0px -70% 0px'});
+sections.forEach(s=>observer.observe(s));
+
+// Animate sections in on scroll
+const animObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');animObs.unobserve(e.target);}});
+},{rootMargin:'0px 0px -60px 0px'});
+sections.forEach(s=>animObs.observe(s));
+// Show first section immediately
+document.querySelectorAll('.section')[0]?.classList.add('visible');
+</script>
 </body>
 </html>

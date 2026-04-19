@@ -663,10 +663,10 @@ body.dark .badge-new{background:#1e3a5f;color:#93c5fd;}
     </div>
   </div>
   <!-- Collapsed widget summaries -->
-  <div class="widget-collapsed-bar" id="focus-collapsed" onclick="expandWidget('focus')">
+  <div class="widget-collapsed-bar" id="focus-collapsed">
     <span>&#127919;</span><span id="focus-collapsed-text">Today&#8217;s focus: not set</span><span style="margin-left:auto;font-size:10px;color:var(--tx3);">tap to expand</span>
   </div>
-  <div class="widget-collapsed-bar" id="water-collapsed" onclick="expandWidget('water')">
+  <div class="widget-collapsed-bar" id="water-collapsed">
     <span>&#128167;</span><span id="water-collapsed-text">Water: 0ml</span><span style="margin-left:auto;font-size:10px;color:var(--tx3);">tap to expand</span>
   </div>
   <div class="widget-wrap" id="focus-widget">
@@ -674,7 +674,7 @@ body.dark .badge-new{background:#1e3a5f;color:#93c5fd;}
     <label>Today&#8217;s focus:</label>
     <input type="text" id="focus-input" placeholder="Your #1 priority today"/>
     <button class="focus-save" id="focus-save-btn">Save</button>
-    <button class="widget-collapse-btn" id="focus-collapse-btn" onclick="collapseWidget('focus')" style="margin-left:4px;flex-shrink:0;">&#8722; hide</button>
+    <button class="widget-collapse-btn" id="focus-collapse-btn" style="margin-left:4px;flex-shrink:0;">&#8722; hide</button>
   </div>
   </div><!-- end focus-widget -->
   <div class="widget-wrap" id="water-widget">
@@ -685,7 +685,7 @@ body.dark .badge-new{background:#1e3a5f;color:#93c5fd;}
       <span class="water-count" id="water-count"></span>
       <span id="water-goal-badge" class="water-goal-hit" style="display:none;">&#10003; Goal!</span>
       <button class="tbtn" id="water-reset-btn">Reset</button>
-      <button class="widget-collapse-btn" id="water-collapse-btn" onclick="collapseWidget('water')" style="margin-left:auto;">&#8722; hide</button>
+      <button class="widget-collapse-btn" id="water-collapse-btn" style="margin-left:auto;">&#8722; hide</button>
     </div>
     <div class="water-chart">
       <div class="water-chart-title">7-day water history</div>
@@ -724,7 +724,7 @@ body.dark .badge-new{background:#1e3a5f;color:#93c5fd;}
       <button class="tpl-btn" id="reset-day-btn" style="color:var(--am);">&#8635; Reset day</button>
       <button class="copy-btn" id="copy-sched-btn">Copy schedule</button>
     </div>
-    <div id="snapshot-box" class="snapshot-box"><h4>Today&#8217;s snapshot</h4><pre class="snapshot-text" id="snapshot-text"></pre></div>
+    <div id="snapshot-box" class="snapshot-box" style="display:none;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><h4>Today&#8217;s snapshot</h4><button class="tbtn" id="snapshot-close-btn">&#10005; Close</button></div><pre class="snapshot-text" id="snapshot-text"></pre></div>
     <div id="review-prompt" class="review-prompt" style="display:none;">
       <h3>&#128203; Weekly Review — Sunday Evening</h3>
       <div class="review-q">1. What were your biggest wins this week?</div>
@@ -988,7 +988,7 @@ body.dark .badge-new{background:#1e3a5f;color:#93c5fd;}
     <div class="hol-sec">
       <h3>Add holiday or working day</h3>
       <div class="hol-row">
-        <input type="date" id="hol-date" min="2026-04-20"/>
+        <input type="date" id="hol-date"/>
         <input type="text" id="hol-name" placeholder="e.g. Diwali"/>
         <select id="hol-type"><option value="holiday">Holiday (weekend schedule)</option><option value="working">Working day (weekday schedule)</option></select>
         <button class="hol-add" id="hol-add-btn">Add</button>
@@ -996,8 +996,8 @@ body.dark .badge-new{background:#1e3a5f;color:#93c5fd;}
       <div class="range-box">
         <h4>Add date range</h4>
         <div class="hol-row">
-          <input type="date" id="hol-from" min="2026-04-20"/>
-          <input type="date" id="hol-to" min="2026-04-20"/>
+          <input type="date" id="hol-from"/>
+          <input type="date" id="hol-to"/>
           <input type="text" id="hol-range-name" placeholder="e.g. Diwali break"/>
           <select id="hol-range-type"><option value="holiday">Holiday</option><option value="working">Working days</option></select>
           <button class="hol-add" id="hol-range-btn">Add range</button>
@@ -1076,7 +1076,7 @@ body.dark .badge-new{background:#1e3a5f;color:#93c5fd;}
   <div class="modal">
     <h3>Pause a habit</h3>
     <div class="fg"><label>Habit</label><select id="p-hab-sel"></select></div>
-    <div class="fg"><label>Pause from &#8212; to</label><div class="pause-dates"><input type="date" id="p-from" min="2026-04-20"/><input type="date" id="p-to" min="2026-04-20"/></div></div>
+    <div class="fg"><label>Pause from &#8212; to</label><div class="pause-dates"><input type="date" id="p-from"/><input type="date" id="p-to"/></div></div>
     <div style="font-size:11px;color:var(--tx3);margin-bottom:8px;">Paused days are excluded from score and streak.</div>
     <div class="modal-foot"><button class="btn-s" id="pause-cancel-btn">Cancel</button><button class="btn-p" id="pause-save-btn">Save pause</button></div>
   </div>
@@ -1320,8 +1320,11 @@ const GENERAL_HABITS=[
 ];
 
 // ── ACTIVE DEFAULTS based on who is signed in ──
-function DEF_WD(){return isOwner()?JSON.parse(JSON.stringify(OWNER_WD)):JSON.parse(JSON.stringify(GENERAL_WD));}
-function DEF_HABITS(){return isOwner()?JSON.parse(JSON.stringify(OWNER_HABITS)):JSON.parse(JSON.stringify(GENERAL_HABITS));}
+// Both owner AND super admin get the full personalised schedule.
+// Super admin is a secondary account used for admin/testing — same person.
+function isOwnerOrAdmin(){return isOwner()||isSuperAdmin();}
+function DEF_WD(){return isOwnerOrAdmin()?JSON.parse(JSON.stringify(OWNER_WD)):JSON.parse(JSON.stringify(GENERAL_WD));}
+function DEF_HABITS(){return isOwnerOrAdmin()?JSON.parse(JSON.stringify(OWNER_HABITS)):JSON.parse(JSON.stringify(GENERAL_HABITS));}
 
 // ── STATE ──
 let S={};
@@ -1397,7 +1400,6 @@ function saveS(type){
   clearTimeout(saveTimeout);
   const captured={...pendingSave};
   pendingSave={meta:false,tracker:false,diary:false};
-  const _at=$id('admin-tab');if(_at)_at.style.display='none';
   saveTimeout=setTimeout(async()=>{
     try{
       const saves=[];
@@ -1458,7 +1460,7 @@ async function loadFromFirebase(){
       // applyOwnerSchedule() is defined below startSync but we inline the same logic here
       // so it runs at load time before any snapshot fires.
       const _dwd=DEF_WD();
-      if(isOwner()){
+      if(isOwnerOrAdmin()){
         // Force every day to the code-defined owner schedule
         ['mon','tue','wed','thu','fri','weekend'].forEach(k=>{
           S.wd[k]=JSON.parse(JSON.stringify(_dwd[k]));
@@ -1493,9 +1495,8 @@ async function loadFromFirebase(){
 
 // ── REAL-TIME SYNC ──
 function applyOwnerSchedule(wd){
-  // Always enforce the full owner schedule — never let a stale Firebase
-  // snapshot overwrite the code-defined defaults for the owner account.
-  if(!isOwner())return wd;
+  // Always enforce the full owner schedule for owner AND super admin.
+  if(!isOwnerOrAdmin())return wd;
   const ownerDefaults=DEF_WD();
   const result={...wd};
   ['mon','tue','wed','thu','fri','weekend'].forEach(k=>{
@@ -1620,7 +1621,7 @@ function _ctrlSHandler(e){
 let _ctrlSAttached=false;
 function initApp(){
   // Set daily rules text based on who is signed in
-  if(isOwner()){
+  if(isOwnerOrAdmin()){
     $id('daily-rules').innerHTML='No phone first 30 min &nbsp;&#183;&nbsp; 20-20-20 eye rule &nbsp;&#183;&nbsp; 2.5L water &nbsp;&#183;&nbsp; Instagram after 7 PM only, max 20 min &nbsp;&#183;&nbsp; Charger outside bedroom';
   } else {
     $id('daily-rules').innerHTML='No phone first 30 min &nbsp;&#183;&nbsp; Drink 2.5L water &nbsp;&#183;&nbsp; 20-20-20 eye rule &nbsp;&#183;&nbsp; Screen-free meals &nbsp;&#183;&nbsp; Wind down 30 min before sleep';
@@ -1646,6 +1647,11 @@ function initApp(){
     document.addEventListener('keydown',_ctrlSHandler);
     _ctrlSAttached=true;
   }
+  // Dynamic date minimums — set to today so inputs never have stale min
+  const todayStr=dk(today());
+  ['hol-date','hol-from','hol-to','p-from','p-to'].forEach(id=>{
+    const el=$id(id);if(el)el.min=todayStr;
+  });
 }
 
 function refreshView(){
@@ -1676,9 +1682,7 @@ function renderBanner(){
     window.scrollTo({top:0,behavior:'smooth'});
   });
   // BUG FIX 26: Only set focus input if not currently focused
-  if(document.activeElement!==$id('focus-input')){
-    $id('focus-input').value=ft;
-  }
+  const _fi=$id('focus-input');if(_fi&&document.activeElement!==_fi){_fi.value=ft;}
   renderWater();
   updateCollapsedText();
 }
@@ -1743,10 +1747,11 @@ function renderWaterChart(){
 $id('pom-toggle-btn').addEventListener('click',()=>{
   if(pomRunning){
     clearInterval(pomInterval);pomRunning=false;
-    // FIX 5: Store exact remaining seconds at pause time
     pomSecs=Math.max(0,pomSecs);
     $id('pom-toggle-btn').textContent='Resume';
   }else{
+    // If timer finished (pomSecs=0) or at full (was just reset), start fresh
+    if(pomSecs<=0)pomSecs=25*60;
     pomRunning=true;pomStartTime=Date.now()-(((25*60)-pomSecs)*1000);
     $id('pom-toggle-btn').textContent='Pause';
     pomInterval=setInterval(()=>{
@@ -1825,6 +1830,7 @@ function buildDayTabs(){
 }
 function showDay(key){
   activeDay=key;buildDayTabs();
+  if(!S.wd)S.wd=DEF_WD();
   const blocks=S.wd[key]||[];
   // Build legend with custom colours
   const legendMap=new Map();
@@ -1866,6 +1872,7 @@ $id('snapshot-btn').addEventListener('click',()=>{
   $id('snapshot-box').style.display='block';
   navigator.clipboard&&navigator.clipboard.writeText(txt).then(()=>toast('Snapshot copied!'));
 });
+$id('snapshot-close-btn').addEventListener('click',()=>$id('snapshot-box').style.display='none');
 
 // BLOCK MODAL
 function openAddBlock(){
@@ -1997,6 +2004,10 @@ function renderTracker(){
   const td=today();
   dates.forEach((d,i)=>{const el=$id('th'+i);if(!el)return;el.className=dk(d)===dk(td)?'today-col':'';el.innerHTML=DS[d.getDay()]+'<br>'+d.getDate()+'<br>'+MS[d.getMonth()];});
   const tbody=$id('habit-body');
+  if(!(S.habits||[]).length){
+    tbody.innerHTML='<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--tx3);font-size:13px;">No habits yet — add some in the Habits tab</td></tr>';
+    return;
+  }
   tbody.innerHTML=(S.habits||[]).map(h=>{
     const pct=monthPct(h.id);
     const cells=dates.map(d=>{
@@ -2075,6 +2086,8 @@ $id('add-habit-btn').addEventListener('click',openAddHabit);
 
 // MANAGE HABITS TAB
 function renderHabitsTab(){
+  // Reset memoized monthPct cache so percentages are fresh
+  _monthPctCache={};_monthPctDate='';
   const list=$id('habits-list');
   if(!(S.habits||[]).length){list.innerHTML='<div class="empty" style="padding:16px 0;">No habits yet. Add your first habit above.</div>';return;}
   list.innerHTML=S.habits.map((h,i)=>`<div class="habit-card"><div class="habit-card-info"><div class="habit-card-name">${esc(h.name)}</div><div class="habit-card-sub">${esc(h.sub)}</div><div class="habit-card-pct">${monthPct(h.id)}% this month</div></div><div class="habit-card-btns">${i>0?`<button class="hcbtn" data-up="${h.id}">&#8593;</button>`:''} ${i<S.habits.length-1?`<button class="hcbtn" data-dn="${h.id}">&#8595;</button>`:''}<button class="hcbtn" data-eh="${h.id}">Edit</button><button class="hcbtn del" data-dh="${h.id}">Delete</button></div></div>`).join('');
@@ -2103,6 +2116,7 @@ function renderHabitsTab(){
   pl.querySelectorAll('[data-pi]').forEach(el=>el.addEventListener('click',()=>{S.pauses.splice(+el.dataset.pi,1);saveS('meta');renderHabitsTab();toast('Pause removed');}));
 }
 $id('pause-habit-btn').addEventListener('click',()=>{
+  if(!(S.habits||[]).length){toast('Add some habits first');return;}
   $id('p-hab-sel').innerHTML=(S.habits||[]).map(h=>`<option value="${h.id}">${esc(h.name)}</option>`).join('');
   $id('p-from').value='';$id('p-to').value='';$id('pause-modal').classList.add('on');
 });
@@ -2208,8 +2222,10 @@ $id('diary-prev').addEventListener('click',()=>{
   diaryDate=addD(diaryDate,-1);renderDiary();
 });
 $id('diary-next').addEventListener('click',()=>{
+  const nextD=addD(diaryDate,1);
+  if(nextD>today()){toast('Cannot navigate to future dates');return;}
   if(diaryDirty&&$id('diary-input').value.trim())autoSaveDiary();
-  diaryDate=addD(diaryDate,1);renderDiary();
+  diaryDate=nextD;renderDiary();
 });
 $id('diary-today-btn').addEventListener('click',()=>{
   if(diaryDirty&&$id('diary-input').value.trim())autoSaveDiary();
@@ -2327,7 +2343,7 @@ $id('imp').addEventListener('change',e=>{
       // Migrate pauses to use hid
       def.pauses=(def.pauses||[]).map(p=>({...p,hid:p.hid||p.hi}));
       S=def;saveS();refreshView();toast('Data imported and saved to cloud!');
-    }catch(er){toast('Invalid backup file');}
+    }catch(er){toast('Invalid backup file — must be a valid JSON export from this app');console.error('Import error:',er);}
   };
   reader.readAsText(file);
   e.target.value='';// allow reimporting same file
@@ -2373,7 +2389,8 @@ function wlParseDuration(str){
 }
 
 function wlFormatDuration(mins){
-  if(!mins)return '';
+  if(mins===null||mins===undefined||mins<0)return '';
+  if(mins===0)return '0m';
   if(mins<60)return mins+'m';
   const h=Math.floor(mins/60),m=mins%60;
   return m?h+'h '+m+'m':h+'h';
@@ -2596,7 +2613,7 @@ $id('wl-add-btn').addEventListener('click',openWLAdd);
 // Day navigation
 $id('wl-prev').addEventListener('click',()=>{wlDate=addD(wlDate,-1);renderWorkLog();});
 $id('wl-next').addEventListener('click',()=>{wlDate=addD(wlDate,1);renderWorkLog();});
-$id('wl-today-btn').addEventListener('click',()=>{wlDate=new Date(today());renderWorkLog();});
+$id('wl-today-btn').addEventListener('click',()=>{wlDate=new Date(today());if(wlView==='week'){wlWeekOff=0;}renderWorkLog();});
 // View toggle
 $id('wl-day-btn').addEventListener('click',()=>{wlView='day';$id('wl-day-btn').classList.add('active');$id('wl-week-btn').classList.remove('active');renderWorkLog();});
 $id('wl-week-btn').addEventListener('click',()=>{wlView='week';$id('wl-week-btn').classList.add('active');$id('wl-day-btn').classList.remove('active');renderWorkLog();});
@@ -2621,7 +2638,7 @@ function renderCheckin(){
     bar.classList.add('done');
     title.textContent='Check-in done ✓ — rating: '+ci.rating+'/5'+(ci.blocker?' · '+ci.blocker.slice(0,40):'');
     body.classList.remove('on');
-    toggle.textContent='▶';
+    toggle.textContent='▼';
     $id('checkin-blocker').value=ci.blocker||'';
     _checkinRating=ci.rating||0;
     renderCheckinStars();
@@ -2889,6 +2906,11 @@ function expandWidget(name){
   collapsed.classList.remove('on');
   localStorage.removeItem('widget_'+name+'_collapsed');
 }
+// Wire up widget buttons via addEventListener (module scripts can't use HTML onclick)
+$id('focus-collapse-btn').addEventListener('click',()=>collapseWidget('focus'));
+$id('water-collapse-btn').addEventListener('click',()=>collapseWidget('water'));
+$id('focus-collapsed').addEventListener('click',()=>expandWidget('focus'));
+$id('water-collapsed').addEventListener('click',()=>expandWidget('water'));
 function updateCollapsedText(){
   const ft=(S.focus||{})[dk(today())]||'not set';
   const wc=((S.water||{})[dk(today())]||0)*250;
@@ -2969,8 +2991,10 @@ function renderFinance(){
 $id('fin-add-btn').addEventListener('click',()=>{
   const cat=$id('fin-cat').value;
   const desc=$id('fin-desc').value.trim();
-  const amt=parseFloat($id('fin-amt').value)||0;
-  if(!desc||!amt){toast('Fill description and amount');return;}
+  const amtRaw=parseFloat($id('fin-amt').value);
+  const amt=isNaN(amtRaw)||amtRaw<=0?0:amtRaw;
+  if(!desc){toast('Enter a description');return;}
+  if(!amt||amt<=0){toast('Enter a valid positive amount');return;}
   const mk=finMonthKey(finMonthOff);
   S.finance=S.finance||{};
   S.finance[mk]=S.finance[mk]||[];
@@ -3070,7 +3094,7 @@ function renderInsights(){
     if(dp>0&&dd===dp)perfectDays++;
   });
   // Diary stats
-  const diaryEntries=days.filter(d2=>d2<=td&&(S.diary||{})[dk(d2)]).length;
+  const diaryEntries=days.filter(d2=>{const e=(S.diary||{})[dk(d2)];return d2<=td&&e&&typeof e==='object'&&e.text;}).length;
   const diaryWords=days.reduce((t,d2)=>{const e=(S.diary||{})[dk(d2)];return t+(e&&e.text?e.text.split(/\s+/).length:0);},0);
   // Water stats
   const waterDays=days.filter(d2=>d2<=td&&((S.water||{})[dk(d2)]||0)>=10).length;
@@ -3084,7 +3108,6 @@ function renderInsights(){
   const moodCounts={};
   days.forEach(d2=>{const e=(S.diary||{})[dk(d2)];if(e&&e.mood)moodCounts[e.mood]=(moodCounts[e.mood]||0)+1;});
   const topMood=Object.entries(moodCounts).sort((a,b)=>b[1]-a[1])[0];
-  const daysElapsed=days.filter(d2=>d2<=td).length||1;
   $id('insights-grid').innerHTML=[
     {val:habPoss?Math.round(habDone/habPoss*100)+'%':'—',label:'Habit rate',sub:habDone+' of '+habPoss+' completions'},
     {val:perfectDays,label:'Perfect days',sub:'All habits done'},
@@ -3360,12 +3383,21 @@ async function adminDeleteUser(uid){
     // Delete profile
     batch.delete(doc(db,'users',uid,'profile','info'));
     await batch.commit();
-    // Remove from local array
+    // Remove from local array and refresh all admin UI
     _adminUsers=_adminUsers.filter(x=>x.uid!==uid);
     if($id('admin-edit-modal').classList.contains('on'))closeM('admin-edit-modal');
     renderAdminUserList(_adminUsers);
-    // Update stats
+    // Update stats bar + subtitle
+    const _activeC=_adminUsers.filter(u=>u.status==='active').length;
+    const _suspC=_adminUsers.filter(u=>u.status==='suspended').length;
+    const _habC=_adminUsers.reduce((s,u)=>s+u.habitCount,0);
     $id('admin-subtitle').textContent=_adminUsers.length+' registered users';
+    $id('admin-stats').innerHTML=[
+      {val:_adminUsers.length,lbl:'Total Users'},
+      {val:_activeC,lbl:'Active'},
+      {val:_suspC,lbl:'Suspended'},
+      {val:_habC,lbl:'Total Habits'},
+    ].map(s=>`<div class="admin-stat-card"><div class="admin-stat-val">${s.val}</div><div class="admin-stat-lbl">${s.lbl}</div></div>`).join('');
     toast('✓ User account deleted: '+esc(p.displayName||p.email));
   }catch(e){
     toast('Delete failed: '+e.message);
